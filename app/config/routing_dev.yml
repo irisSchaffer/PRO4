@@ -17,9 +17,13 @@ logout:
     pattern: /logout
     defaults: { _controller: PRO4LoginBundle:Login:logout }
 
+
+
 change_password:
     pattern: /app/change-password
     defaults: { _controller: PRO4UserBundle:User:changePassword }
+
+
 
 project:
     pattern: /app/project/
@@ -36,6 +40,7 @@ project_detail:
 edit_project_detail:
     pattern: /app/project/{id}/edit
     defaults: { _controller: PRO4ProjectBundle:Project:editProjectDetail }
+    
     
     
 users_in_project:
@@ -55,6 +60,7 @@ revoke_admin_in_project:
     defaults: { _controller: PRO4ProjectBundle:UsersInProject:revokeAdmin }
 
 
+
 department_overview:
     pattern: /app/project/{projectId}/departments/
     defaults: { _controller: PRO4ProjectBundle:Department:index }
@@ -66,6 +72,7 @@ remove_department:
 edit_department:
     pattern: /app/project/{projectId}/departments/{departmentId}/edit
     defaults: { _controller: PRO4ProjectBundle:Department:edit }
+    
     
     
 users_in_department:
@@ -103,6 +110,7 @@ delete_to_do_list_item:
     defaults: { _controller: PRO4ToDoListBundle:ListItem:deleteItem }    
     
 
+
 milestone_plan:
     pattern: /app/project/{id}/milestone_plan/
     defaults: { _controller: PRO4MilestoneBundle:MilestonePlan:index }
@@ -122,6 +130,8 @@ add_milestone:
 edit_milestone:
     pattern: /app/project/{projectId}/milestone_plan/{milestonePlanId}/milestone/{milestoneId}/edit
     defaults: { _controller: PRO4MilestoneBundle:Milestone:edit }
+
+
 
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
