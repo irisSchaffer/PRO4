@@ -111,6 +111,16 @@ delete_to_do_list_item:
     
 
 
+calendar:
+    pattern: /app/project/{projectId}/calendar/
+    defaults: { _controller: PRO4CalendarBundle:Calendar:index }
+
+show_calendar:
+    pattern: /app/project/{projectId}/calendar/year/{year}/month/{month}
+    defaults: { _controller: PRO4CalendarBundle:Calendar:index }
+    
+    
+
 milestone_plan:
     pattern: /app/project/{id}/milestone_plan/
     defaults: { _controller: PRO4MilestoneBundle:MilestonePlan:index }
