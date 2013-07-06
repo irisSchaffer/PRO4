@@ -2,9 +2,11 @@
 
 {% block content %}
 	<h1>Calendar</h1>
+	
+	{% block form %}{% endblock %}
 
 	<h3>{{ month.monthName }} {{ month.year }}</h3>
-	<table>
+	<table class="calendar">
 		<tr>
 			{% for weekday in weekdays %}
 				<td>{{ weekday }}</td>
@@ -17,7 +19,31 @@
 			{% endif %}
 				
 			{% for day in month.days %}
-				<td>{{ loop.index }}</td>
+				<td>
+					<h1>{{ loop.index }}</h1>
+					<ul>
+						{% for event in day.events %}
+							<li
+								title="	{{ event.date.format('Y-m-d') }} {% if event.time %} {{ event.time.format('H:i') }} {% endif %}
+										{% if event.description %}	{{ event.description }}	{% endif %}	
+									"
+							>
+								{{ event.title }}
+								<a href="{{ path('edit_event',
+											{
+												"eventId": event.eventId,
+												"projectId": project.projectId,
+												"monthNo": month.month,
+												"year": month.year
+											})
+											}}"
+								>
+									| edit	
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</td>
 				{% if day.weekdayNo == 7 %}
 					</tr>
 					<tr>

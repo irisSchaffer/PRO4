@@ -117,8 +117,11 @@ calendar:
 
 show_calendar:
     pattern: /app/project/{projectId}/calendar/{year}/{monthNo}
-    defaults: { _controller: PRO4CalendarBundle:Calendar:showCalendar }
-    
+    defaults: { _controller: PRO4CalendarBundle:Calendar:addEvent }
+
+edit_event:
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/event/{eventId}/edit
+    defaults: { _controller: PRO4CalendarBundle:Calendar:editEvent }
     
 
 milestone_plan:

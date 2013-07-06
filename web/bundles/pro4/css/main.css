@@ -416,3 +416,13 @@ div#list ul li form button:hover img, div#list ul li form button:active img, div
 div#list ul li form button img {
 	height: 1em;
 }
+
+table.calendar {
+	width: 100%;
+}
+
+table.calendar tr td{
+	min-height: 3em;
+	width: 14.2%;
+	border: 1px solid #999;
+}
