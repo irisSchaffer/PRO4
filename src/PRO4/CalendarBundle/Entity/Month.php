@@ -2,8 +2,11 @@
 
 namespace PRO4\CalendarBundle\Entity;
 
+use DateTime;
+
 class Month {
-	private static $monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	public static $monthNames = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+	public static $weekdays = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
 	
 	private $firstDay;
 	private $days;
@@ -11,8 +14,8 @@ class Month {
 	private $year;
 	
 	public function __construct($month, $year) {
-		$this->month = $month;
-		$this->year = $year;
+		$this->month = (int)$month;
+		$this->year = (int)$year;
 		$this->firstDay = new DateTime();
 		$this->firstDay->setDate($year, $month, 1);
 		
@@ -20,14 +23,16 @@ class Month {
 	}	
 	
 	public function init() {
-		$amountDays = $this->firstDay->format('t');
-		for($i = 0; $i < $amountDays; ++i) {
+		$amountDays = $this->getAmountDays();
+		for($i = 0; $i < $amountDays; ++$i) {
 			$day = new Day();
-			$day->setDate($year, $month, $i + 1);
+			$day->setDate($this->year, $this->month, $i + 1);
+			
+			$this->days[] = $day;
 		}
 	}
 
-	public funtion getDays() {
+	public function getDays() {
 		return $this->days;
 	}
 		
@@ -51,8 +56,12 @@ class Month {
 		return $this->month;
 	}
 	
+	public function getAmountDays() {
+		return $this->firstDay->format('t');
+	}
+	
 	public function getMonthName() {
-		return Month::monthNames[$this->month];
+		return Month::$monthNames[$this->month - 1];
 	}
 
 }

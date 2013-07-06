@@ -2,6 +2,8 @@
 
 namespace PRO4\CalendarBundle\Entity;
 
+use DateTime;
+
 class Day extends DateTime {
 	private $events;	
 	
@@ -17,7 +19,11 @@ class Day extends DateTime {
 		return $this;
 	}
 	
-	public funtion getEvents() {
+	public function getEvents() {
 		return $this->events;
+	}
+	
+	public function getWeekdayNo() {
+		return (integer)($this->format('N'));
 	}
 }

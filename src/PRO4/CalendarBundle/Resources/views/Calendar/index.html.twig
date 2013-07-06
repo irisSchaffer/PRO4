@@ -3,6 +3,31 @@
 {% block content %}
 	<h1>Calendar</h1>
 
-	
+	<h3>{{ month.monthName }} {{ month.year }}</h3>
+	<table>
+		<tr>
+			{% for weekday in weekdays %}
+				<td>{{ weekday }}</td>
+			{% endfor %}
+			</tr>
+		
+			<tr>
+			{% if month.days[0].weekdayNo > 1 %}
+				<td colspan="{{ month.days[0].weekdayNo - 1 }}"></td>
+			{% endif %}
+				
+			{% for day in month.days %}
+				<td>{{ loop.index }}</td>
+				{% if day.weekdayNo == 7 %}
+					</tr>
+					<tr>
+				{% endif %}
+			{% endfor %}
+			
+			{% if month.days[month.amountDays - 1].weekdayNo != 7 %}
+				<td colspan="{{ 7 - month.days[month.amountDays - 1].weekdayNo }}"></td>
+			{% endif %}
+		<tr>
+	</table>
 		
 {% endblock %}

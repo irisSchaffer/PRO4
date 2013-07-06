@@ -116,8 +116,8 @@ calendar:
     defaults: { _controller: PRO4CalendarBundle:Calendar:index }
 
 show_calendar:
-    pattern: /app/project/{projectId}/calendar/year/{year}/month/{month}
-    defaults: { _controller: PRO4CalendarBundle:Calendar:index }
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}
+    defaults: { _controller: PRO4CalendarBundle:Calendar:showCalendar }
     
     
 
