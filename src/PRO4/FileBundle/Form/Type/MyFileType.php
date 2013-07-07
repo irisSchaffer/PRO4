@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
-class FileType extends AbstractType {
+class MyFileType extends AbstractType {
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 

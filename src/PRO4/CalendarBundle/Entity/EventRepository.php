@@ -17,13 +17,13 @@ class EventRepository extends EntityRepository {
 						'date' => $day->format("Y-m-d"),
 					)
 				);
-		
+
 		if(count($departments) > 0) {
 	 		$qb = $qb
 	 			->orwhere('e.department IN (:departments)')
 	 			->setParameter('departments', $departments);
 	 	}
-	 	
+
     	return $qb;
     }
 }

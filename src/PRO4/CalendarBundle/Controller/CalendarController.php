@@ -46,6 +46,7 @@ class CalendarController extends MyController
     		$event,
     		array("attr" => array("required" => false))
 		);
+
 		
     	if ($request->isMethod("POST")) {
 	        $form->bind($request);
@@ -81,7 +82,7 @@ class CalendarController extends MyController
 									"month" => $month,
 									"weekdays" => Month::$weekdays,
 									"form" => $form->createView(),
-									"project" => $project,
+									"project" => $project
 								)
 		);
     }

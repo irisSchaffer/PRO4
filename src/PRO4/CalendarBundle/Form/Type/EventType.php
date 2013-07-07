@@ -11,11 +11,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
 class EventType extends QueryBuilderDependentType {
-	
+
 	public function __construct(QueryBuilder $queryBuilder) {
     	parent::__construct($queryBuilder);
     }
-	
+
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$required = false;
 		if(isset($options["attr"]["required"])) {
@@ -35,10 +35,10 @@ class EventType extends QueryBuilderDependentType {
 		$builder->add('allDay', 'checkbox', array(
 			'label' => "All Day"
 		));
-		
+
 		$builder->add("date", "date", array("label" => "Date"));
 		$builder->add("time", "time", array("label" => "Time"));
-		
+
 	}
 
 	public function getName() {
