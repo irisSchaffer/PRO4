@@ -21,14 +21,16 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 class ToDoListController extends MyController {
 	
-    public function indexAction(Request $request, $projectId) {
-    	$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
-    	
-    	$toDoList = new ToDoList();
-    	$toDoList->setProject($project);
-    	$form = $this->createForm(new ToDoListType($project, $this->getDoctrine()), $toDoList, array("attr" => array("required" => false)));
-    	
+	private function showToDoLists($action, $toDoList, $projectId, Request $request) {
+		$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
+    	    	
     	$em = $this->getDoctrine()->getManager();
+    	
+    	$form = $this->createForm(
+    		new ToDoListType($action, $em->getRepository('PRO4ProjectBundle:Department')->findDepartmentsInProject($project)),
+    		$toDoList,
+    		array("attr" => array("required" => false))
+		);
     	
     	$departments = $this->getUser()->getDepartments()->toArray();    		
     	$toDoLists = $em->getRepository("PRO4ToDoListBundle:ToDoList")->findToDoListsForProject($project, $departments)->getQuery()->getResult();
@@ -66,5 +68,19 @@ class ToDoListController extends MyController {
 				"toDoLists" => $toDoLists,
 			)
 		);
+	}
+	
+    public function indexAction(Request $request, $projectId) {
+    	$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
+    	$toDoList = new ToDoList();
+    	$toDoList->setProject($project);
+    	
+  		return $this->showToDoLists(ToDoListType::ADD, $toDoList, $projectId, $request);
+    }
+    
+    public function editToDoListAction($projectId, $toDoListId, Request $request) {
+    	$toDoList = $this->find("PRO4\ToDoListBundle\Entity\ToDoList", $toDoListId);
+    	
+    	return $this->showToDoLists(ToDoListType::EDIT, $toDoList, $projectId, $request);
     }
 }

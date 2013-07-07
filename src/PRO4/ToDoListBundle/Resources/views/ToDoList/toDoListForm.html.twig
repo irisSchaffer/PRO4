@@ -10,6 +10,11 @@
 					{{ form_row(form.department) }}
 					<p>Leave this option blank if the to-do list should be visible for the whole project</p>
 				</li>
+				{% if form.completed is defined %}
+				<li>
+					{{ form_row(form.completed) }}
+				</li>
+				{% endif %}
 			</ul>
 			{{ form_widget(form) }}
 		

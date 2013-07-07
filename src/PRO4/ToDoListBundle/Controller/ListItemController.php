@@ -56,14 +56,23 @@ class ListItemController extends MyController {
     }
     
     public function completeItemAction($projectId, $toDoListId, $itemId) {
-    	return $this->itemAction("complete", $projectId, $toDoListId, $itemId);
+    	return $this->itemAction("completed", "complete", $projectId, $toDoListId, $itemId);
+    }
+    
+    public function undoItemAction($projectId, $toDoListId, $itemId) {
+    	$this->checkEditPermissions($toDoListId);
+    	
+    	return $this->itemAction("undid", "undo", $projectId, $toDoListId, $itemId);
     }
     
     public function deleteItemAction($projectId, $toDoListId, $itemId) {
-    	return $this->itemAction("delete", $projectId, $toDoListId, $itemId);
+
+		$this->checkEditPermissions($toDoListId);
+    	
+    	return $this->itemAction("deleted", "delete", $projectId, $toDoListId, $itemId);
     }
     
-    private function itemAction($function, $projectId, $toDoListId, $itemId) {
+    private function itemAction($text, $function, $projectId, $toDoListId, $itemId) {
     	$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
     	$toDoList = $this->find("PRO4\ToDoListBundle\Entity\ToDoList", $toDoListId);
     	$item = $this->find("PRO4\ToDoListBundle\Entity\ListItem", $itemId);
@@ -84,9 +93,19 @@ class ListItemController extends MyController {
 		
 		$this->get('session')->getFlashBag()->add(
 				    "success",
-				    "You " .  $function . "d an item."
+				    "You " .  $text . " an item."
 				);
 		
 		return $this->redirect($this->generateUrl("to_do_lists", array("projectId" => $projectId)));
+    }
+    
+    private function checkEditPermissions($toDoListId) {
+    	$toDoList = $this->find("PRO4\ToDoListBundle\Entity\ToDoList", $toDoListId);
+    	
+    	if($department = $toDoList->getDepartment() !== null) {
+    		$this->checkPermission("EDIT", $department);
+    	} else {
+    		$this->checkPermission("EDIT", $toDoList->getProject());
+    	}
     }
 }

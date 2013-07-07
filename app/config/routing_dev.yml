@@ -97,6 +97,10 @@ to_do_lists:
     pattern: /app/project/{projectId}/to-do-lists
     defaults: { _controller: PRO4ToDoListBundle:ToDoList:index }
     
+edit_to_do_list:
+    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/edit
+    defaults: { _controller: PRO4ToDoListBundle:ToDoList:editToDoList }
+    
 add_to_do_list_item:
     pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/addItem
     defaults: { _controller: PRO4ToDoListBundle:ListItem:addItem }
@@ -104,6 +108,10 @@ add_to_do_list_item:
 complete_to_do_list_item:
     pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/complete
     defaults: { _controller: PRO4ToDoListBundle:ListItem:completeItem } 
+    
+undo_to_do_list_item:
+    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/undo
+    defaults: { _controller: PRO4ToDoListBundle:ListItem:undoItem } 
     
 delete_to_do_list_item:
     pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/delete

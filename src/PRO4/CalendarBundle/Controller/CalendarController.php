@@ -83,6 +83,7 @@ class CalendarController extends MyController
     public function addEventAction($projectId, $monthNo, $year, Request $request) {
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
     	$newEvent = new Event();
+    	$newEvent->setDate(new DateTime('NOW'));
     	$newEvent->setProject($project);
     	
     	return $this->showCalendar($newEvent, $projectId, $monthNo, $year, $request);
@@ -90,6 +91,30 @@ class CalendarController extends MyController
     
     public function editEventAction($eventId, $projectId, $monthNo, $year, Request $request) {
     	$event = $this->find("\PRO4\CalendarBundle\Entity\Event", $eventId);
+    	if($event->getTime() === null) {
+    		$event->setAllDay(true);
+    	}
     	return $this->showCalendar($event, $projectId, $monthNo, $year, $request);
+    }
+    
+    public function deleteEventAction($eventId, $projectId, $monthNo, $year) {
+    	$event = $this->find("\PRO4\CalendarBundle\Entity\Event", $eventId);
+    	
+    	if($event->getDepartment() !== null) {
+    		$this->checkPermission("EDIT", $event->getDepartment());
+    	} else {
+    		$this->checkPermission("EDIT", $event->getProject());
+    	}
+    	
+    	return $this->redirect(
+    		$this->generateUrl(
+    			"show_calendar",
+    			array(
+    				"projectId" => $projectId,
+					"monthNo" => $montNo,
+					"year" => $year
+    			)
+			)
+    	);
     }
 }

@@ -5,18 +5,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PRO4\ProjectBundle\Entity\DepartmentRepository;
+use Doctrine\ORM\QueryBuilder;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
 class ToDoListType extends AbstractType {
 	
-	private $project;
-	private $doctrine;
+	const ADD = 0;
+	const EDIT = 1;
+	
+	private $queryBuilder;
+	private $action;
 
-    public function __construct(\PRO4\ProjectBundle\Entity\Project $project, RegistryInterface $doctrine) {
-    	$this->project = $project;
-        $this->doctrine = $doctrine;
+    public function __construct($action, QueryBuilder $queryBuilder) {
+    	$this->action = $action;
+    	$this->queryBuilder = $queryBuilder;
     }
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -29,12 +33,15 @@ class ToDoListType extends AbstractType {
 		$builder->add('department', 'entity', array(
 			    'class' => 'PRO4ProjectBundle:Department',
 			    'property' => 'name',
-			    'query_builder' => $this->doctrine->getRepository('PRO4ProjectBundle:Department')->findDepartmentsInProject($this->project),
+			    'query_builder' => $this->queryBuilder,
     			'empty_value' => "Select Department",
     			'required' => $required,
     			'label' => "Department",
 			));
-		
+			
+		if($this->action === ToDoListType::EDIT) {
+			$builder->add('completed', 'checkbox', array("label" => "Completed"));
+		}
 	}
 
 	public function getName() {

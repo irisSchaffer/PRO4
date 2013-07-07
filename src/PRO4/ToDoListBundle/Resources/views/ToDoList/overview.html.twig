@@ -15,7 +15,7 @@
 		{% for toDoList in toDoLists %}
 			{% if not toDoList.completed %}
 				<div class="todoContainer">
-					<H1>{{ toDoList.name }}</H1>
+					<H1>{{ toDoList.name }} | <a href="{{ path("edit_to_do_list", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}">edit</a></H1> 
 					
 					<ul>
 						{% for listItem in toDoList.listItems %}
@@ -24,6 +24,7 @@
 									<li class="completed">
 										{{ listItem.name }}
 										{% if (toDoList.department and is_granted("EDIT", toDoList.department)) or (not toDoList.department and is_granted("EDIT", toDoList.project)) %}
+											| <a href="{{ path("undo_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Undo</a>
 											| <a href="{{ path("delete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Delete</a>
 										{% endif %}
 									</li>

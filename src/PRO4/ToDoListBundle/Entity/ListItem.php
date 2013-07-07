@@ -103,6 +103,13 @@ class ListItem
     
         return $this;
     }
+    
+    public function undo()
+    {
+        $this->completed = false;
+    
+        return $this;
+    }
 
     /**
      * Get completed
