@@ -1,3 +1,4 @@
+/web/uploads*
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
