@@ -7,26 +7,28 @@
 {% endblock %}
 
 {% block form %}
-	<fieldset>
-		<legend>Login</legend>
 		{% if error  %}
 		<ul class="error">
 			<li>{{ error }}</li>
 		</ul>
 		{% endif %}
 		
-		<ul>
-			<li>
+		<div class='radioWrap'>
+			<div id='registerWrap' class='selectedMode'>
+				<label for='radioRegister'>Register</label>
+				<input type='radio' name='checkAction' id='radioRegister' value='register' checked/>
+			</div>
+			<div id='loginWrap'>
+				<label for='radioLogin'>Login</label>
+				<input type='radio' name='checkAction' id='radioLogin' value='login' />
+			</div>
+		</div>
+
+	
+		<div class='inputsWrap'>
 				<label for="email">E-Mail:</label>
 				<input type="text" id="email" name="email" value="{{ last_email }}" />
-			</li>
-			<li>
 				<label for="password">Password:</label>
 				<input type="password" id="password" name="password" />
-			</li>
-			<li>
-				<button type="submit" name="login"> Login </button>
-			</li>
-		</ul>
-	</fieldset>
+		</div>
 {% endblock %}

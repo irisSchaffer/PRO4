@@ -4,14 +4,11 @@
 	<h1>{{ action }} Project</h1>
 	
 	<form method="post">
-		<fieldset>
-			<legend>Project Details</legend>
-			<ul>
-				<li>{{ form_row(form.name) }}</li>
-				
-				<li>{{ form_row(form.description) }}</li>
-			</ul>
-		</fieldset>
+		<ul id="projectInfos">
+			<li>{{ form_row(form.name) }}</li>
+			
+			<li>{{ form_row(form.description) }}</li>
+		</ul>
 		{{ form_widget(form) }}
 		
 		{% if showButton is not defined or showButton %}

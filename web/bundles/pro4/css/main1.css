@@ -1,0 +1,418 @@
+@charset "utf-8";
+* {
+	margin:0px;
+	padding:0px;
+	-moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+html, body {
+	background-color: #EEE;
+	font-size: 100%;
+	color: #ff0000;
+	font-family: 'Open Sans', Tahoma, sans-serif;
+	font-weight: 200;
+	height: 100%;
+	padding: 3.1em 0;
+}
+
+body a, body a:link, body a:visited body a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+::-webkit-scrollbar {
+    width: 30px;
+}
+ 
+::-webkit-scrollbar-track {
+	background-color: #EEE; 
+    border-radius: 15px;
+}
+ 
+::-webkit-scrollbar-thumb {
+	background-color: #CCC;
+    border-radius: 15px;
+}
+
+.hidden {
+	visibility: hidden;
+	height: 0;
+	padding: 0;
+	margin: 0;
+}
+
+ul.error {
+	padding: .1em 2em;
+	background-color: #FFECEC;
+	border: 1px solid #FFB7B7;
+	color: #F00;
+	border-radius: 10px;
+	margin: .2em 0em;
+	list-style: circle;
+}
+
+.success {
+	color: #339933;
+	border: 1px solid #339933;
+	background: #FFF;
+	border-radius: 10px;
+}
+
+ul.success, ul.warning {
+	width: 30%;
+	position: absolute;
+	top: 0;
+	padding: .75em 1em;
+	margin: 0em 35%;
+	border-top: none;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	-moz-box-shadow: 0 0 5px #999;
+	-webkit-box-shadow: 0 0 5px #999;
+	box-shadow: 0 0 5px #999;
+	list-style: none;
+	z-index: 10;
+}
+
+ul.success li {
+	margin: .25em 0em;
+}
+
+body #listWrap form, body div#list ul {
+	position: relative;
+	height: auto;
+	background-color: #FFF;
+	margin: 0 auto;
+	-moz-box-shadow: 0 0 5px #999;
+	-webkit-box-shadow: 0 0 5px #999;
+	box-shadow: 0 0 5px #999;
+}
+
+body #wrap #content form fieldset {
+	background-color: #FAFAFA;
+	border: none;
+	padding: .5em;
+	margin: .5em 0;
+	border-radius: 15px;
+}
+
+body #wrap #content form p, body #wrap #content form ul li {
+	margin-bottom: .5em;
+}
+
+body #wrap #content form textarea {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	display: block;
+}
+
+body #listWrap form {
+	border: 1px solid #999;
+}
+
+body #listWrap form {
+	-moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	border-radius: 15px;
+	width: 100%;
+	padding: 1em;
+}
+
+body #listWrap form fieldset {
+	border: none;
+	padding: 0em;
+	margin: 0em;
+}
+
+body h1 {
+	font-weight: 200;
+}
+
+body h3, body form fieldset legend {
+	font-size: 1.5em;
+	font-weight: inherit;
+	padding: 0em;
+	position: relative;
+	top: 1em;
+	margin: -.5em 0em 1em 0em;
+}
+
+body form ul {
+	list-style: none;
+}
+
+body form ul li {
+	padding: .15em 0em;
+}
+
+body form label {
+	display: inline-block;
+	width: 5.5em;
+}
+
+form input {
+	font-family: inherit;
+	font-weight: inherit;
+	padding: .1em;
+	text-align: left;
+	display: inline-block;
+	width: 12em;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+
+form input.colorSelector {
+	width: 10.6em;
+}
+
+body button {
+	font-family: inherit;
+	font-weight: inherit;
+	
+	box-shadow: none;
+	background: #e5e5e5; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	border: 1px solid #BBB;
+	
+	padding: .2em;
+	border-radius: 5px;
+	margin: .3em .9em .3em 0em;
+}
+
+body button:hover, #content button:active, #content button:focus {
+	border: 1px solid #999;
+	box-shadow: inset 0px 0px 5px #CCC;
+}
+
+body button img {
+	height: 1em;
+}
+
+body div#wrap {
+	position:absolute;
+	top: 5%;
+	left: 5%;
+	width: 90%;
+	height: 90%;
+}
+
+body div#wrap > header, body div#listWrap > header {
+	text-align: right;
+	position: relative;
+	right: 1em;
+	top: -.5em;
+}
+
+body div#wrap footer, body div#listWrap footer {
+	text-align: center;
+	position: relative;
+	top: .5em;
+	font-size: .8em;
+	-moz-text-shadow: 0 0 1px #999;
+	-webkit-text-shadow: 0 0 1px #999;
+	text-shadow: 0 0 1px #999;
+}
+
+body div#content {
+	height: 90%;
+	width: 100%;
+	background-color: #FFF;
+	border-radius: 15px;
+	border: 1px solid #999;
+	-moz-box-shadow: 0 0 5px #999;
+	-webkit-box-shadow: 0 0 5px #999;
+	box-shadow: 0 0 5px #999;
+	overflow: auto;
+	padding: 1em;
+}
+
+body div#content div.todolist {
+	cursor: pointer;
+	float: left;
+	color: #FFF;
+	margin: .5em;
+	width: 5.2em;
+	height: 5.2em;
+	background-color: #333;
+	border-radius: 10px;
+	text-transform: uppercase;
+	font-size: 3em;
+	word-wrap: break-word;
+	-moz-box-shadow: inset 0 0 5px #000;
+	-webkit-box-shadow: inset 0 0 5px #000;
+	box-shadow: inset 0 0 2px #000;
+}
+
+body div#content div.todolist header {
+	background-color: rgba(0, 0, 0, .4);
+	border-radius: 10px 10px 0px 0px;
+	padding: 5px;
+	text-transform: none;
+	font-size: .4em;
+	text-align: right;
+	color: #fff;
+	opacity: .8;
+}
+
+body div#content div.todolist img {
+	position: relative;
+	top: -1px;
+	height: .7em;
+}
+
+body div#content div.todolist div.todolist_content {
+	height: 100%;
+	padding: .2em;
+}
+
+body div#content div.todolist div.todolist_content ul {
+	font-size: .5em;
+	text-transform: none;
+	list-style: inside;
+	padding: .5em .2em;
+}
+
+body div#content div.todolist div.todolist_content ul li {
+	display: inline;
+	margin-right: .5em;
+}
+
+body div#content div.todolist#add {
+	border: 2px dashed #fff;
+	box-shadow: none;
+	opacity: .3;
+}
+
+body div#window {
+	-moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding-top: 3em;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .8);
+}
+
+body div#window form #close {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+}
+
+body div#listWrap {
+	width: 20%;
+	margin: 0 auto;
+	height: auto;
+}
+
+
+div#list ul {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+div#list header {
+	font-size: 1.5em;
+	padding: .5em;
+	text-align: left;
+	color: #fff;
+	background-color: #333;
+	border-radius: 10px 10px 0px 0px;
+}
+
+div#list ul li {
+	height: 1.5em;
+	font-size: 1.2em;
+	padding: .5em;
+	opacity: .8;
+}
+
+div#list ul li img {
+	opacity: .3;
+}
+
+div#list ul li.ticked {
+	text-decoration: line-through;
+}
+
+div#list ul li.ticked a img {
+	height: .8em;
+}
+
+div#list ul li a img {
+	height: .6em;
+}
+
+div#list ul li a {
+	margin: .5em;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+div#list ul li:nth-child(2n - 1) {
+	background-color: #F8F8F8;
+}
+
+div#list ul li:last-child {
+	border-radius: 0px 0px 15px 15px;
+}
+
+div#list ul li form {
+	display: inline;
+	position: static;
+	width: auto;
+	background-color: transparent;
+	border-radius: 0em;
+	border: none;
+	margin: 0;
+	padding: 0;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+div div#list ul li form input {
+	width: 85%;
+	font-size: 1em;
+	color: #777;
+	padding: 0em .5em;
+	border: none;
+	border-radius: 5px;
+	border-bottom: 1px solid #999;
+	outline: none;
+}
+
+div#list ul li form button {
+	position: absolute;
+	right: 0;
+	background: none;
+	border: none;
+	width: auto;
+	outline: none;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+div#list ul li form button:hover img, div#list ul li form button:active img, div#list ul li form button:focus img, div#list ul li a:hover img {
+	opacity: 1;
+}
+
+div#list ul li form button img {
+	height: 1em;
+}

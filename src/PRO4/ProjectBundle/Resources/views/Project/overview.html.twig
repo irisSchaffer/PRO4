@@ -1,17 +1,26 @@
 {% extends '::base.html.twig' %}
 
+{% block nav %}
+	<nav id="mainMenu">
+		&nbsp;
+	</nav>
+{% endblock %}
+
 {% block content %}
-	{% for project in projects %}
-		<div>
-			<strong>
+	<div id="projectlistcontainer">
+		<ul class="projectlist">
+		{% for project in projects %}
+			<li class="project">
 				<a href="{{ path('project_detail', {'id': project.id}) }}">
-        			{{ project.name }}
-    			</a>
-    		</strong>
-			<div>
-				{{ project.description }}
-			</div>
-		<div>
-	{% endfor %}
-		
+				<h2>
+						{{ project.name }}
+				</h2>
+				<p>
+					{{ project.description }}
+				</p>
+				</a>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

@@ -3,12 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	{% block stylesheets %}
-		<link href="{{ asset('bundles/pro4/css/main.css') }}" type="text/css" rel="stylesheet" />
 		<link href="{{ asset('bundles/pro4/colorpicker/css/colorpicker.css') }}" type="text/css" rel="stylesheet" />
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('bundles/pro4/js/jquery-ui-1.10.3/themes/custom-theme/jquery-ui.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('bundles/pro4/css/main.css') }}" type="text/css" rel="stylesheet" />
 	{% endblock %}
 	{% block js %}
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script src="{{ asset('bundles/pro4/js/jquery-1.9.1.js') }}"></script>
+		<script src="{{ asset('bundles/pro4/js/jquery-ui-1.10.3/ui/jquery-ui.js') }}"></script>
 		<script src="{{ asset('bundles/pro4/colorpicker/js/colorpicker.js') }}"></script>
 		<script src="{{ asset('bundles/pro4/js/script.js') }}"></script>
 	{% endblock %}
@@ -26,14 +27,54 @@
 		{% endfor %}
 	{% endif %}
 	<div id="wrap">
-		<header>
+		{% block header %}{% endblock %}
+		<!--<header>
 			<a href="{{ path('logout') }}">Logout</a>
-		</header>
+		</header>-->
+		{% block nav %}
+		<nav id="mainMenu">
+			<ul>
+				<li class="hasSub" id="projectName">
+					<a href="#">ProjectName<span class="arrow">&#9660;</span></a>
+					<ul>
+						<li>
+							<a href="settings.php">Settings</a>
+						</li>
+						<li>
+							<a href="groups.php">Groups</a>
+						</li>
+						<li>
+							<a href="members.php">Members</a>
+						</li>
+						<li>
+							<a href="change_project.php">Change project</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="todo.php">ToDo-Lists</a>
+				</li>
+				<li>
+					<a href="calendar.php">Calendar</a>
+				</li>
+				<li>
+					<a href="milestones.php">Milestones</a>
+				</li>
+				<li>
+					<a href="files.php">Files</a>
+				</li>
+			</ul>
+		</nav>
+		{% endblock %}
 		<div id="content">
 			{% block content %} {% endblock %}
 		</div>
 		<footer>
 			{% block footer %} {% endblock %}
+			<p>
+				&copy; Copyright by Iris Schaffer &amp; Paul Stangl - <a href="#">Contact</a> - <a href="#">Impressum</a>
+			</p>
+			<a href="{{ path('logout') }}">Logout</a>
 		</footer>
     </div>
 </body>
