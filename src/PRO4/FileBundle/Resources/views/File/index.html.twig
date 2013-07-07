@@ -1,10 +1,42 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	<h1>Files</h1>
-	
-	{% block form %}{% endblock %}
+	{% if department is defined %}
+			{% set location = department.name %}
+    {% else %}
+    	{% set location = "Project" %}
+	{% endif %}
 
+	{% block form %}{% endblock %}
+	<p></p>
 	
+	<div id="filesWrap">
+    	<div id="filesPath">Showing files for: <span>{{ location }}</span></div>
+    	{% if location == "Project" %}
+			{% for department in departments %}
+				<a href="{{ path("files_in_department", {"projectId": project.projectId, "departmentId": department.departmentId}) }}" class="fileContainer">
+					<figure>
+						<figcaption>{{ department.name }}</figcaption>
+						<img width="64" height="64" src="{{ asset("img/folder.png") }}" alt="File">
+					</figure>
+				</a>
+			{% endfor %}
+		{% else %}
+			<a href="{{ path("files", {"projectId": project.projectId }) }}" class="fileContainer">Back</a>
+		{% endif %}
+	
+		{% if files is empty %}
+	    	No files where added yet! Add files or ask your administrator to do so.
+	    {% else %}
+	    	{% for file in files %}
+				<a href="{{ asset(file.webPath) }}" class="fileContainer">
+					<figure>
+						<figcaption>{{ file.name }}</figcaption>
+						<img width="64" height="64" src="{{ asset(file.imageName) }}" alt="File">
+					</figure>
+				</a>
+			{% endfor %}			
+		{% endif %}
+	</div>
 		
 {% endblock %}

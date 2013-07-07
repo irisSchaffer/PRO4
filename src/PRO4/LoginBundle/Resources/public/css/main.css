@@ -1,13 +1,14 @@
 @charset "utf-8";
+
 * {
-	margin:0px;
-	padding:0px;
+	margin: 0px;
+	padding: 0px;
 }
 
-html, body {
-	-moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-	box-sizing:border-box;
+html,body {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	background-color: #EEE;
 	font-size: 100%;
 	color: #444;
@@ -17,23 +18,23 @@ html, body {
 	padding: 3em 0;
 }
 
-body a, body a:link, body a:visited body a:hover {
+body a,body a:link,body a:visited body a:hover {
 	text-decoration: none;
 	color: inherit;
 }
 
 ::-webkit-scrollbar {
-    width: 30px;
+	width: 30px;
 }
- 
+
 ::-webkit-scrollbar-track {
-	background-color: #EEE; 
-    border-radius: 15px;
+	background-color: #EEE;
+	border-radius: 15px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
 	background-color: #CCC;
-    border-radius: 15px;
+	border-radius: 15px;
 }
 
 .hidden {
@@ -53,7 +54,7 @@ ul.error {
 	list-style: circle;
 }
 
-body form, body div#list ul {
+body form,body div#list ul {
 	position: relative;
 	height: auto;
 	background-color: #FFF;
@@ -68,9 +69,9 @@ body form {
 }
 
 body #listWrap form {
-	-moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-	box-sizing:border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border-radius: 15px;
 	width: 100%;
 	padding: 1em;
@@ -121,44 +122,49 @@ body form button {
 	padding: .2em;
 	font-family: inherit;
 	font-weight: inherit;
-	
 	box-shadow: none;
 	background: #e5e5e5; /* Old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
+		color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	/* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	/* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#ffffff',
+		endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
 	border: 1px solid #BBB;
-	
 	padding: .2em;
 	border-radius: 5px;
 	margin: .3em .9em .3em 0em;
 }
 
-body form button:hover, #content button:active, #content button:focus {
+body form button:hover,#content button:active,#content button:focus {
 	border: 1px solid #999;
 	box-shadow: inset 0px 0px 5px #CCC;
 }
 
 body div#wrap {
-	position:absolute;
+	position: absolute;
 	top: 15%;
 	left: 10%;
 	width: 80%;
 	height: 70%;
 }
 
-body div#wrap > header, body div#listWrap > header {
+body div#wrap>header,body div#listWrap>header {
 	text-align: right;
 	position: relative;
 	right: 1em;
 	top: -.5em;
 }
 
-body div#wrap footer, body div#listWrap footer {
+body div#wrap footer,body div#listWrap footer {
 	text-align: center;
 	position: relative;
 	top: .5em;
@@ -238,9 +244,9 @@ body div#content div.todolist#add {
 }
 
 body div#window {
-	-moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-	box-sizing:border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -261,7 +267,6 @@ body div#listWrap {
 	margin: 0 auto;
 	height: auto;
 }
-
 
 div#list ul {
 	padding: 0px;
@@ -354,7 +359,8 @@ div#list ul li form button {
 	cursor: pointer;
 }
 
-div#list ul li form button:hover img, div#list ul li form button:active img, div#list ul li form button:focus img, div#list ul li a:hover img {
+div#list ul li form button:hover img,div#list ul li form button:active img,div#list ul li form button:focus img,div#list ul li a:hover img
+	{
 	opacity: 1;
 }
 
