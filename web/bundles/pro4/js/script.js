@@ -11,6 +11,7 @@ $(document).ready(function(){
 	initChangeProject();
 	initSignUp();
 	initMilestonePlan();
+	showErrors();
 
 	initEditProjectDetails();
 	$("#signUp").click(function(event){
@@ -469,4 +470,11 @@ function initAddMilestone(){
 			}
 		}
 	});
+}
+function showErrors(){
+	$("ul.error").hide().slideDown(250).delay(3000).slideUp(250);
+	$(".success").hide().slideDown(250).delay(3000).slideUp(250);
+}
+function openSignup(){
+	$("#signUpDialog").dialog("open");
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Event
  *
  * @ORM\Table(name="event")
- * @ORM\Entity(repositoryClass = "\PRO4\CalendarBundle\Entity\EventRepository")
+ * @ORM\Entity
  */
 class Event
 {
@@ -34,8 +34,6 @@ class Event
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
-    
-    private $allDay;
 
     /**
      * @var \DateTime
@@ -71,10 +69,6 @@ class Event
      */
     private $project;
 
-
-	public function __construct() {
-		$this->allDay = false;
-	}
 
 
     /**
@@ -122,16 +116,6 @@ class Event
     
         return $this;
     }
-    
-    public function isAllDay() {
-    	return $this->allDay;
-    }
-    
-    public function setAllDay($allDay) {
-    	$this->allDay = $allDay;
-    	
-    	return $this;
-    }
 
     /**
      * Get date
@@ -151,8 +135,6 @@ class Event
      */
     public function setTime($time)
     {
-    	$this->setAllDay(($time === null ? true : false));
-
         $this->time = $time;
     
         return $this;
@@ -197,7 +179,7 @@ class Event
      * @param \PRO4\LoginBundle\Entity\Department $department
      * @return Event
      */
-    public function setDepartment(\PRO4\ProjectBundle\Entity\Department $department = null)
+    public function setDepartment(\PRO4\LoginBundle\Entity\Department $department = null)
     {
         $this->department = $department;
     

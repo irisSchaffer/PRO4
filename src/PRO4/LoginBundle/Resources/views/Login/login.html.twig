@@ -6,29 +6,31 @@
 	<a href="{{ path('register') }}">Register</a>
 {% endblock %}
 
+{% block onload %} onload="openSignup()"{% endblock %}
+
 {% block form %}
-		{% if error  %}
-		<ul class="error">
-			<li>{{ error }}</li>
-		</ul>
-		{% endif %}
-		
 		<div class='radioWrap'>
-			<div id='registerWrap' class='selectedMode'>
-				<label for='radioRegister'>Register</label>
-				<input type='radio' name='checkAction' id='radioRegister' value='register' checked/>
+			<div id='loginWrap'class='selectedMode'>
+				<a href="{{ path('login') }}">Login</a>
 			</div>
-			<div id='loginWrap'>
-				<label for='radioLogin'>Login</label>
-				<input type='radio' name='checkAction' id='radioLogin' value='login' />
+			<div id='registerWrap'>
+				<a href="{{ path('register') }}">Register</a>
 			</div>
 		</div>
 
 	
 		<div class='inputsWrap'>
-				<label for="email">E-Mail:</label>
+				<label for="email">Email</label>
 				<input type="text" id="email" name="email" value="{{ last_email }}" />
-				<label for="password">Password:</label>
+				<label for="password">Password</label>
 				<input type="password" id="password" name="password" />
 		</div>
+{% endblock %}
+
+{% block error %}
+		{% if error  %}
+		<ul class="error">
+			<li>{{ error }}</li>
+		</ul>
+		{% endif %}
 {% endblock %}

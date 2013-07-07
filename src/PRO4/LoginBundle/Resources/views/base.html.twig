@@ -16,7 +16,8 @@
     <title>PRO4</title>
 </head>
 
-<body>
+<body {% block onload %} {% endblock %}>
+	{% block error %} {% endblock %}
 	{% if status is defined %}
 		{% for key, msgs in status %}
 			<ul class="{{ key }}">

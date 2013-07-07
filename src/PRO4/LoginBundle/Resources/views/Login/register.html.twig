@@ -6,21 +6,25 @@
 	<a href="{{ path('login') }}">Login</a>
 {% endblock %}
 
+{% block onload %} onload="openSignup()"{% endblock %}
+
 {% block form %}
-	<fieldset>
-		<legend>Register</legend>
+		<div class='radioWrap'>
+			<div id='loginWrap'>
+				<a href="{{ path('login') }}">Login</a>
+			</div>
+			<div id='registerWrap' class='selectedMode'>
+				<a href="{{ path('register') }}">Register</a>
+			</div>
+		</div>
 		<div class="error">
 			{{ form_errors(form) }}
 		</div>
 		
-		<ul>
-			<li> {{ form_row(form.eMail) }} </li>
-			<li> {{ form_row(form.password) }}</li>
-			<li>
-				<button type="submit" name="register"> Register </button>
-			</li>
-		</ul>
+		<div class='inputsWrap'>
+			{{ form_row(form.eMail) }}
+			{{ form_row(form.password) }}
+		</div>
 		
 		{{ form_widget(form) }}
-	</fieldset>
 {% endblock %}
