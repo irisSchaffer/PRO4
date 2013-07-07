@@ -94,27 +94,27 @@ revoke_admin_in_department:
 
 
 to_do_lists:
-    pattern: /app/project/{projectId}/to-do-lists
+    pattern: /app/project/{projectId}/to-do/
     defaults: { _controller: PRO4ToDoListBundle:ToDoList:index }
     
 edit_to_do_list:
-    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/edit
+    pattern: /app/project/{projectId}/to-do/{toDoListId}/edit
     defaults: { _controller: PRO4ToDoListBundle:ToDoList:editToDoList }
     
 add_to_do_list_item:
-    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/addItem
+    pattern: /app/project/{projectId}/to-do/{toDoListId}/addItem
     defaults: { _controller: PRO4ToDoListBundle:ListItem:addItem }
 
 complete_to_do_list_item:
-    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/complete
+    pattern: /app/project/{projectId}/to-do/{toDoListId}/items/{itemId}/complete
     defaults: { _controller: PRO4ToDoListBundle:ListItem:completeItem } 
     
 undo_to_do_list_item:
-    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/undo
+    pattern: /app/project/{projectId}/to-do/{toDoListId}/items/{itemId}/undo
     defaults: { _controller: PRO4ToDoListBundle:ListItem:undoItem } 
     
 delete_to_do_list_item:
-    pattern: /app/project/{projectId}/to-do-lists/{toDoListId}/items/{itemId}/delete
+    pattern: /app/project/{projectId}/to-do/{toDoListId}/items/{itemId}/delete
     defaults: { _controller: PRO4ToDoListBundle:ListItem:deleteItem }    
     
 
@@ -131,6 +131,7 @@ edit_event:
     pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/event/{eventId}/edit
     defaults: { _controller: PRO4CalendarBundle:Calendar:editEvent }
     
+
 
 milestone_plan:
     pattern: /app/project/{id}/milestone_plan/
