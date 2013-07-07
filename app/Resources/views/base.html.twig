@@ -35,30 +35,30 @@
 		<nav id="mainMenu">
 			<ul>
 				<li class="hasSub" id="projectName">
-					<a href="#">project.name<span class="arrow">&#9660;</span></a>
+					<a href="#">{{ project.name }}<span class="arrow">&#9660;</span></a>
 					<ul>
 						<li>
-							<a href="settings.php">Settings</a>
+							<a href="{{ path("project_detail", {"id": project.projectId}) }}">Settings</a>
 						</li>
 						<li>
-							<a href="groups.php">Groups</a>
+							<a href="{{ path("department_overview", {"projectId": project.projectId}) }}">Departments</a>
 						</li>
 						<li>
-							<a href="members.php">Members</a>
+							<a href="{{ path("users_in_project", {"id": project.projectId}) }}">Members</a>
 						</li>
 						<li>
-							<a href="change_project.php">Change project</a>
+							<a href="{{ path("project") }}">Change project</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="todo.php">ToDo-Lists</a>
+					<a href="{{ path("to_do_lists", {"projectId": project.projectId}) }}">ToDo-Lists</a>
 				</li>
 				<li>
-					<a href="calendar.php">Calendar</a>
+					<a href="{{ path("calendar", {"projectId": project.projectId}) }}">Calendar</a>
 				</li>
 				<li>
-					<a href="milestones.php">Milestones</a>
+					<a href="{{ path("milestone_plan", {"id": project.projectId}) }}">Milestones</a>
 				</li>
 				<li>
 					<a href="files.php">Files</a>
