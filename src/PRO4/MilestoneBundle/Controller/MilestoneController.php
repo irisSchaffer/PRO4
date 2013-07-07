@@ -46,7 +46,7 @@ class MilestoneController extends MyController {
 	        }
 	    }
 
-	    return $this->render("PRO4MilestoneBundle:Milestone:milestoneForm.html.twig", array("action" => "Add", "form" => $form->createView()));	
+	    return $this->render("PRO4MilestoneBundle:Milestone:milestoneForm.html.twig", array("project" => $project, "action" => "Add", "form" => $form->createView()));	
    	}
    	
    	public function editAction(Request $request, $projectId, $milestonePlanId, $milestoneId) {
@@ -75,7 +75,7 @@ class MilestoneController extends MyController {
 	        }
 	    }
 
-	    return $this->render("PRO4MilestoneBundle:Milestone:milestoneForm.html.twig", array("action" => "Add", "form" => $form->createView()));	
+	    return $this->render("PRO4MilestoneBundle:Milestone:milestoneForm.html.twig", array("project" => $project, "action" => "Add", "form" => $form->createView()));	
 	}
    	
    	
@@ -123,7 +123,7 @@ class MilestoneController extends MyController {
 	        }
 	    }
 
-	    return $this->render("PRO4MilestoneBundle:MilestonePlan:milestonePlanForm.html.twig", array("showForm" => $showForm, "form" => $form->createView()));	
+	    return $this->render("PRO4MilestoneBundle:MilestonePlan:milestonePlanForm.html.twig", array("project" => $project, "showForm" => $showForm, "form" => $form->createView()));	
    	}
    	
 	private function milestonePlanRedirect($id, $success, $failure) {

@@ -24,10 +24,6 @@ class ToDoListType extends AbstractType {
     }
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$required = false;
-		if(isset($options["attr"]["required"])) {
-			$required = $options["attr"]["required"];
-		}
 
 		$builder->add("name", "text", array("label" => "Name"));
 		$builder->add('department', 'entity', array(
@@ -35,12 +31,11 @@ class ToDoListType extends AbstractType {
 			    'property' => 'name',
 			    'query_builder' => $this->queryBuilder,
     			'empty_value' => "Select Department",
-    			'required' => $required,
     			'label' => "Department",
 			));
 			
 		if($this->action === ToDoListType::EDIT) {
-			$builder->add('completed', 'checkbox', array("label" => "Completed"));
+			$builder->add('completed', 'checkbox', array("label" => "Completed", "required" => false));
 		}
 	}
 

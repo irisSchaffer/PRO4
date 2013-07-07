@@ -33,7 +33,7 @@ class MilestonePlanController extends MyController {
 		
 		$milestones = $milestonePlan->getMilestones();
 		
-		return $this->render("PRO4MilestoneBundle:MilestonePlan:milestoneOverview.html.twig", array("milestonePlan" => $milestonePlan, "milestones" => $milestones));
+		return $this->render("PRO4MilestoneBundle:MilestonePlan:milestoneOverview.html.twig", array("project" => $project, "milestonePlan" => $milestonePlan, "milestones" => $milestones));
 	}
    	
    	public function editMilestonePlanAction(Request $request, $id) {
@@ -74,7 +74,7 @@ class MilestonePlanController extends MyController {
 	        }
 	    }
 
-	    return $this->render("PRO4MilestoneBundle:MilestonePlan:milestonePlanForm.html.twig", array("showForm" => $showForm, "form" => $form->createView()));	
+	    return $this->render("PRO4MilestoneBundle:MilestonePlan:milestonePlanForm.html.twig", array("project" => $project, "showForm" => $showForm, "form" => $form->createView()));	
    	}
    	
 	private function milestonePlanRedirect($id, $success, $failure) {

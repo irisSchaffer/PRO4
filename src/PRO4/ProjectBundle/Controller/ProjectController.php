@@ -74,7 +74,7 @@ class ProjectController extends MyController {
     		return $this->redirect($this->generateUrl("edit_project_detail", array("id" => $project->getId())));
 	    }
     	
-    	return $this->render('PRO4ProjectBundle:Project:projectForm.html.twig', array("form" => $form->createView(), "showButton" => $showButton, "action" => "Edit"));
+    	return $this->render('PRO4ProjectBundle:Project:projectForm.html.twig', array("project" => $project, "form" => $form->createView(), "showButton" => $showButton, "action" => "Edit"));
    	}
    	
    	public function editProjectDetailAction(Request $request, $id) {
@@ -99,6 +99,6 @@ class ProjectController extends MyController {
 	        }
    		}
 
-   		return $this->render("PRO4ProjectBundle:Project:projectForm.html.twig", array("form" => $form->createView(), "action" => "Edit"));
+   		return $this->render("PRO4ProjectBundle:Project:projectForm.html.twig", array("project" => $project, "form" => $form->createView(), "action" => "Edit"));
    	}
 }

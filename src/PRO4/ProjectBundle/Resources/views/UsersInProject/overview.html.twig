@@ -3,7 +3,7 @@
 {% block content %}
 	<h1>Users in Project</h1>
 	
-	{% if isAdmin is not defined or isAdmin %}
+	{% if is_granted("EDIT", project) %}
 			{% block form %}{% endblock %}
 	{% endif %}
 	

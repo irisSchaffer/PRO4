@@ -104,18 +104,20 @@ class ToDoList
     }
 
     /**
-     * Set completed true
+     * Set completed
      *
      * @param boolean $completed
      * @return ToDoList
      */
-    public function complete()
+    public function setCompleted($completed)
     {
-        $this->completed = true;
-        foreach($this->listItems as $item) {
+    	if($completed == true) {
+    		foreach($this->listItems as $item) {
         	$item->complete();
         }
-    
+    	}
+        $this->completed = $completed;
+        
         return $this;
     }
 

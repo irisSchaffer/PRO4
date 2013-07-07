@@ -53,7 +53,7 @@ class ToDoListController extends MyController {
     			
     			$this->get('session')->getFlashBag()->add(
 				    "success",
-				    "You successfully added a to-do list."
+				    "You successfully saved a to-do list."
 				);
 				
 				return $this->redirect($this->generateUrl("to_do_lists", array("projectId" => $projectId)));

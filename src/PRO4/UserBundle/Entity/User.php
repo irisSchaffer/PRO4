@@ -386,4 +386,8 @@ class User implements UserInterface
     public function isViewer() {
     	return $this->isViewer;
     }
+    
+    public function __sleep(){
+	   return array('userId', 'eMail');
+	}
 }

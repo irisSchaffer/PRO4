@@ -129,7 +129,6 @@ class DepartmentController extends MyController {
    	public function usersInDepartmentAction(Request $request, $projectId, $departmentId) {
    		$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
    		$this->checkPermission("VIEW", $project);
-   		$isAdmin = $this->hasPermission("EDIT", $project);
    		$department = $this->find("PRO4\ProjectBundle\Entity\Department", $departmentId);
    		
    		$em = $this->getDoctrine()->getManager();
@@ -177,7 +176,7 @@ class DepartmentController extends MyController {
 	        }
         }
    		
-   		return $this->render('PRO4ProjectBundle:Department:usersInDepartment.html.twig', array("form" => $form->createView(), "isAdmin" => $isAdmin, "project" => $project, "department" => $department, "users" => $users));
+   		return $this->render('PRO4ProjectBundle:Department:usersInDepartment.html.twig', array("form" => $form->createView(), "project" => $project, "department" => $department, "users" => $users));
    	}
    	
    	public function removeUserFromDepartmentAction($projectId, $departmentId, $userId) {

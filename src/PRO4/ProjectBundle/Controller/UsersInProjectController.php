@@ -79,7 +79,7 @@ class UsersInProjectController extends MyController {
 	        }
 	    }
     	
-    	return $this->render("PRO4ProjectBundle:UsersInProject:userForm.html.twig", array("form" => $form->createView(), "isAdmin" => $isAdmin, "project" => $project, "users" => $users));
+    	return $this->render("PRO4ProjectBundle:UsersInProject:userForm.html.twig", array("form" => $form->createView(), "project" => $project, "users" => $users));
     }
     
     public function removeAction(Request $request, $projectId, $userId) {
