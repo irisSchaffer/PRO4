@@ -1,3 +1,0 @@
-pro4_file_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: PRO4FileBundle:Default:index }

@@ -3,12 +3,13 @@
 namespace PRO4\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * File
  *
  * @ORM\Table(name="file")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FileRepository")
  */
 class File
 {
@@ -25,6 +26,9 @@ class File
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3", max = "100")
+     * 
      */
     private $name;
 
@@ -32,6 +36,8 @@ class File
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3", max = "100")
      */
     private $path;
 
@@ -187,5 +193,33 @@ class File
     public function getDepartment()
     {
         return $this->department;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/';
     }
 }

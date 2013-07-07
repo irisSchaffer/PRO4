@@ -5,23 +5,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PRO4\ProjectBundle\Entity\DepartmentRepository;
-use PRO4\MainBundle\Form\Type\QueryBuilderDependentType;
 use Doctrine\ORM\QueryBuilder;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
-class ToDoListType extends QueryBuilderDependentType {
-	
-	const ADD = 0;
-	const EDIT = 1;
-	
-	private $action;
-
-    public function __construct($action, QueryBuilder $queryBuilder) {
-    	parent::__construct($queryBuilder);
-    	$this->action = $action;
-    }
+class FileType extends AbstractType {
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 

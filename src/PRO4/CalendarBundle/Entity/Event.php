@@ -3,6 +3,7 @@
 namespace PRO4\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -25,6 +26,9 @@ class Event
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=80, nullable=false)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3", max = "80")
      */
     private $title;
 
@@ -32,15 +36,22 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\Date()
+     * @Assert\NotNull()
+     * 
      */
     private $date;
     
+    /**
+     * @Assert\Type(type="bool", message="The value {{ value }} is not a valid {{ type }}.")
+     */
     private $allDay;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="time", type="time", nullable=true)
+     * @Assert\Time()
      */
     private $time;
 

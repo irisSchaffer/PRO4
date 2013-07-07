@@ -155,6 +155,12 @@ edit_milestone:
 
 
 
+files:
+    pattern: /app/project/{projectId}/files/
+    defaults: { _controller: PRO4FileBundle:File:index }
+    
+    
+
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
     prefix:   /_wdt

@@ -9,17 +9,21 @@ class EventRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('e')
 				->where('e.project = :project')
 				->andwhere('e.department is null')
-				->orwhere('e.department IN (:departments)')
 				->orderBy('e.time', 'ASC')
 				->andwhere('e.date = :date')
     			->setParameters(
     				array(
 						'project' => $project,
-						'departments' => $departments,
 						'date' => $day->format("Y-m-d"),
 					)
 				);
-
+		
+		if(count($departments) > 0) {
+	 		$qb = $qb
+	 			->orwhere('e.department IN (:departments)')
+	 			->setParameter('departments', $departments);
+	 	}
+	 	
     	return $qb;
     }
 }

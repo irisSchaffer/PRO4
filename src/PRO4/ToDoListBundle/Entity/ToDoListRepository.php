@@ -10,16 +10,21 @@ class ToDoListRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('t')
 				->where('t.project = :project')
 				->andwhere('t.department is null')
-				->orwhere('t.department IN (:departments)')
 				->orderBy('t.name', 'ASC')
 				->andwhere('t.completed = :completed')
     			->setParameters(
     				array(
 						'project' => $project,
-						'departments' => $departments,
 						'completed' => false,
 					)
 				);
+				
+				
+		if(count($departments) > 0) {
+	 		$qb = $qb
+	 			->orwhere('t.department IN (:departments)')
+	 			->setParameter('departments', $departments);
+	 	}
 
     	return $qb;
     }

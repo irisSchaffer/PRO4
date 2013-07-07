@@ -1,3 +1,0 @@
-pro4_calendar_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: PRO4CalendarBundle:Default:index }

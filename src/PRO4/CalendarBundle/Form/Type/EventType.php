@@ -5,18 +5,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PRO4\ProjectBundle\Entity\DepartmentRepository;
-
+use PRO4\MainBundle\Form\Type\QueryBuilderDependentType;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
-class EventType extends AbstractType {
+class EventType extends QueryBuilderDependentType {
 	
-	private $project;
-	private $doctrine;
-
-    public function __construct(\PRO4\ProjectBundle\Entity\Project $project, RegistryInterface $doctrine) {
-    	$this->project = $project;
-        $this->doctrine = $doctrine;
+	public function __construct(QueryBuilder $queryBuilder) {
+    	parent::__construct($queryBuilder);
     }
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -30,7 +27,7 @@ class EventType extends AbstractType {
 		$builder->add('department', 'entity', array(
 			    'class' => 'PRO4ProjectBundle:Department',
 			    'property' => 'name',
-			    'query_builder' => $this->doctrine->getRepository('PRO4ProjectBundle:Department')->findDepartmentsInProject($this->project),
+			    'query_builder' => $this->getQueryBuilder(),
     			'empty_value' => "Select Department",
     			'required' => $required,
     			'label' => "Department",

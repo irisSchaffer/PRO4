@@ -8,6 +8,8 @@ use PRO4\MainBundle\Controller\MyController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
+use Doctrine\ORM\EntityRepository;
+
 use PRO4\CalendarBundle\Entity\Month;
 use PRO4\CalendarBundle\Entity\Day;
 use PRO4\CalendarBundle\Entity\Event;
@@ -15,14 +17,14 @@ use PRO4\CalendarBundle\Form\Type\EventType;
 
 class CalendarController extends MyController
 {
-    public function indexAction($projectId)
+    public function indexAction($projectId, Request $request)
     {
     	$today = new DateTime("NOW");
         return $this->addEventAction(
 			$projectId,
 			$today->format('m'),
 			$today->format('Y'),
-			$this->getRequest()
+			$request
     	);
     }
     
@@ -39,8 +41,12 @@ class CalendarController extends MyController
     		$day->setEvents($events);
     	}
 
-    	$form = $this->createForm(new EventType($project, $this->getDoctrine()), $event, array("attr" => array("required" => false)));
-    	
+		$form = $this->createForm(
+    		new EventType($em->getRepository("PRO4ProjectBundle:Department")->findDepartmentsInProject($project)),
+    		$event,
+    		array("attr" => array("required" => false))
+		);
+		
     	if ($request->isMethod("POST")) {
 	        $form->bind($request);
 	        if ($form->isValid()) {

@@ -1,0 +1,31 @@
+{% extends 'PRO4FileBundle:File:index.html.twig' %}
+
+{% block form %}
+	<form method="post">
+		<fieldset>
+			<legend>Event Form</legend>
+			<ul>
+				<li>{{ form_row(form.title) }}</li>
+				<li>{{ form_row(form.description) }}</li>
+				<li>
+					{{ form_row(form.department) }}
+					Leave this option blank if the to-do list should be visible for the whole project
+				</li>
+				<li>
+					{{ form_row(form.date) }}
+				</li>
+				<li>
+					{{ form_row(form.allDay) }}
+				</li>
+				<li>
+					{{ form_row(form.time) }}
+					Leave this option blank if the event lasts for the entire day
+				</li>
+			</ul>
+			{{ form_widget(form) }}
+		
+			<button type="submit">Save Event</button>
+		</fieldset>
+	</form>
+
+{% endblock %}
