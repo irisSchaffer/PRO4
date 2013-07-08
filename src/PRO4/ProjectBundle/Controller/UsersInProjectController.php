@@ -86,7 +86,7 @@ class UsersInProjectController extends MyController {
    		$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
    		$user = $this->find("PRO4\UserBundle\Entity\User", $userId);
    		
-   		if($this->hasUserPermission($project, MaskBuilder::EDIT_MASK, $user)) {
+   		if($this->hasUserPermission($project, MaskBuilder::MASK_EDIT, $user)) {
    			$this->checkPermission("OWNER", $project);
    		} else {
    			$this->checkPermission("EDIT", $project);

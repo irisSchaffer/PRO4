@@ -348,36 +348,50 @@ ul.error , .success{
 #memberlist input {
 	display: none;
 }
-#memberlist > label {
+#memberlist > div {
 	display:block;
 	font-size: 1em;
 	padding: 0.1em 0.2em;
 	background-color: #FFFFFF;
+	transition: background-color 0.2s;
 }
-#memberlist > label:hover {
-	background-color: #F7F7F7;
+#memberlist > div:hover {
+	background-color: #F6F6F6;
 }
-#memberlist > label > span.email{
+
+#memberlist > div img {
+	height: 1em;
+	width: 1em;
+
+	vertical-align: middle;
+}
+
+#memberlist > div > span > img {
+	cursor: help;
+}
+#memberlist > div > a  > img {
+	float: right;
+	margin-left: 0.2em;
+	margin-top: 0.15em;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+#memberlist > div:hover > a > img{
+	opacity: 0.7;
+}
+#memberlist > div > a > img:hover{
+	opacity: 0.9;
+}
+
+/*
+#memberlist > div > span.email{
 	font-size: 0.9em;
 	color: #555555;
 	font-style: italic;
 	font-weight: normal;
 }
-#memberlist > input:checked + label{
-	background-color: #CEE7B3;
-	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.05)',GradientType=0 );
-}
-#memberlist > input:checked + label:hover{
-	background-color: #C8E0AD;
-}
-#memberlist > input.admin + label{
-	font-weight: bold;
-}
+*/
+
 #members button{
 	text-decoration: none;
 	font-size: 1em;
@@ -444,13 +458,6 @@ ul.error , .success{
 	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.05)',GradientType=0 );
 }
-#memberlist label img {
-	height: 1em;
-	width: 1em;
-	margin-left: 0.2em;
-	cursor: help;
-	vertical-align: middle;
-}
 
 #inviteNewUser {
 	display: none;
@@ -501,6 +508,7 @@ input[type=email]{
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	transition: background-color 0.2s;
 }
 #departmentlist > div > div:hover {
 	background-color: #F6F6F6;
@@ -755,6 +763,7 @@ ul.projectlist > li.project:hover{
 }
 .todoContainer > h1{
 	font-size: 1em;
+	position: relative;
 	font-weight: bold;
 	padding: 0.4em;
 	color: #F6F6F6;
@@ -769,6 +778,23 @@ ul.projectlist > li.project:hover{
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 }
+.todoContainer > h1 > a {
+	position: absolute;
+	right:0;
+}
+.todoContainer > h1 > a > img{
+	width: 1em;
+	height: 1em;
+	margin-top: 0.15em;
+	margin-right: 0.4em;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+.todoContainer > h1:hover > a > img{
+	display:inline;
+	opacity: 0.7;
+}
+
 .todoContainer > ul{
 	list-style-type: none;
 }

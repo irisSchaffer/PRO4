@@ -5,38 +5,35 @@
 	<div id="members">
 		<div id="memberlist">
 		{% for user in users %}
-			<input type="radio" name="member" id="{{ user.userId }}"><label for="{{ user.userId }}">
+			<div id="{{ user.userId }}">
+				<span>
 				{{ user.eMail }}
 				{% if user.isOwner %}
-					| Project Owner
+					<img src="{{ asset('img/microicons/owner.png') }}" alt="Owner" title="Owner" height="24" width="24"/>
 				{% elseif user.isAdmin %}
-					| Admin
+					<img src="{{ asset('img/microicons/admin.png') }}" alt="Admin" title="Admin" height="24" width="24"/>
 				{% endif %} 
-				
+				</span>
 				{% if is_granted("EDIT", project) %}
 					{% if not user.isOwner %}
 						{% if not user.isAdmin or is_granted("OWNER", project) %}
-							| <a href="{{ path("remove_user_from_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Remove</a>        			
+							<a href="{{ path("remove_user_from_project", {"projectId" : project.projectId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/delete_black.png') }}" alt="Remove" title="Remove" height="24" width="24"/></a>        			
 						{% endif %}
 						
 						{% if is_granted("OWNER", project) %}
 							{% if user.isAdmin %}
-								| <a href="{{ path("revoke_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Revoke Admin</a>
+								<a href="{{ path("revoke_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/revoke_black.png') }}" alt="Revoke Admin" title="Revoke Admin" height="24" width="24"/></a>
 							{% else %}
-								| <a href="{{ path("grant_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Grant Admin</a>
+								<a href="{{ path("grant_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/grant_black.png') }}" alt="Grant Admin" title="Grant Admin" height="24" width="24"/></a>
 							{% endif %}
 						{% endif %}
 					{% endif %}
 				{% endif %}
-			</label>
+			</div>
 		{% endfor %}
 		</div>
 		<div id="editmembers">
 			{% if is_granted("EDIT", project) %}
-					<button>Remove User</button>
-					<button>Grant Admin</button>
-					<button>Revoke Admin</button>
-					<hr>
 					<button id="inviteMemberButton" onclick="openInviteUser()">Invite new User</button>
 					{% block form %}{% endblock %}
 			{% endif %}

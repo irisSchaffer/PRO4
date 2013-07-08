@@ -15,6 +15,7 @@ $(document).ready(function(){
 	initTodoList();
 	showErrors();
 
+
 	initEditProjectDetails();
 	$("#signUp").click(function(event){
 		event.preventDefault();
@@ -74,9 +75,16 @@ function initTodoList(){
 		$(this).prev().append(todoInput);
 		todoInput.focus();
 	});
-*/
+*/	
+	$(".todoContainer input").slideUp(0);
+	$(".todoContainer").on("mouseenter",function(){
+		$(this).children("form").children("p").children("input").slideDown(200);
+	});
+	$(".todoContainer").on("mouseleave",function(){
+		$(this).children("form").children("p").children("input").slideUp(200);
+	});
 	$("#addTodoList").dialog({
-					title: "New To-Do List",	
+					title: "To-Do List",	
 					autoOpen: false,
 					resizable: false,
 					draggable: false,
@@ -97,7 +105,7 @@ function initTodoList(){
 					},
 					modal: true,
 					buttons: {
-						"Add new To-Do List": function(){/*
+						"OK": function(){/*
 							event_name = $("#newEvent_name").val();
 							event_start_date = $("#newEvent_start_date").val();
 							event_description = $("#newEvent_description").val();
@@ -112,21 +120,36 @@ function initTodoList(){
 								event_name = $(this).text();
 							});
 							$(".calendar td[title='"+event_start_date+"']").append(newEvent);*/
+							$("#addTodoList").on("dialogclose", function( event, ui ) {
+							} );
 							$(this).submit();
-							$(this).dialog("close");
 						},
 						"Cancel": function(){
 							$(this).dialog("close");
 						}
 					}
 				});
+
+	var url = $(location).attr('href');
+	if (url.indexOf("/to-do/") != -1){
+		var pieces = url.split("/to-do/");
+		if (!(typeof pieces === "undefined") && pieces != null){
+			pieces = pieces[1].split("/");
+			if(pieces[1] == "edit"){
+				$("#addTodoList").on("dialogclose", function( event, ui ) {
+					history.back(1);
+				} );
+				$("#addTodoList").dialog("open");
+			}
+		}
+	}
 }
 function openAddTodoList(){
 	$("#addTodoList").dialog("open");
 }
 function initDepartment(){
 		$("#addNewDepartment").dialog({
-					title: "New Department",	
+					title: "Edit Department",	
 					autoOpen: false,
 					resizable: false,
 					draggable: false,
@@ -147,15 +170,32 @@ function initDepartment(){
 					},
 					modal: true,
 					buttons: {
-						"Add new Department": function(){
+						"OK": function(){
+							$("#addNewDepartment").on("dialogclose", function( event, ui ) {
+								
+							});
 							$(this).submit();
-							$(this).dialog("close");
 						},
 						"Cancel": function(){
 							$(this).dialog("close");
 						}
 					}
 				});
+
+	var url = $(location).attr('href');
+	if (url.indexOf("/departments/") != -1){
+		var pieces = url.split("/departments/");
+		if (!(typeof pieces === "undefined") && pieces != null){
+			pieces = pieces[1].split("/");	
+			if(pieces[1] == "edit"){
+				$("#addNewDepartment").on("dialogclose", function( event, ui ) {
+					history.back(1);
+				});
+				$("#addNewDepartment").dialog("open");
+
+			}
+		}
+	}
 }
 function openAddDepartment(){
 	$("#addNewDepartment").dialog("open");
