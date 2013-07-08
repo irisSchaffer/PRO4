@@ -1,25 +1,16 @@
 {% extends 'PRO4ToDoListBundle:ToDoList:overview.html.twig' %}
 
 {% block form %}
-	<form method="post">
-		<fieldset>
-			<legend>To-Do List Form</legend>
-			<ul>
-				<li>{{ form_row(form.name) }}</li>
-				<li>
-					{{ form_row(form.department) }}
-					<p>Leave this option blank if the to-do list should be visible for the whole project</p>
-				</li>
-				{% if form.completed is defined %}
-				<li>
-					{{ form_row(form.completed) }}
-				</li>
-				{% endif %}
-			</ul>
-			{{ form_widget(form) }}
-		
-			<button type="submit">Save To-Do List</button>
-		</fieldset>
+	<form method="post" id="addTodoList">
+			{{ form_row(form.name) }}
+			{{ form_row(form.department) }}
+			
+			{% if form.completed is defined %}
+				{{ form_row(form.completed) }}
+			{% endif %}
+			
+		{{ form_widget(form) }}
+		<p>Leave this option blank if the to-do list should be visible for the whole project</p>
 	</form>
 
 {% endblock %}

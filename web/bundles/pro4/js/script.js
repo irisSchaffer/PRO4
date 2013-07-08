@@ -8,9 +8,11 @@ $(document).ready(function(){
 		$(this).parent().children("a").children("span.hoverHelp").css("opacity", 0);
 	});*/
 
-	initChangeProject();
 	initSignUp();
+	initInviteUser();
+	initDepartment();
 	initMilestonePlan();
+	initTodoList();
 	showErrors();
 
 	initEditProjectDetails();
@@ -43,6 +45,12 @@ $(document).ready(function(){
 		}
 	});
 	// Adding a new entry to todo-lists
+
+
+});
+
+function initTodoList(){
+/*
 	$(".todoContainer .todoFooter").click(function(){
 		var todoInput = jQuery("<input/>",{
 			"type": "text",
@@ -66,71 +74,91 @@ $(document).ready(function(){
 		$(this).prev().append(todoInput);
 		todoInput.focus();
 	});
-
-});
-
-function initChangeProject(){
-	$(".project").click(function(){
-		window.location.href = "settings.php";
-	});
-	
-	/*var newProject = false;
-	$("body").append("<form id='changeProject' title='Change Project'><label for='changeProjectSelect'>Choose a project: </label><select id='changeProjectSelect' size='1'><option>Workshop</option><option>Steelseries</option><option id='newProject'>Create new project ...</option></form>");
-	$("#changeProject").hide();
-	$("#changeProject").append("<div id='newProjectNameContainer'><label for='newProjectName'>Name:</label><input id='newProjectName' type='text' /><label for='newProjectDescription'>Description:</label><textarea id='newProjectDescription'></textarea></div>");
-	$("#changeProject select").on("change",function(){
-		if($(this).val() == "Create new project ..."){
-			$("#newProjectNameContainer").slideDown(300);
-			newProject = true;
-		}else{
-			$("#newProjectNameContainer").slideUp(300);
-			newProject = false;
-		}
-	});
-	
-	$("#mainMenu .hasSub > ul > li > a").last().click(function(){
-		$("#changeProject").dialog("open");
-		$("#changeProjectSelect, #newProjectName, #newProjectDescription").val("");
-		$("#newProjectNameContainer").hide();
-		newProject = false;
-	});
-	$("#changeProject").dialog({
-		autoOpen: false,
-		resizable: false,
-		draggable: false,
-		position: {
-			my: "center", 
-			at: "center", 
-			of: $("#content")
-		},
-		width: 400,
-		minWidth: 400,
-		show: {
-        	effect: "fade",
-        	duration: 250
-      	},
-      	hide: {
-        	effect: "fade",
-        	duration: 250
-      	},
-		modal: true,
-		buttons: {
-			"OK": function(){
-				var projectName = "";
-				if(newProject){
-					projectName = $("#newProjectName").val();
-					$("#changeProjectSelect").children().last().before("<option>"+projectName+"</option>");
-				}else{
-					projectName = $("#changeProjectSelect").val();
-				}
-				$("#mainMenu .hasSub > a").text(projectName).append("<span class='arrow'>&#9660;</span>");
-				$(this).dialog("close");
-			},
-			"Cancel": function(){
-				$(this).dialog("close");
-			}
-		}
-	});*/
+*/
+	$("#addTodoList").dialog({
+					title: "New To-Do List",	
+					autoOpen: false,
+					resizable: false,
+					draggable: false,
+					position: {
+						my: "center", 
+						at: "center", 
+						of: $("#content")
+					},
+					width: 400,
+					minWidth: 400,
+					show: {
+						effect: "fade",
+						duration: 250
+					},
+					hide: {
+						effect: "fade",
+						duration: 250
+					},
+					modal: true,
+					buttons: {
+						"Add new To-Do List": function(){/*
+							event_name = $("#newEvent_name").val();
+							event_start_date = $("#newEvent_start_date").val();
+							event_description = $("#newEvent_description").val();
+							var newEvent = jQuery("<div/>",{
+								"text": event_name,
+								"title": event_description,
+								"class": "event"
+							});
+							newEvent.on("click",function(){
+								editEvent = true;
+								changingEvent = $(this);
+								event_name = $(this).text();
+							});
+							$(".calendar td[title='"+event_start_date+"']").append(newEvent);*/
+							$(this).submit();
+							$(this).dialog("close");
+						},
+						"Cancel": function(){
+							$(this).dialog("close");
+						}
+					}
+				});
+}
+function openAddTodoList(){
+	$("#addTodoList").dialog("open");
+}
+function initDepartment(){
+		$("#addNewDepartment").dialog({
+					title: "New Department",	
+					autoOpen: false,
+					resizable: false,
+					draggable: false,
+					position: {
+						my: "center", 
+						at: "center", 
+						of: $("#content")
+					},
+					width: 400,
+					minWidth: 400,
+					show: {
+						effect: "fade",
+						duration: 250
+					},
+					hide: {
+						effect: "fade",
+						duration: 250
+					},
+					modal: true,
+					buttons: {
+						"Add new Department": function(){
+							$(this).submit();
+							$(this).dialog("close");
+						},
+						"Cancel": function(){
+							$(this).dialog("close");
+						}
+					}
+				});
+}
+function openAddDepartment(){
+	$("#addNewDepartment").dialog("open");
 }
 
 function initCalendar(){
@@ -293,10 +321,8 @@ function initSignUp(){
 		}
 	});
 }
-function initInviteMember(){
-	$("body").append("<form id='inviteMember' title='Invite new Member'><label for='newMemberEmail'>E-Mail:</label><input id='newMemberEmail' type='text' /></form>");	
-	$("#inviteMember").hide();
-	$("#inviteMember").dialog({
+function initInviteUser(){
+	$("#inviteNewUser").dialog({
 		autoOpen: false,
 		resizable: false,
 		draggable: false,
@@ -316,8 +342,10 @@ function initInviteMember(){
         	duration: 250
       	},
 		modal: true,
+		title: "Invite New User",
 		buttons: {
 			"Send Invitation": function(){
+				$(this).submit();
 				$(this).dialog("close");
 			},
 			"Cancel": function(){
@@ -325,6 +353,9 @@ function initInviteMember(){
 			}
 		}
 	});
+}
+function openInviteUser(){
+	$("#inviteNewUser").dialog("open");
 }
 function initEditProjectDetails(){
 	$("body").append("<form id='editProjectDetails' title='Change Project Details'><label for='projectName'>Name:</label><input id='projectName' type='text' /><label for='projectDescription'>Description:</label><input id='projectDescription' type='text' /></form>");	

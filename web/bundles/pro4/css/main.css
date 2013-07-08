@@ -322,9 +322,8 @@ ul.error , .success{
 	list-style-type: none;
 	top: -1px;
 	padding: 1em 2em;
-	width: 35em;
-	right: 40em;
-	left: 40em;
+	right: 40%;
+	left: 40%;
 	z-index: 999;
 	display: block;
 	text-align: center;
@@ -452,9 +451,35 @@ ul.error , .success{
 	cursor: help;
 	vertical-align: middle;
 }
-/* ----- Groups ----- */
 
-#grouplist {
+#inviteNewUser {
+	display: none;
+	font-size: 0.9em;
+}
+
+#inviteNewUser label, 
+input[type=text], 
+input[type=password]{
+	margin-top: 0.3em;
+	height: 1.6em;
+	position: relative;
+	display: block;
+}
+
+#inviteNewUser label {
+	width: 130px;
+	float: left;
+	border: 1px solid rgba(0,0,0,0);
+}
+#inviteNewUser input[type=text], 
+input[type=email]{
+	width: 230px;
+	float: right;
+	resize: none;
+}
+/* ----- Departments ----- */
+
+#departmentlist {
 	display: inline-block;
 	vertical-align: top;
 	float: none;
@@ -464,10 +489,10 @@ ul.error , .success{
 	border: 0;
 	margin-left: 1em;
 }
-#grouplist input {
+#departmentlist input {
 	display: none;
 }
-#grouplist label {
+#departmentlist label {
 	display:block;
 	font-size: 1em;
 	padding: 0.1em 0.2em;
@@ -480,10 +505,10 @@ ul.error , .success{
 	-ms-user-select: none;
 	user-select: none;
 }
-#grouplist label:hover {
+#departmentlist label:hover {
 	background-color: #F7F7F7;
 }
-#grouplist input:checked + label{
+#departmentlist input:checked + label{
 	background-color: #CEE7B3;
 	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
 	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
@@ -492,11 +517,11 @@ ul.error , .success{
 	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.05)',GradientType=0 );
 }
-#grouplist input:checked + label:hover{
+#departmentlist input:checked + label:hover{
 	background-color: #C8E0AD;
 }
 
-#groups button{
+#departments button{
 	text-decoration: none;
 	font-size: 1em;
 	font-weight: bold;
@@ -515,27 +540,27 @@ ul.error , .success{
 	transition:  color 0.5s, box-shadow 0.5s;
 	cursor: pointer;
 }
-#groups button:hover {
+#departments button:hover {
 	color: #FFFFFF;
 	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
 }
 
-#groups #editgroups{
+#departments #editdepartments{
 	display: inline-block;
 	float: right;
 	width: 25%;
 	margin-right: 1em;
 }
-#groups #editgroups > button{
+#departments #editdepartments > button{
 	margin-bottom: 0.2em;
 	width: 100%;
 }
-#groups #editgroups > hr{
+#departments #editdepartments > hr{
 	border: solid 1px #CCCCCC;
 	color: #777777;
 	margin: 0.2em 0;
 }
-#groups button:active{
+#departments button:active{
 	background-image: linear-gradient(top, #87A666, #CEE7B3);
 	background-image: -o-linear-gradient(top, #87A666, #CEE7B3);
 	background-image: -ms-linear-gradient(top, #87A666, #CEE7B3);
@@ -543,13 +568,38 @@ ul.error , .success{
 	background-image: -webkit-linear-gradient(top, #87A666, #CEE7B3);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87A666', endColorstr='#CEE7B3',GradientType=0 );
 }
-#grouplist > div {
+#departmentlist > div {
 	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
 	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
 	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
 	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
 	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.2)',GradientType=0 );
+}
+#addNewDepartment{
+	display: none;
+	font-size: 0.9em;
+}
+#addNewDepartment label, 
+input[type=text], 
+input[type=password]{
+	margin-top: 0.3em;
+	height: 1.6em;
+	position: relative;
+	display: block;
+}
+
+#addNewDepartment label {
+	width: 130px;
+	float: left;
+	border: 1px solid rgba(0,0,0,0);
+}
+#addNewDepartment input[type=text], 
+input[type=password], 
+input[type=email]{
+	width: 230px;
+	float: right;
+	resize: none;
 }
 .one {
 	background-color: #41a64e;
@@ -653,6 +703,39 @@ ul.projectlist > li.project:hover{
 
 
 /* ----- ToDo List ----- */
+#addButtonContainer{
+	margin-bottom: 1em;
+	position: relative;
+	height: 2.1em;
+}
+#addNewTodoButton{
+	position: absolute;
+	right:0;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #F6F6F6;
+	border: 0;
+	padding: 0.5em 1em;
+	width: 20%;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	border-radius: 3px;
+	transition:  color 0.5s, box-shadow 0.5s;
+	vertical-align: top;
+	cursor: pointer;
+}
+#addNewTodoButton:hover {
+	color: #FFFFFF;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
 #todoWrap{
 	text-align: center;
 }
@@ -703,11 +786,21 @@ ul.projectlist > li.project:hover{
 .todoContainer > ul > li:hover{
 	background-color: #F4F4F4;
 }
-.todoContainer > div.todoFooter{
+.todoContainer > ul > li.completed span{
+	text-decoration: line-through;
+}
+.todoContainer > form.todoFooter:hover{
+	box-shadow: inset 0px 0px 3px rgba(0,0,0,0.2);
+}
+.todoContainer > form.todoFooter input{
+	width: 100%;
+}
+.todoContainer > form.todoFooter button{
+	width: 100%;
+	border: 0;
 	color: #F4F4F4;
 	font-size: 1.3em;
 	font-weight: bold;
-	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 	background-image: linear-gradient(top, #CEE7B3, #87A666);
 	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
@@ -715,11 +808,33 @@ ul.projectlist > li.project:hover{
 	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
 	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
-}
-.todoContainer > div.todoFooter:hover{
-	box-shadow: inset 0px 0px 3px rgba(0,0,0,0.2);
+	cursor: pointer;
 }
 
+#addTodoList {
+	display: none;
+	font-size: 0.9em;
+}
+#addTodoList p{
+	clear:both;
+	font-weight: bold;
+}
+#addTodoList label, input, select{
+	margin-top: 0.3em;
+	height: 1.6em;
+	position: relative;
+	display: block;
+}
+#addTodoList label {
+	width: 130px;
+	float: left;
+	border: 1px solid rgba(0,0,0,0);
+}
+#addTodoList input, select{
+	width: 230px;
+	float: right;
+	resize: none;
+}
 
 /* ----- Calendar ----- */
 .calendar {

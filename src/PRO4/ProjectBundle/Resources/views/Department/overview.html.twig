@@ -1,33 +1,38 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	<h1>Departments</h1>
-	<div id="departments">
+	
 	
 	{% if showForm %}
 			{% block form %}{% endblock %}
 	{% endif %}
 	
-	<h3>Departments</h3>
-	
-	{% if departments is empty %}
-		There are no departments yet! Please add one or ask the administrator to do so!
-	{% endif %}
-	{% for department in departments %}
-		<div>
-			{{ department.color}}
-			<a href="{{ path("users_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">{{ department.name }}</a>
-			
-			
-        	{% if is_granted("OPERATOR", department) %}
-        		| <a href="{{ path("remove_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">remove</a>
-        	{% endif %}
-        	{% if is_granted("EDIT", department) %}
-        		| <a href="{{ path("edit_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">edit</a>
-			{% endif %}
-			
-		<div>
-	{% endfor %}
+	<div id="departments">
+		{% if departments is empty %}
+			There are no departments yet! Please add one or ask the administrator to do so!
+		{% endif %}
+		<div id="departmentlist">
+		{% for department in departments %}
+			<div style="background-color: #{{ department.color}}">
+				<input type="radio" name="member" id="{{department.departmentId}}"><label for="{{department.departmentId}}">
+				<a href="{{ path("users_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">{{ department.name }}</a>
+				
+				
+				{% if is_granted("OPERATOR", department) %}
+					| <a href="{{ path("remove_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">remove</a>
+				{% endif %}
+				{% if is_granted("EDIT", department) %}
+					| <a href="{{ path("edit_department", {"projectId" : project.projectId, "departmentId" : department.departmentId}) }}">edit</a>
+				{% endif %}
+				</label>
+			</div>
+		{% endfor %}
+		</div>
+		<div id="editdepartments">
+			<button onclick="openAddDepartment()">Add new Department</button>
+			<button>Edit Department</button>
+			<button>Remove Department</button>
+		</div>	
 	</div>
 		
 {% endblock %}

@@ -1,16 +1,10 @@
 {% extends 'PRO4ProjectBundle:Department:overview.html.twig' %}
 
 {% block form %}
-	<form method="post">
-	<fieldset>
-		<legend>{{ action }} department</legend>
-		<ul>
-			<li>{{ form_row(form.name) }}</li>
-			<li>{{ form_row(form.color) }}</li>
-		</ul>
+	<form method="post" id="addNewDepartment">
+		{{ form_row(form.name) }}
+		{{ form_row(form.color) }}
 		{{ form_widget(form) }}
-	
-		<button type="submit">Save Department</button>
 	</fieldset>
 </form>
 

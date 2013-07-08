@@ -1,39 +1,45 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	<h1>Users in Project</h1>
 	
-	{% if is_granted("EDIT", project) %}
-			{% block form %}{% endblock %}
-	{% endif %}
-	
-	<h3>Users</h3>
-
-	{% for user in users %}
-		<div>
-			{{ user.eMail }}
-			{% if user.isOwner %}
-				| Project Owner
-			{% elseif user.isAdmin %}
-				| Admin
-			{% endif %} 
-			
+	<div id="members">
+		<div id="memberlist">
+		{% for user in users %}
+			<input type="radio" name="member" id="{{ user.userId }}"><label for="{{ user.userId }}">
+				{{ user.eMail }}
+				{% if user.isOwner %}
+					| Project Owner
+				{% elseif user.isAdmin %}
+					| Admin
+				{% endif %} 
+				
+				{% if is_granted("EDIT", project) %}
+					{% if not user.isOwner %}
+						{% if not user.isAdmin or is_granted("OWNER", project) %}
+							| <a href="{{ path("remove_user_from_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Remove</a>        			
+						{% endif %}
+						
+						{% if is_granted("OWNER", project) %}
+							{% if user.isAdmin %}
+								| <a href="{{ path("revoke_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Revoke Admin</a>
+							{% else %}
+								| <a href="{{ path("grant_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Grant Admin</a>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				{% endif %}
+			</label>
+		{% endfor %}
+		</div>
+		<div id="editmembers">
 			{% if is_granted("EDIT", project) %}
-	        	{% if not user.isOwner %}
-					{% if not user.isAdmin or is_granted("OWNER", project) %}
-	        			| <a href="{{ path("remove_user_from_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Remove</a>        			
-		        	{% endif %}
-		        	
-		        	{% if is_granted("OWNER", project) %}
-		        		{% if user.isAdmin %}
-		        			| <a href="{{ path("revoke_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Revoke Admin</a>
-		        		{% else %}
-		        			| <a href="{{ path("grant_admin_in_project", {"projectId" : project.projectId, "userId" : user.userId }) }}">Grant Admin</a>
-		        		{% endif %}
-		        	{% endif %}
-	        	{% endif %}
+					<button>Remove User</button>
+					<button>Grant Admin</button>
+					<button>Revoke Admin</button>
+					<hr>
+					<button id="inviteMemberButton" onclick="openInviteUser()">Invite new User</button>
+					{% block form %}{% endblock %}
 			{% endif %}
-		<div>
-	{% endfor %}
-		
+		</div>
+	</div>
 {% endblock %}

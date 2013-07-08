@@ -1,16 +1,9 @@
 {% extends 'PRO4ProjectBundle:UsersInProject:overview.html.twig' %}
 
 {% block form %}
-	<form method="post">
-		<fieldset>
-			<legend>Add new User to Project</legend>
-			<ul>
-				<li>{{ form_row(form.eMail) }}</li>
-			</ul>
-			{{ form_widget(form) }}
-		
-			<button type="submit">Add User</button>
-		</fieldset>
+	<form method="post" id="inviteNewUser">
+		{{ form_row(form.eMail) }}
+		{{ form_widget(form) }}
 	</form>
 
 {% endblock %}

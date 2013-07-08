@@ -1,12 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	<h1>To-Do Lists</h1>
-	
 	{% block form %}{% endblock %}
-	
-	<h3>To-Do Lists</h3>
-	
+	<div id="addButtonContainer">
+		<a onclick="openAddTodoList()" href="#" id="addNewTodoButton">Add new To-Do List</a>
+	</div>
 	<div id="todoWrap">
 		{% if toDoLists is empty %}
 			No to-do lists were added so far. Please ask the project or department admins to do so.
@@ -15,14 +13,14 @@
 		{% for toDoList in toDoLists %}
 			{% if not toDoList.completed %}
 				<div class="todoContainer">
-					<H1>{{ toDoList.name }} | <a href="{{ path("edit_to_do_list", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}">edit</a></H1> 
+					<h1>{{ toDoList.name }} | <a href="{{ path("edit_to_do_list", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}">edit</a></h1> 
 					
 					<ul>
 						{% for listItem in toDoList.listItems %}
 							{% if not listItem.deleted %}
 								{% if listItem.completed %}
 									<li class="completed">
-										{{ listItem.name }}
+										<span>{{ listItem.name }}</span>
 										{% if (toDoList.department and is_granted("EDIT", toDoList.department)) or (not toDoList.department and is_granted("EDIT", toDoList.project)) %}
 											| <a href="{{ path("undo_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Undo</a>
 											| <a href="{{ path("delete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Delete</a>
@@ -38,12 +36,12 @@
 						{% endfor %}
 					</ul>
 					
-					<form method="post" action="{{ path("add_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}">
+					<form class="todoFooter" method="post" action="{{ path("add_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}">
 						<p>{{ form_errors(forms[loop.index0].name) }}</p>
 						
 						<p>
 							{{ form_widget(forms[loop.index0].name) }} 
-							<button type="submit">Add Item</button>
+							<button type="submit">+</button>
 						</p>
 						
 						{{ form_widget(forms[loop.index0]) }}
