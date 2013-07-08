@@ -25,16 +25,21 @@ class UserType extends AbstractType {
 		
 		if($this->mode !== UserType::EMAIL_ONLY) {
 			if($this->mode !== UserType::REGISTER) {
-				$builder->add("oldPassword", "password", array("label" => "Old Password", "mapped" => false, "constraints" => array(new Constraints\UserPassword())));
+				$builder->add("oldPassword", "password",
+					array(
+						"label" => "Old Password",
+						"mapped" => false,
+						"constraints" => array(new Constraints\UserPassword()
+					)
+				));
 			}
 			
 			$builder->add("password", "repeated",
 				array(
 					"type" => "password",
 					"invalid_message" => "The password fields must match.",
-					"options" => array(
-					   "label" => "Password"
-					)
+					"first_options"  => array("label" => "Password"),
+					"second_options" => array("label" => "Confirm Password"),
 				)
 			);
 		}

@@ -54,6 +54,9 @@ class FileController extends MyController
 			    $em->persist($file);
 			    $em->flush();
 			}
+			
+			header("location: ".$request->getUri());
+  			exit();
     	}
     	
     	$parameters["form"] = $form->createView();

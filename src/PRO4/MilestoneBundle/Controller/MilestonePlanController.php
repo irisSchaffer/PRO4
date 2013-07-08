@@ -33,7 +33,14 @@ class MilestonePlanController extends MyController {
 		
 		$milestones = $milestonePlan->getMilestones();
 		
-		return $this->render("PRO4MilestoneBundle:MilestonePlan:milestoneOverview.html.twig", array("project" => $project, "milestonePlan" => $milestonePlan, "milestones" => $milestones));
+		return $this->render(
+			"PRO4MilestoneBundle:MilestonePlan:milestoneOverview.html.twig",
+			array(
+				"project" => $project,
+				"milestonePlan" => $milestonePlan,
+				"milestones" => $milestones
+			)
+		);
 	}
    	
    	public function editMilestonePlanAction(Request $request, $id) {

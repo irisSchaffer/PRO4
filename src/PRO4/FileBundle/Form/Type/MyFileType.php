@@ -16,7 +16,7 @@ class MyFileType extends AbstractType {
 
 		$builder->add("name", "text", array("label" => "Name"));
 		$builder->add("file", "file", array("label" => "File"));
-		$builder->add("description", "textarea", array("label" => "Description"));
+		$builder->add("description", "textarea", array("label" => "Description", "required" => false));
 			
 	}
 
