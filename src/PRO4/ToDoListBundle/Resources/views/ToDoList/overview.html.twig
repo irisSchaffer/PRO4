@@ -22,14 +22,14 @@
 									<li class="completed">
 										<span>{{ listItem.name }}</span>
 										{% if (toDoList.department and is_granted("EDIT", toDoList.department)) or (not toDoList.department and is_granted("EDIT", toDoList.project)) %}
-											| <a href="{{ path("undo_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Undo</a>
-											| <a href="{{ path("delete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Delete</a>
+											<a href="{{ path("delete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}"><img src="{{ asset('img/microicons/delete_black.png') }}" alt="Delete" title="Delete"  height="24" width="24"/></a>
+											<a href="{{ path("undo_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}"><img src="{{ asset('img/microicons/undo_black.png') }}" alt="Undo" title="Undo" height="24" width="24"/></a>
 										{% endif %}
 									</li>
 								{% else %}
 									<li>
 										{{ listItem.name }}
-										| <a href="{{ path("complete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}">Complete</a>
+										<a href="{{ path("complete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}"><img src="{{ asset('img/microicons/complete_black.png') }}" alt="Complete" title="Complete" height="24" width="24"/></a>
 									</li>
 								{% endif %}
 							{% endif %}
