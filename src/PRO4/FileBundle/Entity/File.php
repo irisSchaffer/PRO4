@@ -145,7 +145,7 @@ class File {
     }
 
 	public function getAbsolutePath() {
-		return null === $this->path ? null : $this->getUploadRootDir() . '/' . sha1($this->fileId) . '.' . $this->path;
+		return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
 	}
 
 	public function getWebPath() {

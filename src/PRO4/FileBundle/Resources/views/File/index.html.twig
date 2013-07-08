@@ -7,7 +7,9 @@
     	{% set location = "Project" %}
 	{% endif %}
 
-	{% block form %}{% endblock %}
+	{% if (not department is defined and is_granted("EDIT", project)) or (department is defined and is_granted("EDIT", department)) %}
+			{% block form %}{% endblock %}
+	{% endif %}
 	<p></p>
 	
 	<div id="filesWrap">
@@ -15,14 +17,19 @@
     	{% if location == "Project" %}
 			{% for department in departments %}
 				<a href="{{ path("files_in_department", {"projectId": project.projectId, "departmentId": department.departmentId}) }}" class="fileContainer">
-					<figure>
-						<figcaption>{{ department.name }}</figcaption>
+					<div>
+						<h5>{{ department.name }}</h5>
 						<img width="64" height="64" src="{{ asset("img/folder.png") }}" alt="File">
-					</figure>
+					</div>
 				</a>
 			{% endfor %}
 		{% else %}
-			<a href="{{ path("files", {"projectId": project.projectId }) }}" class="fileContainer">Back</a>
+			<a href="{{ path("files", {"projectId": project.projectId }) }}" class="fileContainer">
+				<div>
+					<h5>Back</h5>
+					<img width="64" height="64" src="{{ asset("img/back.png") }}" alt="File">
+				</div>
+			</a>
 		{% endif %}
 	
 		{% if files is empty %}
@@ -30,10 +37,21 @@
 	    {% else %}
 	    	{% for file in files %}
 				<a href="{{ asset(file.webPath) }}" class="fileContainer">
-					<figure>
-						<figcaption>{{ file.name }}</figcaption>
+					<div>
+						<h5>
+							{{ file.name }}
+							
+							{% if location == "Project" %}
+								{% set href = path("delete_file", {"projectId": project.projectId, "fileId": file.fileId })  %}
+							{% else %}
+								{% set href = path("delete_file_department", {"projectId": project.projectId, "departmentId": department.departmentId, "fileId": file.fileId })  %}
+							{% endif %}
+							
+							<img src="{{ asset("img/microicons/delete_black.png") }}" alt="Delete" data-href="{{ href }}" title="Delete" height="24" width="24">
+						</h5>
+						
 						<img width="64" height="64" src="{{ asset(file.imageName) }}" alt="File">
-					</figure>
+					</div>
 				</a>
 			{% endfor %}			
 		{% endif %}

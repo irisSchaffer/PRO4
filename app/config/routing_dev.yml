@@ -161,8 +161,17 @@ files:
 
 files_in_department:
     pattern: /app/project/{projectId}/departments/{departmentId}/files/
-    defaults: { _controller: PRO4FileBundle:File:filesInDepartment }    
+    defaults: { _controller: PRO4FileBundle:File:filesInDepartment }
+    
+delete_file:
+    pattern: /app/project/{projectId}/files/{fileId}/delete
+    defaults: { _controller: PRO4FileBundle:File:deleteFile } 
 
+delete_file_department:
+    pattern: /app/project/{projectId}/departments/{departmentId}/files/{fileId}/delete
+    defaults: { _controller: PRO4FileBundle:File:deleteFile }
+    
+    
 
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
