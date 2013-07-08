@@ -18,6 +18,7 @@ use PRO4\ProjectBundle\Entity\Project;
 use PRO4\ProjectBundle\Entity\Department;
 
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use InvalidArgumentException;
 
 class ToDoListController extends MyController {
 	

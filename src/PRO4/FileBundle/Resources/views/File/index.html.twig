@@ -1,13 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+	{% set isAuthorized = (not department is defined and is_granted("EDIT", project)) or (department is defined and is_granted("EDIT", department)) %}
 	{% if department is defined %}
 			{% set location = department.name %}
     {% else %}
     	{% set location = "Project" %}
 	{% endif %}
 
-	{% if (not department is defined and is_granted("EDIT", project)) or (department is defined and is_granted("EDIT", department)) %}
+	{% if isAuthorized %}
 			{% block form %}{% endblock %}
 	{% endif %}
 	<p></p>
@@ -27,7 +28,7 @@
 			<a href="{{ path("files", {"projectId": project.projectId }) }}" class="fileContainer">
 				<div>
 					<h5>Back</h5>
-					<img width="64" height="64" src="{{ asset("img/back.png") }}" alt="File">
+						<img width="64" height="64" src="{{ asset("img/back.png") }}" alt="File">
 				</div>
 			</a>
 		{% endif %}
@@ -41,13 +42,15 @@
 						<h5>
 							{{ file.name }}
 							
-							{% if location == "Project" %}
-								{% set href = path("delete_file", {"projectId": project.projectId, "fileId": file.fileId })  %}
-							{% else %}
-								{% set href = path("delete_file_department", {"projectId": project.projectId, "departmentId": department.departmentId, "fileId": file.fileId })  %}
+							{% if isAuthorized %}
+								{% if location == "Project" %}
+									{% set href = path("delete_file", {"projectId": project.projectId, "fileId": file.fileId })  %}
+								{% else %}
+									{% set href = path("delete_file_department", {"projectId": project.projectId, "departmentId": department.departmentId, "fileId": file.fileId })  %}
+								{% endif %}
+								
+								<img src="{{ asset("img/microicons/delete_black.png") }}" alt="Delete" data-href="{{ href }}" title="Delete" height="24" width="24">
 							{% endif %}
-							
-							<img src="{{ asset("img/microicons/delete_black.png") }}" alt="Delete" data-href="{{ href }}" title="Delete" height="24" width="24">
 						</h5>
 						
 						<img width="64" height="64" src="{{ asset(file.imageName) }}" alt="File">

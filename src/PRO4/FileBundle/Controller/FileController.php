@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use PRO4\FileBundle\Entity\File;
 use PRO4\FileBundle\Form\Type\MyFileType;
 
+use InvalidArgumentException;
+
 class FileController extends MyController
 {
     public function indexAction(Request $request, $projectId) {
@@ -20,6 +22,10 @@ class FileController extends MyController
     	
     	$em = $this->getDoctrine()->getManager();
     	$files = $em->getRepository("PRO4FileBundle:File")->findByProjectWithoutDepartment($project)->getQuery()->getResult();
+    	
+    	if($request->isMethod("POST")) {
+    		$this->checkPermission("EDIT", $project);	
+    	}
     	
     	return $this->showFiles($file, $files, $projectId);
     }
@@ -36,6 +42,10 @@ class FileController extends MyController
     	
     	$em = $this->getDoctrine()->getManager();
     	$files = $em->getRepository("PRO4FileBundle:File")->findByDepartment($department);
+    	
+    	if($request->isMethod("POST")) {
+    		$this->checkPermission("EDIT", $department);	
+    	}
     	
     	$parameters = array("department" => $department);
     	
