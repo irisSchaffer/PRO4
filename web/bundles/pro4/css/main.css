@@ -9,6 +9,10 @@ body {
 	background-color: #F9F9F9;
 	background-image: url("../../../img/bg.png")
 }
+textarea {
+	font-family: Helvetica, Arial, sans-serif;
+	resize: none;
+}
 
 #mainMenu ul,
 #mainMenu li,
@@ -118,6 +122,20 @@ body {
 #mainMenu .hasSub ul > li > a:hover{
 	margin-left: 0.4em;
 }
+#mainMenu #logout{
+	display:block;
+	height: 100%;
+	padding: 0.5em 0;
+	text-decoration: none;
+	font-size: 1em;
+	color: #222222;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	float: right;
+	transition: text-shadow 0.2s;
+}
+#mainMenu #logout:hover{
+	text-shadow: 1px 3px 3px rgba(0,0,0,0.2);
+}
 
 div#content {
 	box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
@@ -156,7 +174,10 @@ footer a:hover{
 	height: 1.8em;
 	padding-top: 0.2em;
 }
-#changeProject label, input, select, textarea{
+#changeProject label,
+#changeProject input,
+#changeProject select,
+#changeProject textarea{
 	margin-top: 0.3em;
 	height: 1.6em;
 	position: relative;
@@ -167,7 +188,9 @@ footer a:hover{
 	float: left;
 	border: 1px solid rgba(0,0,0,0);
 }
-#changeProject input, select, textarea{
+#changeProject input, 
+#changeProject select,
+#changeProject textarea{
 	width: 230px;
 	float: right;
 	resize: none;
@@ -293,8 +316,8 @@ div.indexDescription p {
 }
 
 #signUpDialog label, 
-input[type=text], 
-input[type=password]{
+#signUpDialog input[type=text], 
+#signUpDialog input[type=password]{
 	margin-top: 0.3em;
 	height: 1.6em;
 	position: relative;
@@ -311,8 +334,8 @@ input[type=password]{
 	border: 1px solid rgba(0,0,0,0);
 }
 #signUpDialog input[type=text], 
-input[type=password], 
-input[type=email]{
+#signUpDialog input[type=password], 
+#signUpDialog input[type=email]{
 	width: 230px;
 	float: right;
 	resize: none;
@@ -465,8 +488,8 @@ ul.error , .success{
 }
 
 #inviteNewUser label, 
-input[type=text], 
-input[type=password]{
+#inviteNewUser input[type=text], 
+#inviteNewUser input[type=password]{
 	margin-top: 0.3em;
 	height: 1.6em;
 	position: relative;
@@ -479,7 +502,7 @@ input[type=password]{
 	border: 1px solid rgba(0,0,0,0);
 }
 #inviteNewUser input[type=text], 
-input[type=email]{
+#inviteNewUser input[type=email]{
 	width: 230px;
 	float: right;
 	resize: none;
@@ -593,8 +616,8 @@ input[type=email]{
 	font-size: 0.9em;
 }
 #addNewDepartment label, 
-input[type=text], 
-input[type=password]{
+#addNewDepartment input[type=text], 
+#addNewDepartment input[type=password]{
 	margin-top: 0.3em;
 	height: 1.6em;
 	position: relative;
@@ -607,8 +630,8 @@ input[type=password]{
 	border: 1px solid rgba(0,0,0,0);
 }
 #addNewDepartment input[type=text], 
-input[type=password], 
-input[type=email]{
+#addNewDepartment input[type=password], 
+#addNewDepartment input[type=email]{
 	width: 230px;
 	float: right;
 	resize: none;
@@ -674,19 +697,24 @@ ul.projectlist > li.project:hover{
 	display: inline-block;
 	width: 70%;
 }
-#projectInfos > li > span.infoName{
+#projectInfos > li > div > label{
 	width: 30%;
 	display: inline-block;
 	vertical-align: top;
 }
-#projectInfos > li > span.info{
+#projectInfos > li > div > input,
+#projectInfos > li > div > textarea
+{
+	font-size: 1em;
 	font-weight: bold;
+	background: none;
+	border: none;
 	color: #9ed264;
 	width: 65%;
 	display: inline-block;
 }
 
-#changeProjectInfos{
+#projectInfoButton{
 	text-decoration: none;
 	font-size: 1.1em;
 	font-weight: bold;
@@ -708,7 +736,7 @@ ul.projectlist > li.project:hover{
 	float:right;
 	cursor: pointer;
 }
-#changeProjectInfos:hover {
+#projectInfoButton:hover {
 	color: #FFFFFF;
 	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
 }
@@ -936,16 +964,61 @@ ul.projectlist > li.project:hover{
 .event {
 	width: 100%;
 	display: block;
-	background-color: #CEE7B3;
+	background-color: #888888;
+	color: #ffffff;
+	margin-left: -0.2em;
+	padding: 0.1em 0.2em;
 	box-shadow: inset 0px 0px 1px rgba(0,0,0,0.2);
 	z-index: 10;
+	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.2)',GradientType=0 );
 }
 .event:hover {
 	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.2);
 }
+.event > a  > img{
+	width: 1em;
+	height: 1em;
+	float: right;
+	margin-top: 0.1em;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+.event:hover > a > img{
+	opacity: 0.7;
+}
+.event > a > img:hover{
+	opacity: 0.9;
+}
 #newEvent {
 	font-size: 0.9em;
 }
+#newEvent > div {
+	overflow: hidden;
+	position: relative;
+}
+#newEvent label{
+	position: absolute;
+	left: 0;
+}
+#newEvent input,
+#newEvent textarea,
+#newEvent select{
+	width: 230px;
+    float: right;
+    resize: none;
+}
+#newEvent p.sideinfo{
+	width: 230px;
+	margin-top: 0.2em;
+	margin-bottom: 0.5em;
+	right: 0;
+}
+/*
 #newEvent label, input, textarea{
 	margin-top: 0.3em;
 	height: 1.6em;
@@ -967,7 +1040,7 @@ ul.projectlist > li.project:hover{
 }
 #newEvent button{
 	background: #2B81AF;
-}
+}*/
 
 /* ----- Milestones ----- */
 #addNewMilestoneButton{
@@ -1087,6 +1160,7 @@ ul.projectlist > li.project:hover{
 	text-align: center;
 }
 #filesPath{
+	position: relative;
 	text-align: left;
 	font-size: 0.9em;
 	font-weight: bold;
@@ -1129,10 +1203,11 @@ ul.projectlist > li.project:hover{
 	box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
 }
 
-.fileContainer figcaption{
+.fileContainer h5{
 	font-size: 0.9em;
 	font-weight: bold;
 	padding: 0.4em;
+	position: relative;
 	color: #F6F6F6;
 	text-shadow: 0 2px 2px rgba(0,0,0,0.1);
 	box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
@@ -1142,5 +1217,79 @@ ul.projectlist > li.project:hover{
 	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
 	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+}
+.fileContainer h5 > img{
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	right:0;
+	margin-top: 0.1em;
+	margin-right: 0.3em;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+.fileContainer h5:hover > img{
+	opacity: 0.7;
+}
+.fileContainer h5 > img:hover{
+	opacity: 0.9;
+}
+/*
+#newFileButton{
+	position:absolute;
+	right:0;
+	top:0;
+	bottom:0;
+	border: 0;
+	color: #F4F4F4;
+	font-weight: bold;
+	padding: 0 0.4em;
+	box-shadow: inset 0px 0px 7px rgba(0,0,0,0.2);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	cursor: pointer;
+}
+*/
+
+#newFile{
+	font-size: 0.9em;
+	display: none;
+}
+#newFile > div {
+	overflow: hidden;
+	position: relative;
+}
+#newFile label{
+	position: absolute;
+	left: 0;
+}
+#newFile input,
+#newFile textarea{
+	width: 230px;
+    float: right;
+    resize: none;
+}
+#newFile input[type="file"]{
+	display: none;
+}
+#cheatButton{
+	float:right;
+	width: 232px;
+	color: #222222;
+	font-weight: bold;
+	padding: 0.3em 0;
+	border:0;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.3);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	cursor: pointer;
 }
 

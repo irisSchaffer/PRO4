@@ -11,8 +11,10 @@ $(document).ready(function(){
 	initSignUp();
 	initInviteUser();
 	initDepartment();
+	initCalendar();
 	initMilestonePlan();
 	initTodoList();
+	initFile();
 	showErrors();
 
 
@@ -51,31 +53,6 @@ $(document).ready(function(){
 });
 
 function initTodoList(){
-/*
-	$(".todoContainer .todoFooter").click(function(){
-		var todoInput = jQuery("<input/>",{
-			"type": "text",
-		});
-		todoInput.hide();
-		todoInput.keypress(function(event){
-			if (event.which == 13 ) {
-     			event.preventDefault();
-   				if($.trim($(this).val()).length > 0){
-   					var newEntry = "<li>"+$(this).val()+"</li>";
-   					$(this).replaceWith(newEntry);
-   				}else{
-   					$(this).remove();
-   				}
-   			}
-		});
-		todoInput.blur(function(){
-			$(this).remove();
-		});
-		todoInput.slideDown(250);
-		$(this).prev().append(todoInput);
-		todoInput.focus();
-	});
-*/	
 	$(".todoContainer input").slideUp(0);
 	$(".todoContainer").on("mouseenter",function(){
 		$(this).children("form").children("p").children("input").slideDown(200);
@@ -203,88 +180,40 @@ function openAddDepartment(){
 
 function initCalendar(){
 	// Adding hidden dialog-form
-	$("body").append("<form id='newEvent' title='New Event'><label for='newEvent_name'>Name:</label><input id='newEvent_name' type='text' /><br /><label for='newEvent_start_date'>Start-Date:</label><input id='newEvent_start_date' type='text' /><br /><label for='newEvent_end_date'>End-Date:</label><input id='newEvent_end_date' type='text' /><br /><label for='newEvent_description'>Description:</label><textarea id='newEvent_description'></textarea></form>");
 	$("#newEvent").hide();
 	
 	// Adding a new event to the calendar
-	var day;
 	var editEvent;
-	var event_name;
-	var event_start_date;
-	var event_description;
-	var changingEvent;
+	
+	$(".event").on("click",function(){
+		editEvent = true;
+	});
 	$(".calendar td").click(function(){
-		var length = $.trim($(this).text()).length;
+		var length = $.trim($(this).attr("data-day")).length;
 		if (length > 0){
 			if(!editEvent){
 				// New Entry mode
-				$("#newEvent #newEvent_name").val("");
-				$("#newEvent #newEvent_description").val("");
-				day = $(this);
-				$("#newEvent #newEvent_start_date").val(day.attr("title"));
-				$("#newEvent #newEvent_end_date").val(day.attr("title"));
 				$("#newEvent").dialog({
 					title: "New Event",
 					buttons: {
 						"OK": function(){
-							event_name = $("#newEvent_name").val();
-							event_start_date = $("#newEvent_start_date").val();
-							event_description = $("#newEvent_description").val();
-							var newEvent = jQuery("<div/>",{
-								"text": event_name,
-								"title": event_description,
-								"class": "event"
-							});
-							newEvent.on("click",function(){
-								editEvent = true;
-								changingEvent = $(this);
-								event_name = $(this).text();
-							});
-							$(".calendar td[title='"+event_start_date+"']").append(newEvent);
-							$(this).dialog("close");
+							$(this).submit();
 						},
 						"Cancel": function(){
 							$(this).dialog("close");
 						}
 					}
 				});
-				$("#newEvent").dialog("open");
+				openNewEvent();
 			}else{
-				// Edit mode
-				$("#newEvent #newEvent_name").val(event_name);
-				$("#newEvent #newEvent_description").val(event_description);
-				day = $(this);
-				$("#newEvent #newEvent_start_date").val(day.attr("title"));
-				$("#newEvent #newEvent_end_date").val(day.attr("title"));
-				$("#newEvent").dialog({
-					buttons: {
-						"OK": function(){
-							event_name = $("#newEvent_name").val();
-							event_start_date = $("#newEvent_start_date").val();
-							event_description = $("#newEvent_description").val();
-							var newEvent = jQuery("<div/>",{
-								"text": event_name,
-								"title": event_description,
-								"class": "event"
-							});
-							changingEvent.text(event_name);
-							newEvent.on("click",function(){
-								editEvent = true;
-							});
-							//$(".calendar td[title='"+event_start_date+"']").append(newEvent);
-							$(this).dialog("close");
-						},
-						"Cancel": function(){
-							$(this).dialog("close");
-						}
-					},
-					title: "Edit '"+event_name+"'"
-					});
-				$("#newEvent").dialog("open");
+				
 			}
 		}
 		editEvent = false;
 	});
+	
+
+
 	$("#newEvent").dialog({
 		autoOpen: false,
 		resizable: false,
@@ -304,8 +233,20 @@ function initCalendar(){
         	effect: "fade",
         	duration: 250
       	},
-		modal: true
+		modal: true,
+		buttons: {
+			"OK": function(){
+				$(this).submit();
+			},
+			"Cancel": function(){
+				$(this).dialog("close");
+			}
+		},
+		title: "Event"
 	});
+}
+function openNewEvent(){
+	$("#newEvent").dialog("open");
 }
 function initSignUp(){
 	//$("body").append("<form id='signUpDialog' title='Change Project'><div class='radioWrap'><div id='registerWrap' class='selectedMode'><label for='radioRegister'>Register</label><input type='radio' name='checkAction' id='radioRegister' value='register' checked/></div><div id='loginWrap'><label for='radioLogin'>Login</label><input type='radio' name='checkAction' id='radioLogin' value='login' /></div></div><div class='inputsWrap'><label for='signUpEmail'>E-Mail</label><input id='signUpEmail' type='email' /><label for='signUpPassword'>Password</label><input id='signUpPassword' type='password' /></div><div id='repeatPasswordWrap'><label for='signUpPasswordRepeat'>Repeat Password</label><input id='signUpPasswordRepeat' type='password' /></div></form>");
@@ -353,7 +294,6 @@ function initSignUp(){
 		buttons: {
 			"Continue": function(){
 				$(this).submit();
-				$(this).dialog("close");
 			},
 			"Cancel": function(){
 				$(this).dialog("close");
@@ -386,7 +326,6 @@ function initInviteUser(){
 		buttons: {
 			"Send Invitation": function(){
 				$(this).submit();
-				$(this).dialog("close");
 			},
 			"Cancel": function(){
 				$(this).dialog("close");
@@ -541,6 +480,57 @@ function initAddMilestone(){
 			}
 		}
 	});
+}
+function initFile(){
+
+	$(".fileContainer h5 img").on("click",function(event){
+		var deleteLink = $(this).attr("data-href");
+		$(location).attr('href',deleteLink);
+		event.preventDefault();
+	});
+	$("#newFileButton").on("click",function(){
+		showNewFile();
+	});
+	$("#myFile_file").on("change",function(){
+		$("#fileURL").val($("#myFile_file").val());
+	});
+	$("#cheatButton").on("click",function(){
+		$("#myFile_file").click();
+		return false;
+	});
+	$("#newFile").dialog({
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		position: {
+			my: "center", 
+			at: "center", 
+			of: $("#content")
+		},
+		width: 400,
+		minWidth: 400,
+		show: {
+        	effect: "fade",
+        	duration: 250
+      	},
+      	hide: {
+        	effect: "fade",
+        	duration: 250
+      	},
+		modal: true,
+		title: "New File",
+		buttons: {
+			"Upload File": function(){
+				$(this).submit();
+			},
+			"Cancel": function(){
+				$(this).dialog("close");
+			}
+		}
+	});
+}
+function showNewFile(){
+	$("#newFile").dialog("open");
 }
 function showErrors(){
 	$("ul.error").hide().slideDown(250).delay(3000).slideUp(250);

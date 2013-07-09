@@ -11,8 +11,7 @@ use PRO4\FileBundle\Form\Type\MyFileType;
 
 use InvalidArgumentException;
 
-class FileController extends MyController
-{
+class FileController extends MyController {
     public function indexAction(Request $request, $projectId) {
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
     	

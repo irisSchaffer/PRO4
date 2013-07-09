@@ -10,10 +10,11 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
-class EventType extends QueryBuilderDependentType {
+class EventType extends AbstractType {
+	private $departmentChoice;
 
-	public function __construct(QueryBuilder $queryBuilder) {
-    	parent::__construct($queryBuilder);
+	public function __construct(array $departmentChoice) {
+    	$this->departmentChoice = $departmentChoice;
     }
 
 	public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -24,10 +25,8 @@ class EventType extends QueryBuilderDependentType {
 
 		$builder->add("title", "text", array("label" => "Title"));
 		$builder->add("description", "textarea", array("label" => "Description"));
-		$builder->add('department', 'entity', array(
-			    'class' => 'PRO4ProjectBundle:Department',
-			    'property' => 'name',
-			    'query_builder' => $this->getQueryBuilder(),
+		$builder->add('departmentId', 'choice', array(
+			    'choices' => $this->departmentChoice,
     			'empty_value' => "Select Department",
     			'required' => $required,
     			'label' => "Department",

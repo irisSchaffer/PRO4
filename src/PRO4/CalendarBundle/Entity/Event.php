@@ -81,6 +81,8 @@ class Event
      * })
      */
     private $project;
+    
+    private $departmentId;
 
 
 
@@ -248,5 +250,15 @@ class Event
     public function getProject()
     {
         return $this->project;
+    }
+    
+    public function setDepartmentId($departmentId) {
+    	$this->departmentId = $departmentId;
+    	
+    	return $this;
+    }
+    
+    public function getDepartmentId() {
+    	return $this->departmentId;
     }
 }

@@ -44,7 +44,7 @@
 							<a href="{{ path("department_overview", {"projectId": project.projectId}) }}">Departments</a>
 						</li>
 						<li>
-							<a href="{{ path("users_in_project", {"id": project.projectId}) }}">Members</a>
+							<a href="{{ path("users_in_project", {"id": project.projectId}) }}">Users</a>
 						</li>
 						<li>
 							<a href="{{ path("project") }}">Change project</a>
@@ -63,9 +63,12 @@
 				<li>
 					<a href="{{ path("files", {"projectId": project.projectId}) }}">Files</a>
 				</li>
+				<a id="logout" href="{{ path('logout') }}">Logout</a>
 			</ul>
+
 		</nav>
 		{% endblock %}
+		
 		<div id="content">
 			{% block content %} {% endblock %}
 		</div>
@@ -74,7 +77,6 @@
 			<p>
 				&copy; Copyright by Iris Schaffer &amp; Paul Stangl - <a href="#">Contact</a> - <a href="#">Impressum</a>
 			</p>
-			<a href="{{ path('logout') }}">Logout</a>
 		</footer>
     </div>
 </body>

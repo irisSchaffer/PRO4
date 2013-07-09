@@ -40,11 +40,25 @@ class CalendarController extends MyController
     		$events = $em->getRepository("PRO4CalendarBundle:Event")->findEventsForProject($day, $project, $departments)->getQuery()->getResult();
     		$day->setEvents($events);
     	}
+    	
+		$departmentChoice;
+		$required = false;
+		
+		if($this->hasPermission("EDIT", $project)) {
+			$departmentChoice = $em->getRepository("PRO4ProjectBundle:Department")->findByProject($project);
+		} else {
+			foreach($departments as $department) {
+				$required = true;
+				if($this->hasPermission("EDIT", $department)) {
+					$departmentChoice[$department->getDepartmentId()] = $department->getName();
+				}
+			}
+		}
 
 		$form = $this->createForm(
-    		new EventType($em->getRepository("PRO4ProjectBundle:Department")->findDepartmentsInProject($project)),
+    		new EventType($departmentChoice),
     		$event,
-    		array("attr" => array("required" => false))
+    		array("attr" => array("required" => $required))
 		);
 
 		
@@ -53,6 +67,16 @@ class CalendarController extends MyController
 	        if ($form->isValid()) {
 	        	if($event->isAllDay()) {
 	        		$event->setTime(null);
+	        	}
+	        	
+	        	if($event->getDepartmentId()) {
+	        		$event->setDepartment($this->find("\PRO4\ProjectBundle\Entity\Department", $event->getDepartmentId()));
+	        	}
+	        	
+	        	if($event->getDepartment() !== null) {
+	        		$this->checkPermission("EDIT", $event->getDepartment());
+	        	} else {
+	        		$this->checkPermission("EDIT", $event->getProject());
 	        	}
 	        	
 	        	$em = $this->getDoctrine()->getManager();

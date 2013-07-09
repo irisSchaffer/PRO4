@@ -19,15 +19,20 @@
 			{% endif %}
 				
 			{% for day in month.days %}
-				<td>
+				<td data-day="{{ loop.index }}" data-month="{{ month.month }}" data-year="{{ month.year }}">
 					<h1>{{ loop.index }}</h1>
 					<ul>
 						{% for event in day.events %}
 							<li
+								class="event"
+								{% if event.department is not null %}
+									style="background-color: #{{ event.department.color }}" 
+								{% endif %}
 								title="	{{ event.date.format('Y-m-d') }} {% if event.time %} {{ event.time.format('H:i') }} {% endif %}
 										{% if event.description %}	{{ event.description }}	{% endif %}	
 									"
 							>
+								
 								{{ event.title }}
 								<a href="{{ path('edit_event',
 											{
@@ -38,7 +43,7 @@
 											})
 											}}"
 								>
-									| edit	
+									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/>
 								</a>
 							</li>
 						{% endfor %}

@@ -1,20 +1,16 @@
 {% extends 'PRO4FileBundle:File:index.html.twig' %}
 
 {% block form %}
-	<form method="post" {{ form_enctype(form) }}>
-		<fieldset>
-			<legend>File Form</legend>
-			<ul>
-				<li>{{ form_row(form.name) }}</li>
-				<li>{{ form_row(form.description) }}</li>
-				<li>
-					{{ form_row(form.file) }}
-				</li>
-			</ul>
-			{{ form_widget(form) }}
-		
-			<button type="submit">Save File</button>
-		</fieldset>
+	<form method="post" {{ form_enctype(form) }} id="newFile">
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.file) }}
+		<div>
+			<label for="cheatButton">File</label>
+			<input id="fileURL" type="text" disabled />
+			<button id="cheatButton">Browse...</button>
+		</div>
+		{{ form_widget(form) }}
 	</form>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	{% set isAuthorized = (not department is defined and is_granted("EDIT", project)) or (department is defined and is_granted("EDIT", department)) %}
+{% set isAuthorized = (not department is defined and is_granted("EDIT", project)) or (department is defined and is_granted("EDIT", department)) %}
 	{% if department is defined %}
 			{% set location = department.name %}
     {% else %}
@@ -14,8 +14,23 @@
 	<p></p>
 	
 	<div id="filesWrap">
-    	<div id="filesPath">Showing files for: <span>{{ location }}</span></div>
+    	<div id="filesPath">
+    		Showing files for: <span>{{ location }}</span>
+    	</div>
+    	
+    	{% set addFile %}
+	    	{% if isAuthorized %}
+	    		<a id="newFileButton" href="#" class="fileContainer">
+					<div>
+						<h5>Add new File</h5>
+						<img width="64" height="64" src="{{ asset("img/file_add.png") }}" alt="File">
+					</div>
+				</a>
+	    	{% endif %}
+    	{% endset %}
+		
     	{% if location == "Project" %}
+    		{{ addFile }}
 			{% for department in departments %}
 				<a href="{{ path("files_in_department", {"projectId": project.projectId, "departmentId": department.departmentId}) }}" class="fileContainer">
 					<div>
@@ -31,6 +46,7 @@
 						<img width="64" height="64" src="{{ asset("img/back.png") }}" alt="File">
 				</div>
 			</a>
+			{{ addFile }}
 		{% endif %}
 	
 		{% if files is empty %}
@@ -49,7 +65,7 @@
 									{% set href = path("delete_file_department", {"projectId": project.projectId, "departmentId": department.departmentId, "fileId": file.fileId })  %}
 								{% endif %}
 								
-								<img src="{{ asset("img/microicons/delete_black.png") }}" alt="Delete" data-href="{{ href }}" title="Delete" height="24" width="24">
+								<img src="{{ asset("img/microicons/delete.png") }}" alt="Delete" data-href="{{ href }}" title="Delete" height="24" width="24">
 							{% endif %}
 						</h5>
 						

@@ -7,10 +7,9 @@ use Doctrine\ORM\EntityRepository;
 class EventRepository extends EntityRepository {
 	 public function findEventsForProject($day, \PRO4\ProjectBundle\Entity\Project $project, array $departments) {
         $qb = $this->createQueryBuilder('e')
-				->where('e.project = :project')
+				->andwhere('e.project = :project')
 				->andwhere('e.department is null')
 				->orderBy('e.time', 'ASC')
-				->andwhere('e.date = :date')
     			->setParameters(
     				array(
 						'project' => $project,
@@ -23,6 +22,8 @@ class EventRepository extends EntityRepository {
 	 			->orwhere('e.department IN (:departments)')
 	 			->setParameter('departments', $departments);
 	 	}
+	 	
+	 	$qb = $qb->andwhere('e.date = :date');
 
     	return $qb;
     }
