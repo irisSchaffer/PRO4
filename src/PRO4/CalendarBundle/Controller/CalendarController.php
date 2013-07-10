@@ -22,7 +22,8 @@ class CalendarController extends MyController
     	$today = new DateTime("NOW");
         return $this->addEventAction(
 			$projectId,
-			new Month($today->format('m'), $today->format('Y')),
+			$today->format('m'),
+			$today->format('Y'),
 			$request
     	);
     }
@@ -165,7 +166,7 @@ class CalendarController extends MyController
     			array(
     				"projectId" => $projectId,
 					"monthNo" => $month->getMonth(),
-					"year" => $month->getYear()
+					"year" => $month->getYear(),
     			)
 			)
     	);
@@ -181,7 +182,7 @@ class CalendarController extends MyController
     			array(
     				"projectId" => $projectId,
 					"monthNo" => $month->getMonth(),
-					"year" => $month->getYear()
+					"year" => $month->getYear(),
     			)
 			)
     	);
