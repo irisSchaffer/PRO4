@@ -27,9 +27,7 @@ class UserController extends MyController {
 				$curUser->setPassword($password);
 				$curUser->setSalt($user->getSalt());
 
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($curUser);
-    			$em->flush();
+   				$this->persist($curUser);
     		
     			$this->get('session')->getFlashBag()->add(
 				    "success",

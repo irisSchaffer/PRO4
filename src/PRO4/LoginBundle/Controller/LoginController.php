@@ -73,9 +73,7 @@ class LoginController extends MyController {
 				$password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
 				$user->setPassword($password);
 				
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($user);
-				$em->flush();
+				$this->persist($user);
 				
 				$this->get('session')->getFlashBag()->add(
 				    'success',

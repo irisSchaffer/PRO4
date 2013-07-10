@@ -68,8 +68,7 @@ class ToDoListController extends MyController {
 	        		$this->checkPermission("EDIT", $toDoList->getProject());
 	        	}
 	        	       	
-   				$em->persist($toDoList);
-    			$em->flush();
+   				$this->persist($toDoList);
     			
     			$this->get('session')->getFlashBag()->add(
 				    "success",

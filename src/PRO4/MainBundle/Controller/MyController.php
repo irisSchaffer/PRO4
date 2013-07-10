@@ -13,6 +13,7 @@ use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
 
 class MyController extends Controller {
+	
 	public function getUser() {
 		return $this->get('security.context')->getToken()->getUser();
 	}

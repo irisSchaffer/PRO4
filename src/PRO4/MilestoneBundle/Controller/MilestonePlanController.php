@@ -64,9 +64,7 @@ class MilestonePlanController extends MyController {
 	        $form->bind($request);
 
 	        if ($form->isValid()) {
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($milestonePlan);
-    			$em->flush();
+   				$this->persist($milestonePlan);
 			
     			$this->get('session')->getFlashBag()->add(
 				    'success',

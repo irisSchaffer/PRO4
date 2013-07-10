@@ -39,13 +39,8 @@ class DepartmentController extends MyController {
         		$project->addDepartment($department);
         		$department->addUser($this->getUser());
 	        	
-        		$em = $this->getDoctrine()->getManager();
-				$em->persist($project);
-				$em->flush();
-	        	
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($department);
-    			$em->flush();
+				$this->persist($project);
+   				$this->persist($department);
     			
 				$this->makeOperator($department, $this->getUser());
 				
@@ -83,14 +78,8 @@ class DepartmentController extends MyController {
 
 	        $form->bind($request);
 	        if ($form->isValid()) {
-	        	
-        		$em = $this->getDoctrine()->getManager();
-				$em->persist($project);
-				$em->flush();
-	        	
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($department);
-    			$em->flush();
+				$this->persist($project);
+				$this->persist($department);
     			
     			$this->get('session')->getFlashBag()->add(
 				    "success",
@@ -113,10 +102,8 @@ class DepartmentController extends MyController {
 	    
 	    $this->removePermissions($department, $this->getUser());
 	    
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($department);
-		$em->persist($project);
-		$em->flush();
+        $this->remove($department);
+		$this->persist($project);
     	
     	$this->get('session')->getFlashBag()->add(
 				    'success',
@@ -197,9 +184,7 @@ class DepartmentController extends MyController {
     	$department->removeUser($user);
     	$this->removePermissions($department, $user);
 	            
-        $em = $this->getDoctrine()->getManager();
-		$em->persist($project);
-		$em->flush();
+		$this->persist($project);
     	
     	$this->get('session')->getFlashBag()->add(
 				    'success',

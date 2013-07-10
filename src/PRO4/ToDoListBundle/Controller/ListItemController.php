@@ -41,9 +41,7 @@ class ListItemController extends MyController {
     	if ($request->isMethod("POST")) {
 	        $form->bind($request);
 	        if ($form->isValid()) {
-	        	$em = $this->getDoctrine()->getManager();
-	        	$em->persist($item);
-    			$em->flush();
+	        	$this->persist($item);
     			
     			$this->get('session')->getFlashBag()->add(
 				    "success",
@@ -87,9 +85,7 @@ class ListItemController extends MyController {
     	}
     	
     	$item->$function();
-    	$em = $this->getDoctrine()->getManager();
-		$em->persist($item);
-		$em->flush();
+		$this->persist($item);
 		
 		$this->get('session')->getFlashBag()->add(
 				    "success",

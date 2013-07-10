@@ -56,9 +56,7 @@ class UsersInProjectController extends MyController {
 					$password = $encoder->encodePassword("test1234", $user->getSalt());
     				$user->setPassword($password);
     				
-	        		$em = $this->getDoctrine()->getManager();
-   					$em->persist($user);
-    				$em->flush();
+   					$this->persist($user);
     				
     				$user = $this->getDoctrine()->getRepository('PRO4UserBundle:User')->findOneByEMail($data["eMail"]);
 	        	}
@@ -66,9 +64,7 @@ class UsersInProjectController extends MyController {
 	        	$project->addUser($user);
 	            $this->addPermission($project, MaskBuilder::MASK_VIEW, $user);
 	            
-	            $em = $this->getDoctrine()->getManager();
-   				$em->persist($project);
-    			$em->flush();
+   				$this->persist($project);
     			
     			$this->get('session')->getFlashBag()->add(
 				    'success',
@@ -98,9 +94,7 @@ class UsersInProjectController extends MyController {
     	$project->removeUser($user);
     	$this->removePermissions($project, $user);
 	            
-        $em = $this->getDoctrine()->getManager();
-		$em->persist($project);
-		$em->flush();
+		$this->persist($project);
     	
     	$this->get('session')->getFlashBag()->add(
 				    'success',

@@ -66,9 +66,7 @@ class FileController extends MyController {
     		$this->checkPermission("EDIT", $project);
     	}
     	
-    	$em = $this->getDoctrine()->getManager();
-    	$em->remove($file);
-    	$em->flush();
+    	$this->remove($file);
     	
     	if($department !== null) {
     		$redirect = $this->generateUrl("files_in_department", array("projectId" => $projectId, "departmentId" => $departmentId));
@@ -92,9 +90,7 @@ class FileController extends MyController {
     	if($request->isMethod("POST")) {
     		$form->bind($request);
     		if ($form->isValid()) {
-			    $em = $this->getDoctrine()->getManager();
-			    $em->persist($file);
-			    $em->flush();
+			    $this->persist($file);
 			}
 			
 			$this->get('session')->getFlashBag()->add(

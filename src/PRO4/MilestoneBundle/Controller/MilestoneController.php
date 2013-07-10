@@ -33,9 +33,7 @@ class MilestoneController extends MyController {
 	        $form->bind($request);
 
 	        if ($form->isValid()) {
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($milestone);
-    			$em->flush();
+   				$this->persist($milestone);
 			
     			$this->get('session')->getFlashBag()->add(
 				    'success',
@@ -62,9 +60,7 @@ class MilestoneController extends MyController {
 	        $form->bind($request);
 
 	        if ($form->isValid()) {
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($milestone);
-    			$em->flush();
+   				$this->persist($milestone);
 			
     			$this->get('session')->getFlashBag()->add(
 				    'success',

@@ -44,9 +44,7 @@ class ProjectController extends MyController {
 	        $form->bind($request);
 	        if ($form->isValid()) {
 	        	$project->addUser($this->getUser());
-	        	$em = $this->getDoctrine()->getManager();
-   				$em->persist($project);
-    			$em->flush();
+   				$this->persist($project);
     			
     			$this->addPermission($project, MaskBuilder::MASK_OWNER, $this->getUser());
     			
@@ -86,9 +84,7 @@ class ProjectController extends MyController {
    		if ($request->isMethod('POST')) {
 	        $form->bind($request);
 	   		if ($form->isValid()) {
-	        	$em = $this->getDoctrine()->getManager();
-				$em->persist($project);
-				$em->flush();
+				$this->persist($project);
 				
 				$this->get('session')->getFlashBag()->add(
 				    'success',
