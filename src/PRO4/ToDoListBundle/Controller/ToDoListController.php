@@ -31,18 +31,12 @@ class ToDoListController extends MyController {
     	$toDoLists = $em->getRepository("PRO4ToDoListBundle:ToDoList")->findToDoListsForProject($project, $departments)->getQuery()->getResult();
     	
     	$departmentChoice = array();
-		$required = false;
+    	
+		$required = !$this->hasPermission("EDIT", $project);
 		
-		if($this->hasPermission("EDIT", $project)) {
-			foreach($project->getDepartments() as $department) {
+		foreach($project->getDepartments() as $department) {
+			if($this->hasPermission("EDIT", $department)) {
 				$departmentChoice[$department->getDepartmentId()] = $department->getName();
-			}
-		} else {
-			foreach($project->getDepartments() as $department) {
-				$required = true;
-				if($this->hasPermission("EDIT", $department)) {
-					$departmentChoice[$department->getDepartmentId()] = $department->getName();
-				}
 			}
 		}
     	
@@ -65,12 +59,11 @@ class ToDoListController extends MyController {
 	        $form->bind($request);
 	        if ($form->isValid()) {	 
 	        	
-	        	if($toDoList->getDepartmentId()) {
-	        		$toDoList->setDepartment($this->find("\PRO4\ProjectBundle\Entity\Department", $event->getDepartmentId()));
-	        	}
+	        	// set department according to departmentId 
+	        	$toDoList->setDepartment(($toDoList->getDepartmentId() ? $this->find("\PRO4\ProjectBundle\Entity\Department", $toDoList->getDepartmentId()) : null));
 	        	
-	        	if($toDoList->getDepartment() !== null) {
-	        		$this->checkPermission("EDIT", $toDoList->getDepartment());
+	        	if($department = $toDoList->getDepartment() !== null) {
+	        		$this->checkPermission("EDIT", $department);
 	        	} else {
 	        		$this->checkPermission("EDIT", $toDoList->getProject());
 	        	}

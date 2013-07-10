@@ -43,7 +43,19 @@
 											})
 											}}"
 								>
-									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/>
+									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Event Icon" title="Edit Event"  height="24" width="24"/>
+								</a>
+								
+								<a href="{{ path('delete_event',
+											{
+												"eventId": event.eventId,
+												"projectId": project.projectId,
+												"monthNo": month.month,
+												"year": month.year
+											})
+											}}"
+								>
+									<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Event Icon" title="Delete Event"  height="24" width="24"/>
 								</a>
 							</li>
 						{% endfor %}

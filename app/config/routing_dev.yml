@@ -128,10 +128,12 @@ show_calendar:
     defaults: { _controller: PRO4CalendarBundle:Calendar:addEvent }
 
 edit_event:
-    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/event/{eventId}/edit
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/events/{eventId}/edit
     defaults: { _controller: PRO4CalendarBundle:Calendar:editEvent }
     
-
+delete_event:
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/events/{eventId}/delete
+    defaults: { _controller: PRO4CalendarBundle:Calendar:deleteEvent }
 
 milestone_plan:
     pattern: /app/project/{id}/milestone_plan/

@@ -30,7 +30,7 @@ class CalendarController extends MyController
     
     private function showCalendar($event, $projectId, $monthNo, $year, Request $request) {
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
-    	$departments = $project->getDepartments()->toArray();
+    	$departments = $this->getUser()->getDepartments()->toArray();
     	
     	$em = $this->getDoctrine()->getManager();
     	
@@ -42,18 +42,12 @@ class CalendarController extends MyController
     	}
     	
 		$departmentChoice = array();
-		$required = false;
 		
-		if($this->hasPermission("EDIT", $project)) {
-			foreach($project->getDepartments() as $department) {
+		$required = !$this->hasPermission("EDIT", $project);
+		
+		foreach($project->getDepartments() as $department) {
+			if($this->hasPermission("EDIT", $department)) {
 				$departmentChoice[$department->getDepartmentId()] = $department->getName();
-			}
-		} else {
-			foreach($departments as $department) {
-				$required = true;
-				if($this->hasPermission("EDIT", $department)) {
-					$departmentChoice[$department->getDepartmentId()] = $department->getName();
-				}
 			}
 		}
 
@@ -71,9 +65,8 @@ class CalendarController extends MyController
 	        		$event->setTime(null);
 	        	}
 	        	
-	        	if($event->getDepartmentId()) {
-	        		$event->setDepartment($this->find("\PRO4\ProjectBundle\Entity\Department", $event->getDepartmentId()));
-	        	}
+	        	$event->setDepartment(($event->getDepartmentId() ? $this->find("\PRO4\ProjectBundle\Entity\Department", $event->getDepartmentId()) : null));
+
 	        	
 	        	if($event->getDepartment() !== null) {
 	        		$this->checkPermission("EDIT", $event->getDepartment());
@@ -81,9 +74,7 @@ class CalendarController extends MyController
 	        		$this->checkPermission("EDIT", $event->getProject());
 	        	}
 	        	
-	        	$em = $this->getDoctrine()->getManager();
-	        	$em->persist($event);
-    			$em->flush();
+	        	$this->persist($event);
     			
     			$this->get('session')->getFlashBag()->add(
 				    "success",
@@ -144,12 +135,19 @@ class CalendarController extends MyController
     		$this->checkPermission("EDIT", $event->getProject());
     	}
     	
+    	$this->remove($event);
+    	
+    	$this->get('session')->getFlashBag()->add(
+				    "success",
+				    "You successfully removed an event."
+				);
+    	
     	return $this->redirect(
     		$this->generateUrl(
     			"show_calendar",
     			array(
     				"projectId" => $projectId,
-					"monthNo" => $montNo,
+					"monthNo" => $monthNo,
 					"year" => $year
     			)
 			)

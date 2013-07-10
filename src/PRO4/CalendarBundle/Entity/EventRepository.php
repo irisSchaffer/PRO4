@@ -9,7 +9,6 @@ class EventRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('e')
 				->andwhere('e.project = :project')
 				->andwhere('e.department is null')
-				->orderBy('e.time', 'ASC')
     			->setParameters(
     				array(
 						'project' => $project,
@@ -23,7 +22,8 @@ class EventRepository extends EntityRepository {
 	 			->setParameter('departments', $departments);
 	 	}
 	 	
-	 	$qb = $qb->andwhere('e.date = :date');
+	 	$qb->andwhere('e.date = :date');
+	 	$qb->orderBy('e.time', 'ASC');
 
     	return $qb;
     }

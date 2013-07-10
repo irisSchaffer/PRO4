@@ -144,4 +144,16 @@ class MyController extends Controller {
     public function isUserOperator($object, $user) {
     	return $this->hasUserPermission($object, MaskBuilder::MASK_OPERATOR, $user);
     }
+    
+    public function persist($object) {
+    	$em = $this->getDoctrine()->getManager();
+    	$em->persist($object);
+		$em->flush();
+    }
+    
+    public function remove($object) {
+    	$em = $this->getDoctrine()->getManager();
+    	$em->remove($object);
+		$em->flush();
+    }
 }
