@@ -522,12 +522,12 @@ ul.error , .success{
 	user-select: none;
 	cursor: help;
 	margin-left:0.1em;
-	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05));
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.05)',GradientType=0 );
+	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.2));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(0,0,0,0)', endColorstr='rgba(0,0,0,0.2)',GradientType=0 );
 }
 
 #inviteNewUser {
@@ -926,6 +926,7 @@ ul.projectlist > li.project:hover{
 .todoContainer > ul > input{
 	width: 100%;
 	border: none;
+	display:block;
 	box-shadow: inset 0px 0px 3px rgba(0,0,0,0.2);
 	padding: 0.2em 0.3em;
 }
@@ -971,7 +972,13 @@ ul.projectlist > li.project:hover{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
 	cursor: pointer;
 }
-
+.todoContainer h1 .groupIdentifier{
+	position: absolute;
+	left: 0;
+	margin-left: 0.4em;
+	border-radius: 3px;
+	box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.1);
+}
 #addTodoList {
 	display: none;
 	font-size: 0.9em;
@@ -1016,6 +1023,10 @@ ul.projectlist > li.project:hover{
 	padding: 0.1em 0.2em;
 	z-index: 9;
 }
+.calendar td h1{
+	color: #555555;
+	font-size: 1.3em;
+}
 .calendar caption{
 	font-size: 1.2em;
 	font-weight: bold;
@@ -1032,10 +1043,20 @@ ul.projectlist > li.project:hover{
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 }
-.calendar th.header{
-	font-size: 0.8em;
+.calendar caption a{
+	color: #F6F6F6;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+#prevMonth {
+	margin-right: 1em;
+}
+#nextMonth {
+	margin-left: 1em;
+}
+.calendar th{
 	padding-bottom: 0.3em;
-	padding-top: 0.4em;
+	padding-top: 0.6em;
 	background-color: #F9F9F9;
 }
 .evenRow {

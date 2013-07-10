@@ -84,8 +84,8 @@ class CalendarController extends MyController
 	        		"show_calendar",
 	        		array(
 	        			"projectId" => $projectId,
-	        			"monthNo" => $monthNo,
-	        			"year" => $year
+	        			"monthNo" => $month->getMonth(),
+	        			"year" => $month->getYear()
 	        		)
         		)
 	        );

@@ -55,12 +55,25 @@ $(document).ready(function(){
 });
 
 function initTodoList(){
+	
 	$(".todoContainer input").slideUp(0);
-	$(".todoContainer").on("mouseenter",function(){
-		$(this).children("form").children("p").children("input").slideDown(200);
-	});
-	$(".todoContainer").on("mouseleave",function(){
-		$(this).children("form").children("p").children("input").slideUp(200);
+	$(".todoContainer").each(function(){
+		var focus = false;
+		$(this).on("mouseenter",function(){
+			$(this).children("form").children("p").children("input").slideDown(200);
+		});
+		$(this).on("mouseleave",function(){
+			if (!focus){
+				$(this).children("form").children("p").children("input").slideUp(200);
+			}
+		});
+		$(this).children("form").children("p").children("input").focusin(function(){
+			focus = true;
+		});
+		$(this).children("form").children("p").children("input").focusout(function(){
+			focus = false;
+			$(this).parent().parent().trigger("mouseleave");
+		});
 	});
 	$("#addTodoList").dialog({
 					title: "To-Do List",	
@@ -84,21 +97,7 @@ function initTodoList(){
 					},
 					modal: true,
 					buttons: {
-						"OK": function(){/*
-							event_name = $("#newEvent_name").val();
-							event_start_date = $("#newEvent_start_date").val();
-							event_description = $("#newEvent_description").val();
-							var newEvent = jQuery("<div/>",{
-								"text": event_name,
-								"title": event_description,
-								"class": "event"
-							});
-							newEvent.on("click",function(){
-								editEvent = true;
-								changingEvent = $(this);
-								event_name = $(this).text();
-							});
-							$(".calendar td[title='"+event_start_date+"']").append(newEvent);*/
+						"OK": function(){
 							$("#addTodoList").on("dialogclose", function( event, ui ) {
 							} );
 							$(this).submit();
@@ -190,6 +189,12 @@ function initCalendar(){
 	$(".event").on("click",function(){
 		editEvent = true;
 	});
+	var localTime = new Date();
+	var localYear = localTime.getFullYear();
+	var localMonth = localTime.getMonth()+1;
+	var localDay = localTime.getDate();
+	//alert("Day: "+localDay+" Month: "+localMonth+" Year: "+localYear);
+	$(".calendar td[data-year="+localYear+"][data-month="+localMonth+"][data-day="+localDay+"]").addClass("today");
 	$(".calendar td").click(function(){
 		var length = $.trim($(this).attr("data-day")).length;
 		if (length > 0){
@@ -246,6 +251,20 @@ function initCalendar(){
 		},
 		title: "Event"
 	});
+	var url = $(location).attr('href');
+	if (url.indexOf("/events/") != -1){
+		var pieces = url.split("/events/");
+		if (!(typeof pieces === "undefined") && pieces != null){
+			pieces = pieces[1].split("/");	
+			if(pieces[1] == "edit"){
+				$("#newEvent").on("dialogclose", function( event, ui ) {
+					history.back(1);
+				});
+				$("#newEvent").dialog("open");
+
+			}
+		}
+	}
 }
 function openNewEvent(){
 	$("#newEvent").dialog("open");

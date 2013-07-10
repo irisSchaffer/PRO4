@@ -11,7 +11,16 @@
 		{% for toDoList in toDoLists %}
 			{% if not toDoList.completed %}
 				<div class="todoContainer">
-					<h1>{{ toDoList.name }} <a href="{{ path("edit_to_do_list", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}"><img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/></a></h1> 
+					<h1>
+						{% if toDoList.department.color is defined %}
+							<div class="groupIdentifier" style="background-color: #{{ toDoList.department.color }}" title="{{ toDoList.department.name }}">
+								&nbsp;
+							</div>
+							
+						{% endif %}
+						{{ toDoList.name }}
+						<a href="{{ path("edit_to_do_list", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId }) }}"><img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/></a>
+					</h1> 
 					
 					<ul>
 						{% for listItem in toDoList.listItems %}

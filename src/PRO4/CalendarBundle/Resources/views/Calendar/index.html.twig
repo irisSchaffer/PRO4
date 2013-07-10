@@ -1,15 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-	<h1>Calendar</h1>
-	
 	{% block form %}{% endblock %}
 
-	<h3>{{ month.monthName }} {{ month.year }}</h3>
 	<table class="calendar">
+		<caption><a id="prevMonth" title="Previous Month" href="{{ path("last_month", {"projectId": project.projectId, "monthNo": month.month, "year": month.year} ) }}">&laquo;</a>{{ month.monthName }} {{ month.year }}<a id="nextMonth" title="Next Month" href="{{ path("next_month", {"projectId": project.projectId, "monthNo": month.month, "year": month.year} ) }}">&raquo;</a></caption>
+
 		<tr>
 			{% for weekday in weekdays %}
-				<td>{{ weekday }}</td>
+				<th>{{ weekday }}</th>
 			{% endfor %}
 			</tr>
 		
@@ -34,18 +33,6 @@
 							>
 								
 								{{ event.title }}
-								<a href="{{ path('edit_event',
-											{
-												"eventId": event.eventId,
-												"projectId": project.projectId,
-												"monthNo": month.month,
-												"year": month.year
-											})
-											}}"
-								>
-									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Event Icon" title="Edit Event"  height="24" width="24"/>
-								</a>
-								
 								<a href="{{ path('delete_event',
 											{
 												"eventId": event.eventId,
@@ -56,6 +43,17 @@
 											}}"
 								>
 									<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Event Icon" title="Delete Event"  height="24" width="24"/>
+								</a>
+								<a href="{{ path('edit_event',
+											{
+												"eventId": event.eventId,
+												"projectId": project.projectId,
+												"monthNo": month.month,
+												"year": month.year
+											})
+											}}"
+								>
+									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Event Icon" title="Edit Event"  height="24" width="24"/>
 								</a>
 							</li>
 						{% endfor %}
