@@ -27,14 +27,30 @@ class ToDoListController extends MyController {
     	    	
     	$em = $this->getDoctrine()->getManager();
     	
-    	$form = $this->createForm(
-    		new ToDoListType($action, $em->getRepository('PRO4ProjectBundle:Department')->findDepartmentsInProject($project)),
-    		$toDoList,
-    		array("attr" => array("required" => false))
-		);
-    	
     	$departments = $this->getUser()->getDepartments()->toArray();    		
     	$toDoLists = $em->getRepository("PRO4ToDoListBundle:ToDoList")->findToDoListsForProject($project, $departments)->getQuery()->getResult();
+    	
+    	$departmentChoice = array();
+		$required = false;
+		
+		if($this->hasPermission("EDIT", $project)) {
+			foreach($project->getDepartments() as $department) {
+				$departmentChoice[$department->getDepartmentId()] = $department->getName();
+			}
+		} else {
+			foreach($project->getDepartments() as $department) {
+				$required = true;
+				if($this->hasPermission("EDIT", $department)) {
+					$departmentChoice[$department->getDepartmentId()] = $department->getName();
+				}
+			}
+		}
+    	
+    	$form = $this->createForm(
+    		new ToDoListType($action, $departmentChoice),
+    		$toDoList,
+    		array("attr" => array("required" => $required))
+		);
     	
     	$forms = array();
     	
@@ -47,8 +63,18 @@ class ToDoListController extends MyController {
 
     	if ($request->isMethod("POST")) {
 	        $form->bind($request);
-	        if ($form->isValid()) {	        	
-	        	$em = $this->getDoctrine()->getManager();
+	        if ($form->isValid()) {	 
+	        	
+	        	if($toDoList->getDepartmentId()) {
+	        		$toDoList->setDepartment($this->find("\PRO4\ProjectBundle\Entity\Department", $event->getDepartmentId()));
+	        	}
+	        	
+	        	if($toDoList->getDepartment() !== null) {
+	        		$this->checkPermission("EDIT", $toDoList->getDepartment());
+	        	} else {
+	        		$this->checkPermission("EDIT", $toDoList->getProject());
+	        	}
+	        	       	
    				$em->persist($toDoList);
     			$em->flush();
     			
@@ -81,6 +107,9 @@ class ToDoListController extends MyController {
     
     public function editToDoListAction($projectId, $toDoListId, Request $request) {
     	$toDoList = $this->find("PRO4\ToDoListBundle\Entity\ToDoList", $toDoListId);
+    	if($toDoList->getDepartment() !== null) {
+    		$toDoList->setDepartmentId($toDoList->getDepartment()->getDepartmentId());
+    	}
     	
     	return $this->showToDoLists(ToDoListType::EDIT, $toDoList, $projectId, $request);
     }

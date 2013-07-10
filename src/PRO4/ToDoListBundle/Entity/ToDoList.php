@@ -62,6 +62,8 @@ class ToDoList
      * @ORM\OrderBy({"completed" = "ASC", "name" = "ASC"})
      **/
      private $listItems;
+     
+     private $departmentId;
     
 
 	public function __construct() {
@@ -210,5 +212,15 @@ class ToDoList
     public function getListItems()
     {
         return $this->listItems;
+    }
+    
+    public function setDepartmentId($departmentId) {
+    	$this->departmentId = $departmentId;
+    	
+    	return $this;
+    }
+    
+    public function getDepartmentId() {
+    	return $this->departmentId;
     }
 }

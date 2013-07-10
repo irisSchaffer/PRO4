@@ -1,22 +1,14 @@
 <?php
 namespace PRO4\CalendarBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use PRO4\ProjectBundle\Entity\DepartmentRepository;
-use PRO4\MainBundle\Form\Type\QueryBuilderDependentType;
+use PRO4\MainBundle\Form\Type\DepartmentChoiceType;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
-class EventType extends AbstractType {
-	private $departmentChoice;
-
-	public function __construct(array $departmentChoice) {
-    	$this->departmentChoice = $departmentChoice;
-    }
-
+class EventType extends DepartmentChoiceType {
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$required = false;
 		if(isset($options["attr"]["required"])) {
@@ -26,7 +18,7 @@ class EventType extends AbstractType {
 		$builder->add("title", "text", array("label" => "Title"));
 		$builder->add("description", "textarea", array("label" => "Description"));
 		$builder->add('departmentId', 'choice', array(
-			    'choices' => $this->departmentChoice,
+			    'choices' => $this->getDepartmentChoice(),
     			'empty_value' => "Select Department",
     			'required' => $required,
     			'label' => "Department",

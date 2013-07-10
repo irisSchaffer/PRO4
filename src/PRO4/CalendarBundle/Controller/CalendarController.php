@@ -41,11 +41,13 @@ class CalendarController extends MyController
     		$day->setEvents($events);
     	}
     	
-		$departmentChoice;
+		$departmentChoice = array();
 		$required = false;
 		
 		if($this->hasPermission("EDIT", $project)) {
-			$departmentChoice = $em->getRepository("PRO4ProjectBundle:Department")->findByProject($project);
+			foreach($project->getDepartments() as $department) {
+				$departmentChoice[$department->getDepartmentId()] = $department->getName();
+			}
 		} else {
 			foreach($departments as $department) {
 				$required = true;
@@ -125,6 +127,11 @@ class CalendarController extends MyController
     	if($event->getTime() === null) {
     		$event->setAllDay(true);
     	}
+    	
+    	if($event->getDepartment() !== null) {
+    		$event->setDepartmentId($event->getDepartment()->getDepartmentId());
+    	}
+    	
     	return $this->showCalendar($event, $projectId, $monthNo, $year, $request);
     }
     

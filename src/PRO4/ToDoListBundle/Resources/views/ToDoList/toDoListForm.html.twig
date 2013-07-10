@@ -3,7 +3,7 @@
 {% block form %}
 	<form method="post" id="addTodoList">
 			{{ form_row(form.name) }}
-			{{ form_row(form.department) }}
+			{{ form_row(form.departmentId) }}
 			
 			{% if form.completed is defined %}
 				{{ form_row(form.completed) }}
