@@ -5,59 +5,62 @@
 	<div id="users">
 	
 	{% if is_granted("EDIT", department) %}
-		<form method="post">
-			<fieldset>
-				<legend>Add new User to Department</legend>
-				<ul>
-					<li>{{ form_row(form.user) }}</li>
-				</ul>
+		<form method="post" id="addUserToDepartment">
+				{{ form_row(form.user) }}
+
 				{{ form_widget(form) }}
-			
-				<button type="submit">Add User</button>
-			</fieldset>
 		</form>
 	{% endif %}
-	
-	<h3>Users</h3>
 	
 	{% if users is empty %}
 		No Users added to this department yet. Please add users or ask your administrator to do so.
 	{% endif %}
-	
+	<div id="members">
+		<div id="memberlist">
 	{% for user in users %}
 		<div>
+		<span>
 			{{ user.eMail }}
 			
 			{% if user.isOwner %}
-				| Project Owner
+				<img src="{{ asset('img/microicons/owner.png') }}" alt="Owner" title="Owner" height="24" width="24"/>
 			{% elseif user.isOperator %}
-				| Department Operator
+				<img src="{{ asset('img/microicons/admin.png') }}" alt="Department Operator" title="Department Operator" height="24" width="24"/>
 			{% elseif user.isAdmin %}
-				| Admin
+				<img src="{{ asset('img/microicons/admin.png') }}" alt="Admin" title="Admin" height="24" width="24"/>
 			{% endif %} 
-			
+			</span>
 			{% if is_granted("EDIT", department) %}
 	        	{% if not user.isOperator %}
 	        		{% if is_granted("OPERATOR", department) or not user.isAdmin %}
-	        			| <a href="{{ path("remove_user_from_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}">Remove</a>        			
+						<a href="{{ path("remove_user_from_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/delete_black.png') }}" alt="Remove" title="Remove" height="24" width="24"/></a>        			
 		        	{% endif %}
 		        	
 		        	{% if is_granted("OPERATOR", department) %}
 
 			        	{% if not user.isAdmin %}
-			        		| <a href="{{ path("grant_admin_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}">Grant Admin</a>
+							<a href="{{ path("grant_admin_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/grant_black.png') }}" alt="Grant Admin" title="Grant Admin" height="24" width="24"/></a>
 			        	{% endif %}  
 			        			
 			        	{% if user.isAdmin %}
-			        		| <a href="{{ path("revoke_admin_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}">Revoke Admin</a>
+							<a href="{{ path("revoke_admin_in_department", {"projectId" : project.projectId, "departmentId" : department.departmentId, "userId" : user.userId }) }}"><img src="{{ asset('img/microicons/revoke_black.png') }}" alt="Revoke Admin" title="Revoke Admin" height="24" width="24"/></a>
 			        	{% endif %}
 			        	
 			        {% endif %}
 	        	{% endif %}
 			{% endif %}
 			
-		<div>
+		</div>
 	{% endfor %}
+	</div>
+			<div id="editmembers">
+			{% if is_granted("EDIT", project) %}
+					<button id="addUserToDepartmentButton" onclick="openUserToDepartment()">Add User</button>
+					{% block form %}{% endblock %}
+			{% endif %}
+		</div>
+	</div>
+
 	</div>
 		
 {% endblock %}

@@ -6,9 +6,7 @@
 		<a onclick="openAddTodoList()" href="#" id="addNewTodoButton">Add new To-Do List</a>
 	</div>
 	<div id="todoWrap">
-		{% if toDoLists is empty %}
-			No to-do lists were added so far. Please ask the project or department admins to do so.
-		{% endif %}
+		
 	
 		{% for toDoList in toDoLists %}
 			{% if not toDoList.completed %}
@@ -50,5 +48,7 @@
 			{% endif %}
 		{% endfor %}
 	</div>
-		
+		{% if toDoLists is empty %}
+			<p class="emptyInfo">No to-do lists were added so far. Please ask the project or department admins to do so.</p>
+		{% endif %}
 {% endblock %}

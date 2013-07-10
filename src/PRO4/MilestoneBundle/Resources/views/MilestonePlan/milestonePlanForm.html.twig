@@ -5,16 +5,13 @@
 	<p>
 		The following data is necessary for adding your project's milestones
 	</p>
-	<form method="post">
-		<fieldset>
-			<legend>Project Dates</legend>
-			<ul>
-				<li>{{ form_row(form.start_date) }}</li>
-				<li>{{ form_row(form.end_date) }}</li>
-			</ul>
-		</fieldset>
+	<form method="post" id="milestonePlanForm">
+			{{ form_row(form.start_date) }}
+			{{ form_row(form.end_date) }}
 		{{ form_widget(form) }}
-		<button type="submit">Save Project</button>
+		<div id="milestonePlanButtonHolder">
+			<button type="submit" id="milestonePlanButton">Save Project</button>
+		</div>
 	</form>
 		
 {% endblock %}

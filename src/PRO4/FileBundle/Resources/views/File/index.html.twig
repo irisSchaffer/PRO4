@@ -11,13 +11,13 @@
 	{% if isAuthorized %}
 			{% block form %}{% endblock %}
 	{% endif %}
-	<p></p>
-	
+	<div id="filesPathWrap">
+		<div id="filesPath">
+			Showing files for: <span>{{ location }}</span>
+		</div>
+	</div>
 	<div id="filesWrap">
-    	<div id="filesPath">
-    		Showing files for: <span>{{ location }}</span>
-    	</div>
-    	
+
     	{% set addFile %}
 	    	{% if isAuthorized %}
 	    		<a id="newFileButton" href="#" class="fileContainer">
@@ -50,7 +50,7 @@
 		{% endif %}
 	
 		{% if files is empty %}
-	    	No files where added yet! Add files or ask your administrator to do so.
+	    	<p class="emptyInfo">No files where added yet! Add files or ask your administrator to do so.</p>
 	    {% else %}
 	    	{% for file in files %}
 				<a href="{{ asset(file.webPath) }}" class="fileContainer">

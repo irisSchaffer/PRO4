@@ -33,6 +33,7 @@
 		</header>-->
 		{% block nav %}
 		<nav id="mainMenu">
+			{% if project.name is defined %}
 			<ul>
 				<li class="hasSub" id="projectName">
 					<a href="#">{{ project.name }}<span class="arrow">&#9660;</span></a>
@@ -65,7 +66,7 @@
 				</li>
 				<a id="logout" href="{{ path('logout') }}">Logout</a>
 			</ul>
-
+			{% endif %}
 		</nav>
 		{% endblock %}
 		
@@ -75,9 +76,16 @@
 		<footer>
 			{% block footer %} {% endblock %}
 			<p>
-				&copy; Copyright by Iris Schaffer &amp; Paul Stangl - <a href="#">Contact</a> - <a href="#">Impressum</a>
+				&copy; Copyright by Iris Schaffer &amp; Paul Stangl - <a href="#" onclick="openAbout()">About</a>
 			</p>
 		</footer>
+		<div id="about">
+			<p>This is a students project for the 4th semester of media technology and design at University of applied science Hagenberg, created by:</p>
+			<ul>
+				<li>Iris Schaffer</li>
+				<li>Paul Stangl</li>
+			</ul>
+		</div>
     </div>
 </body>
 </html>

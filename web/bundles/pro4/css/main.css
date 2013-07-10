@@ -13,6 +13,40 @@ textarea {
 	font-family: Helvetica, Arial, sans-serif;
 	resize: none;
 }
+h1 {
+	color: #9ed264;
+}
+.emptyInfo{
+	text-align: center;
+}
+
+#welcomeCenter{
+	text-align: center;
+}
+#welcomeMessage{
+	color: #9ed264;
+	margin-bottom: 0.3em;
+}
+#addProjectButton{
+	text-decoration: none;
+	margin-top: 1.1em;
+	font-size: 1em;
+	font-weight: bold;
+	color: #F6F6F6;
+	border: 0;
+	padding: 0.5em 1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	border-radius: 3px;
+	transition:  color 0.5s, box-shadow 0.5s;
+	cursor: pointer;
+}
 
 #mainMenu ul,
 #mainMenu li,
@@ -123,6 +157,7 @@ textarea {
 	margin-left: 0.4em;
 }
 #mainMenu #logout{
+	margin-right: 1em;
 	display:block;
 	height: 100%;
 	padding: 0.5em 0;
@@ -160,6 +195,19 @@ footer a{
 }
 footer a:hover{
 	color: #82C936;
+}
+#about{
+	display: none;
+}
+#about ul{
+	margin-top: 0.3em;
+	list-style-type: none;
+}
+#about ul li{
+	margin-left: 0.3em;
+	margin-top: 0.3em;
+	color: #67B21B;
+	font-weight: bold;
 }
 
 /* ----- Change Project Dialog ----- */
@@ -636,6 +684,17 @@ ul.error , .success{
 	float: right;
 	resize: none;
 }
+#addUserToDepartment{
+	display: none;
+}
+#addUserToDepartment label{
+	width: 20%;
+}
+#addUserToDepartment select{
+	float: right;
+	width: 70%;
+}
+
 .one {
 	background-color: #41a64e;
 }
@@ -689,6 +748,29 @@ ul.projectlist > li.project p{
 ul.projectlist > li.project:hover{
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.25);
 }
+#createNewProjectButtonWrap{
+	margin-top: 1em;
+	text-align: center;
+}
+#createNewProjectButton{
+	text-decoration: none;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #F6F6F6;
+	border: 0;
+	padding: 0.5em 1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	border-radius: 3px;
+	transition:  color 0.5s, box-shadow 0.5s;
+	cursor: pointer;
+}
 
 /* ----- Settings ----- */
 
@@ -696,6 +778,9 @@ ul.projectlist > li.project:hover{
 	list-style-type: none;
 	display: inline-block;
 	width: 70%;
+}
+#projectInfos > li{
+	margin-top:0.3em;
 }
 #projectInfos > li > div > label{
 	width: 30%;
@@ -706,12 +791,15 @@ ul.projectlist > li.project:hover{
 #projectInfos > li > div > textarea
 {
 	font-size: 1em;
-	font-weight: bold;
-	background: none;
-	border: none;
-	color: #9ed264;
 	width: 65%;
 	display: inline-block;
+}
+#projectInfos > li > div > input:disabled,
+#projectInfos > li > div > textarea:disabled{
+	color: #9ed264;
+	background: none;
+	border: none;
+	font-weight: bold;
 }
 
 #projectInfoButton{
@@ -892,7 +980,9 @@ ul.projectlist > li.project:hover{
 	clear:both;
 	font-weight: bold;
 }
-#addTodoList label, input, select{
+#addTodoList label,
+#addTodoList input,
+#addTodoList select{
 	margin-top: 0.3em;
 	height: 1.6em;
 	position: relative;
@@ -903,7 +993,8 @@ ul.projectlist > li.project:hover{
 	float: left;
 	border: 1px solid rgba(0,0,0,0);
 }
-#addTodoList input, select{
+#addTodoList input,
+#addTodoList select{
 	width: 230px;
 	float: right;
 	resize: none;
@@ -1043,6 +1134,57 @@ ul.projectlist > li.project:hover{
 }*/
 
 /* ----- Milestones ----- */
+#milestonePlanForm {
+	width: 75%;
+	margin: 1em auto 0;
+	background-color: #FFFFFF;
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+	border: 0;
+	padding: 1em;
+}
+#milestonePlanForm > div {
+	font-size: 1.1em;
+	margin-top: 0.2em;
+	position:relative;
+}
+#milestonePlanForm > div > label {
+
+}
+#milestonePlanForm > div > div {
+	float:right;
+}
+#milestonePlanForm > div select{
+	display:inline-block;
+	width: 150px;
+	height: 1.4em;
+}
+#milestonePlanButtonHolder{
+	padding-top: 0.5em;
+	text-align: right;
+}
+
+#milestonePlanButton{
+	position: relative;
+	right:0;
+	text-decoration: none;
+	font-size: 0.95em;
+	font-weight: bold;
+	color: #F6F6F6;
+	border: 0;
+	padding: 0.5em 1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+	background-image: linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -o-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -ms-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -moz-linear-gradient(top, #CEE7B3, #87A666);
+	background-image: -webkit-linear-gradient(top, #CEE7B3, #87A666);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CEE7B3', endColorstr='#87A666',GradientType=0 );
+	border-radius: 3px;
+	transition:  color 0.5s, box-shadow 0.5s;
+	cursor: pointer;
+}
+
 #addNewMilestoneButton{
 	text-decoration: none;
 	font-size: 1em;
@@ -1156,16 +1298,17 @@ ul.projectlist > li.project:hover{
 }
 /* ----- Files ----- */
 
+#filesPathWrap,
 #filesWrap{
 	text-align: center;
 }
 #filesPath{
-	position: relative;
+	margin: 0 auto 1em;
+	display: inline-block;
 	text-align: left;
 	font-size: 0.9em;
 	font-weight: bold;
-	margin: 0 5.5em 1em;
-	padding: 0.4em;
+	padding: 0.4em 1em;
 	color: #F6F6F6;
 	text-shadow: 0 2px 2px rgba(0,0,0,0.1);
 	box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
@@ -1178,7 +1321,7 @@ ul.projectlist > li.project:hover{
 }
 #filesPath > span{
 	font-size: 1.1em;
-	margin-left: 1em;
+	margin-left: 0.6em;
 }
 .fileContainer{
 	display: inline-block;

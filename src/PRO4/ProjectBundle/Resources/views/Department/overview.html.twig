@@ -6,11 +6,9 @@
 	{% if showForm %}
 			{% block form %}{% endblock %}
 	{% endif %}
-	
+	<h1>Users in Project</h1>
 	<div id="departments">
-		{% if departments is empty %}
-			There are no departments yet! Please add one or ask the administrator to do so!
-		{% endif %}
+
 		<div id="departmentlist">
 		{% for department in departments %}
 			<div style="background-color: #{{ department.color}}">
@@ -38,7 +36,9 @@
 		</div>
 		<div id="editdepartments">
 			<button onclick="openAddDepartment()">Add new Department</button>
-		</div>	
+		</div>
 	</div>
-		
+	{% if departments is empty %}
+			<p class="emptyInfo">There are no departments yet! Please add one or ask the administrator to do so!</p>
+	{% endif %}			
 {% endblock %}

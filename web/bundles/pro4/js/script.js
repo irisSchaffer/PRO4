@@ -7,7 +7,8 @@ $(document).ready(function(){
 	$("#mainMenu .hasSub ul").mouseout(function(){
 		$(this).parent().children("a").children("span.hoverHelp").css("opacity", 0);
 	});*/
-
+	
+	initAbout();
 	initSignUp();
 	initInviteUser();
 	initDepartment();
@@ -15,6 +16,7 @@ $(document).ready(function(){
 	initMilestonePlan();
 	initTodoList();
 	initFile();
+	initUserToDepartment();
 	showErrors();
 
 
@@ -270,6 +272,11 @@ function initSignUp(){
 		}
 	});
 	$("#signUpDialog").hide();
+	$("#signUpDialog input").keypress(function(event){
+		if ( event.which == 13 ) {
+			$("#signUpDialog").submit();
+		}
+	});
 	$("#signUpDialog").dialog({
 		autoOpen: false,
 		resizable: false,
@@ -531,6 +538,73 @@ function initFile(){
 }
 function showNewFile(){
 	$("#newFile").dialog("open");
+}
+function initUserToDepartment(){
+	$("#addUserToDepartment").dialog({
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		position: {
+			my: "center", 
+			at: "center", 
+			of: $("#content")
+		},
+		width: 400,
+		minWidth: 400,
+		show: {
+        	effect: "fade",
+        	duration: 250
+      	},
+      	hide: {
+        	effect: "fade",
+        	duration: 250
+      	},
+		modal: true,
+		title: "Add User to Department",
+		buttons: {
+			"Add User": function(){
+				$(this).submit();
+			},
+			"Cancel": function(){
+				$(this).dialog("close");
+			}
+		}
+	});
+}
+function openUserToDepartment(){
+	$("#addUserToDepartment").dialog("open");
+}
+function initAbout(){
+	$("#about").dialog({
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		position: {
+			my: "center", 
+			at: "center", 
+			of: $("#content")
+		},
+		width: 400,
+		minWidth: 400,
+		show: {
+        	effect: "fade",
+        	duration: 250
+      	},
+      	hide: {
+        	effect: "fade",
+        	duration: 250
+      	},
+		modal: true,
+		title: "About",
+		buttons: {
+			"Close": function(){
+				$(this).dialog("close");
+			}
+		}
+	});
+}
+function openAbout(){
+	$("#about").dialog("open");
 }
 function showErrors(){
 	$("ul.error").hide().slideDown(250).delay(3000).slideUp(250);
