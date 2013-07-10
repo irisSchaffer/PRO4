@@ -74,6 +74,11 @@ class FileController extends MyController {
     		$redirect = $this->generateUrl("files", array("projectId" => $projectId));
     	}
     	
+		$this->get('session')->getFlashBag()->add(
+			    "success",
+			    "You successfully deleted a file!"
+		);
+    	
     	return $this->redirect($redirect);
 		
     }
