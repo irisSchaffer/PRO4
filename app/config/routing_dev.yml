@@ -127,6 +127,14 @@ show_calendar:
     pattern: /app/project/{projectId}/calendar/{year}/{monthNo}
     defaults: { _controller: PRO4CalendarBundle:Calendar:addEvent }
 
+next_month:
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/next
+    defaults: { _controller: PRO4CalendarBundle:Calendar:nextMonth }
+
+last_month:
+    pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/last
+    defaults: { _controller: PRO4CalendarBundle:Calendar:lastMonth }
+
 edit_event:
     pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/events/{eventId}/edit
     defaults: { _controller: PRO4CalendarBundle:Calendar:editEvent }
@@ -134,6 +142,9 @@ edit_event:
 delete_event:
     pattern: /app/project/{projectId}/calendar/{year}/{monthNo}/events/{eventId}/delete
     defaults: { _controller: PRO4CalendarBundle:Calendar:deleteEvent }
+
+
+
 
 milestone_plan:
     pattern: /app/project/{id}/milestone_plan/

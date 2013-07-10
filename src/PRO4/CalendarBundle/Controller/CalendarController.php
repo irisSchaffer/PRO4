@@ -22,19 +22,16 @@ class CalendarController extends MyController
     	$today = new DateTime("NOW");
         return $this->addEventAction(
 			$projectId,
-			$today->format('m'),
-			$today->format('Y'),
+			new Month($today->format('m'), $today->format('Y')),
 			$request
     	);
     }
     
-    private function showCalendar($event, $projectId, $monthNo, $year, Request $request) {
+    private function showCalendar($event, $projectId, $month, Request $request) {
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
     	$departments = $this->getUser()->getDepartments()->toArray();
     	
     	$em = $this->getDoctrine()->getManager();
-    	
-    	$month = new Month($monthNo, $year);
     	
     	foreach($month->getDays() AS $day) {
     		$events = $em->getRepository("PRO4CalendarBundle:Event")->findEventsForProject($day, $project, $departments)->getQuery()->getResult();
@@ -110,7 +107,9 @@ class CalendarController extends MyController
     	$newEvent->setDate(new DateTime('NOW'));
     	$newEvent->setProject($project);
     	
-    	return $this->showCalendar($newEvent, $projectId, $monthNo, $year, $request);
+    	$month = new Month($monthNo, $year);
+    	
+    	return $this->showCalendar($newEvent, $projectId, $month, $request);
     }
     
     public function editEventAction($eventId, $projectId, $monthNo, $year, Request $request) {
@@ -123,7 +122,9 @@ class CalendarController extends MyController
     		$event->setDepartmentId($event->getDepartment()->getDepartmentId());
     	}
     	
-    	return $this->showCalendar($event, $projectId, $monthNo, $year, $request);
+    	$month = new Month($monthNo, $year);
+    	
+    	return $this->showCalendar($event, $projectId, $month, $request);
     }
     
     public function deleteEventAction($eventId, $projectId, $monthNo, $year) {
@@ -149,6 +150,38 @@ class CalendarController extends MyController
     				"projectId" => $projectId,
 					"monthNo" => $monthNo,
 					"year" => $year
+    			)
+			)
+    	);
+    }
+    
+    public function lastMonthAction($projectId, $monthNo, $year) {
+   		$month = new Month($monthNo, $year);
+   		$month = $month->getLastMonth();
+   		
+   		return $this->redirect(
+    		$this->generateUrl(
+    			"show_calendar",
+    			array(
+    				"projectId" => $projectId,
+					"monthNo" => $month->getMonth(),
+					"year" => $month->getYear()
+    			)
+			)
+    	);
+    }
+    
+    public function nextMonthAction($projectId, $monthNo, $year) {
+   		$month = new Month($monthNo, $year);
+   		$month = $month->getNextMonth();
+   		
+   		return $this->redirect(
+    		$this->generateUrl(
+    			"show_calendar",
+    			array(
+    				"projectId" => $projectId,
+					"monthNo" => $month->getMonth(),
+					"year" => $month->getYear()
     			)
 			)
     	);

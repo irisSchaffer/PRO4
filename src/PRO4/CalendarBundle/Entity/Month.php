@@ -63,5 +63,33 @@ class Month {
 	public function getMonthName() {
 		return Month::$monthNames[$this->month - 1];
 	}
+	
+	public function getLastMonth() {
+		$year;
+		$month;
+		if($this->month === 1) {
+			$year = $this->year - 1;
+			$month = 12;
+		} else {
+			$year = $this->year;
+			$month = $this->month - 1;
+		}
+		
+		return new Month($month, $year);
+	}
+	
+	public function getNextMonth() {
+		$year;
+		$month;
+		if($this->month === 12) {
+			$year = $this->year + 1;
+			$month = 1;
+		} else {
+			$year = $this->year;
+			$month = $this->month + 1;
+		}
+		
+		return new Month($month, $year);
+	}
 
 }
