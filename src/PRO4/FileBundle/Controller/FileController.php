@@ -85,7 +85,8 @@ class FileController extends MyController {
     
     private function showFiles($file, $files, $projectId, array $parameters = array()) {
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
-    	$departments = $this->getUser()->getDepartments();
+    	$em = $this->getDoctrine()->getManager();
+    	$departments = $em->getRepository("PRO4ProjectBundle:Department")->findByProjectAndUser($project, $this->getUser())->getQuery()->getResult();
     	
     	$this->checkPermission("VIEW", $project);
     	

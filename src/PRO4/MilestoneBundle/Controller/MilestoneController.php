@@ -27,10 +27,10 @@ class MilestoneController extends MyController {
    		$milestone->setStartDate($milestonePlan->getStartDate());
    		$milestone->setEndDate($milestonePlan->getEndDate());
 
-	    return $this->milestoneAction($projectId, $milestonePlan, $milestone, $request);
+	    return $this->milestoneAction("You successfully added a milestone", $projectId, $milestonePlan, $milestone, $request);
    	}
    	
-   	private function milestoneAction($projectId, MilestonePlan $milestonePlan, Milestone $milestone, Request $request) {
+   	private function milestoneAction($message, $projectId, MilestonePlan $milestonePlan, Milestone $milestone, Request $request) {
    		$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
    		
    		$this->checkPermission("EDIT", $project);
@@ -49,21 +49,24 @@ class MilestoneController extends MyController {
 			
     			$this->get('session')->getFlashBag()->add(
 				    'success',
-				    'You successfully added a milestone!'
+				    $message
 				);
 
 				return $this->redirect($this->generateUrl("milestone_plan", array("id" => $projectId)));
 	        }
 	    }
-
-	    return $this->render(
+		
+		$milestones = $milestonePlan->getMilestones();
+		
+		return $this->render(
 			"PRO4MilestoneBundle:Milestone:milestoneForm.html.twig",
-	    	array(
+			array(
 				"project" => $project,
-				"action" => "Add",
-				"form" => $form->createView()
+				"milestonePlan" => $milestonePlan,
+				"milestones" => $milestones,
+				"form" => $form->createView(),
 			)
-		);	
+		);
    	}
    	
    	public function editAction(Request $request, $projectId, $milestonePlanId, $milestoneId) {
@@ -74,6 +77,27 @@ class MilestoneController extends MyController {
    			throw new InvalidArgumentException();
    		}
    		
-	    return $this->milestoneAction($projectId, $milestonePlan, $milestone, $request);
+	    return $this->milestoneAction("You successfully edited a milestone", $projectId, $milestonePlan, $milestone, $request);
+	}
+	
+	public function deleteAction(Request $request, $projectId, $milestonePlanId, $milestoneId) {
+		$milestonePlan = $this->find("PRO4\MilestoneBundle\Entity\MilestonePlan", $milestonePlanId);
+   		$milestone = $this->find("PRO4\MilestoneBundle\Entity\Milestone", $milestoneId);
+   		$project = $this->find("PRO4\ProjectBundle\Entity\Project", $projectId);
+   		
+   		$this->checkPermission("EDIT", $project);
+   		
+   		if($milestone->getMilestonePlan() !== $milestonePlan || $milestonePlan->getProject() !== $project) {
+   			throw new InvalidArgumentException();
+   		}
+   		
+   		$this->remove($milestone);
+   		
+   		$this->get('session')->getFlashBag()->add(
+				    'success',
+				    "You successfully deleted a milestone"
+				);
+   		
+   		return $this->redirect($this->generateUrl("milestone_plan", array("id" => $projectId)));
 	}
 }

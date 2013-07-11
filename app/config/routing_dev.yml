@@ -166,6 +166,9 @@ edit_milestone:
     pattern: /app/project/{projectId}/milestone_plan/{milestonePlanId}/milestone/{milestoneId}/edit
     defaults: { _controller: PRO4MilestoneBundle:Milestone:edit }
 
+delete_milestone:
+    pattern: /app/project/{projectId}/milestone_plan/{milestonePlanId}/milestone/{milestoneId}/delete
+    defaults: { _controller: PRO4MilestoneBundle:Milestone:delete }
 
 
 files:

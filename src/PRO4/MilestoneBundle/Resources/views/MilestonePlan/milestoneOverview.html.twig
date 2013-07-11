@@ -2,10 +2,20 @@
 
 {% block content %}
 	<h1>Milestone Overview</h1>
+	
+	{% set isAdmin = is_granted("EDIT", project) %}
+	
+	{% if isAdmin %}
+		{% block form %} {% endblock %}
+	{% endif %}
 
 	<div id="milestonePlanOptions">
 		<div id="one" class="milestoneFilter one" title="Programming">&nbsp;</div>
-		<a href="{{ path('add_milestone', {'projectId': milestonePlan.project.projectId, 'milestonePlanId': milestonePlan.milestonePlanId}) }}"><button id="addNewMilestoneButton">Add a milestone</button></a>
+		{% if isAdmin %}
+			<a href="{{ path('add_milestone', {'projectId': milestonePlan.project.projectId, 'milestonePlanId': milestonePlan.milestonePlanId}) }}">
+				<button id="addNewMilestoneButton">Add a milestone</button>
+			</a>
+		{% endif %}
 	</div>
 	
 	<div id="milestonePlan">
@@ -15,7 +25,14 @@
 		{% for milestone in milestones %}
 			<div class="milestone" style="background-color: #{{ milestone.color }};" data-from="{{ milestone.startDate|date('Y-m-d') }}" data-to="{{ milestone.endDate|date('Y-m-d') }}">
 				{{ milestone.name }}
-				<a href="{{ path("edit_milestone", {"projectId" : project.projectId, "milestonePlanId" : milestonePlan.milestonePlanId, "milestoneId" : milestone.milestoneId }) }}"><img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/></a>
+				{% if isAdmin %}
+					<a href="{{ path("edit_milestone", {"projectId" : project.projectId, "milestonePlanId" : milestonePlan.milestonePlanId, "milestoneId" : milestone.milestoneId }) }}">
+						<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Icon" title="Edit Milestone"  height="24" width="24"/>
+					</a>
+					<a href="{{ path("delete_milestone", {"projectId" : project.projectId, "milestonePlanId" : milestonePlan.milestonePlanId, "milestoneId" : milestone.milestoneId }) }}">
+						<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Icon" title="Delete Milestone"  height="24" width="24"/>
+					</a>
+				{% endif %}
 			</div>
 		{% endfor %}
 		</div>
