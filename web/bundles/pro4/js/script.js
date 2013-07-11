@@ -210,7 +210,9 @@ function initCalendar(){
 	var localDay = localTime.getDate();
 	//alert("Day: "+localDay+" Month: "+localMonth+" Year: "+localYear);
 	$(".calendar td[data-year="+localYear+"][data-month="+localMonth+"][data-day="+localDay+"]").addClass("today");
-	$(".calendar td").click(function(){
+	
+	
+	$(".calendar td.clickable").click(function(){
 		var length = $.trim($(this).attr("data-day")).length;
 		if (length > 0){
 			if(!editEvent){

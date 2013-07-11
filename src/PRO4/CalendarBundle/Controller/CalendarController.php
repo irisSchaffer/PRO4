@@ -17,8 +17,7 @@ use PRO4\CalendarBundle\Form\Type\EventType;
 
 class CalendarController extends MyController
 {
-    public function indexAction($projectId, Request $request)
-    {
+    public function indexAction($projectId, Request $request) {
     	$today = new DateTime("NOW");
         return $this->addEventAction(
 			$projectId,
@@ -87,7 +86,8 @@ class CalendarController extends MyController
 	        		array(
 	        			"projectId" => $projectId,
 	        			"monthNo" => $month->getMonth(),
-	        			"year" => $month->getYear()
+	        			"year" => $month->getYear(),
+	        			"departments" => $departments,
 	        		)
         		)
 	        );
@@ -99,7 +99,8 @@ class CalendarController extends MyController
 									"month" => $month,
 									"weekdays" => Month::$weekdays,
 									"form" => $form->createView(),
-									"project" => $project
+									"project" => $project,
+									"departments" => $departments,
 								)
 		);
     }

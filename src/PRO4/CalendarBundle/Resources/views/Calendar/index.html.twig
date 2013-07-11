@@ -2,6 +2,13 @@
 
 {% block content %}
 	{% block form %}{% endblock %}
+	
+	{% set isAdmin = is_granted("EDIT", project) %}
+	{% if not isAdmin %}
+		{% for department in departments if is_granted("EDIT", department) %}
+			{% set isAdmin = true %}
+		{% endfor %}
+	{% endif %}
 
 	<table class="calendar">
 		<caption><a id="prevMonth" title="Previous Month" href="{{ path("last_month", {"projectId": project.projectId, "monthNo": month.month, "year": month.year} ) }}">&laquo;</a>{{ month.monthName }} {{ month.year }}<a id="nextMonth" title="Next Month" href="{{ path("next_month", {"projectId": project.projectId, "monthNo": month.month, "year": month.year} ) }}">&raquo;</a></caption>
@@ -18,7 +25,12 @@
 			{% endif %}
 				
 			{% for day in month.days %}
-				<td data-day="{{ loop.index }}" data-month="{{ month.month }}" data-year="{{ month.year }}">
+				
+				{% if isAdmin %}
+					<td data-day="{{ loop.index }}" data-month="{{ month.month }}" data-year="{{ month.year }}" class="clickable">
+				{% else %}
+					<td data-day="{{ loop.index }}" data-month="{{ month.month }}" data-year="{{ month.year }}">
+				{% endif %}
 					<h1>{{ loop.index }}</h1>
 					<ul>
 						{% for event in day.events %}
