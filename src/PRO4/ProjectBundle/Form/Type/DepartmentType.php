@@ -14,7 +14,7 @@ class DepartmentType extends AbstractType {
 		}
 		
 		$builder->add("name", "text", array("label" => "Name", "disabled" => $options["attr"]["disabled"]));
-		$builder->add("color", "text", array("label" => "Color", "disabled" => $options["attr"]["disabled"]));
+		$builder->add("color", new ColorPickerType(), array("label" => "Color", "disabled" => $options["attr"]["disabled"]));
 		
 	}
 

@@ -2,9 +2,11 @@
 
 {% block content %}
 	{% block form %}{% endblock %}
-	<div id="addButtonContainer">
-		<a onclick="openAddTodoList()" href="#" id="addNewTodoButton">Add new To-Do List</a>
-	</div>
+	{% if is_granted("EDIT", project) %}
+		<div id="addButtonContainer">
+			<a onclick="openAddTodoList()" href="#" id="addNewTodoButton">Add new To-Do List</a>
+		</div>
+	{% endif %}
 	<div id="todoWrap">
 		
 	
@@ -28,7 +30,7 @@
 								{% if listItem.completed %}
 									<li class="completed">
 										<span>{{ listItem.name }}</span>
-										{% if (toDoList.department and is_granted("EDIT", toDoList.department)) or (not toDoList.department and is_granted("EDIT", toDoList.project)) %}
+										{% if (toDoList.department is not null and is_granted("EDIT", toDoList.department)) or (toDoList.department is null and is_granted("EDIT", toDoList.project)) %}
 											<a href="{{ path("delete_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}"><img src="{{ asset('img/microicons/delete_black.png') }}" alt="Delete" title="Delete"  height="24" width="24"/></a>
 											<a href="{{ path("undo_to_do_list_item", {"projectId" : project.projectId, "toDoListId" : toDoList.toDoListId, "itemId" : listItem.listItemId }) }}"><img src="{{ asset('img/microicons/undo_black.png') }}" alt="Undo" title="Undo" height="24" width="24"/></a>
 										{% endif %}

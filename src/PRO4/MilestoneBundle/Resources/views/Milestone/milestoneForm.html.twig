@@ -1,14 +1,12 @@
 {% extends 'PRO4MilestoneBundle:MilestonePlan:milestoneOverview.html.twig' %}
 
 {% block form %}
-	<h1>Save Milestone</h1>
-	<form method="post">
+	<form method="post" id="addMilestone">
 				{{ form_row(form.name) }}
 				{{ form_row(form.start_date) }}
 				{{ form_row(form.end_date) }}
 				{{ form_row(form.color) }}
 		{{ form_widget(form) }}
-		<button type="submit">Save Milestone</button>
 	</form>
 		
 {% endblock %}

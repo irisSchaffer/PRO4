@@ -31,28 +31,30 @@
 							>
 								
 								{{ event.title }}
-								<a href="{{ path('delete_event',
-											{
-												"eventId": event.eventId,
-												"projectId": project.projectId,
-												"monthNo": month.month,
-												"year": month.year
-											})
-										}}"
-								>
-									<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Event Icon" title="Delete Event"  height="24" width="24"/>
-								</a>
-								<a href="{{ path('edit_event',
-											{
-												"eventId": event.eventId,
-												"projectId": project.projectId,
-												"monthNo": month.month,
-												"year": month.year
-											})
+								{% if is_granted("EDIT", project) or ( event.department is not null and is_granted("EDIT", event.department)) %}
+									<a href="{{ path('delete_event',
+												{
+													"eventId": event.eventId,
+													"projectId": project.projectId,
+													"monthNo": month.month,
+													"year": month.year
+												})
 											}}"
-								>
-									<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Event Icon" title="Edit Event"  height="24" width="24"/>
-								</a>
+									>
+										<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Event Icon" title="Delete Event"  height="24" width="24"/>
+									</a>
+									<a href="{{ path('edit_event',
+												{
+													"eventId": event.eventId,
+													"projectId": project.projectId,
+													"monthNo": month.month,
+													"year": month.year
+												})
+												}}"
+									>
+										<img src="{{ asset('img/microicons/edit.png') }}" alt="Edit Event Icon" title="Edit Event"  height="24" width="24"/>
+									</a>
+								{% endif %}
 							</li>
 						{% endfor %}
 					</ul>

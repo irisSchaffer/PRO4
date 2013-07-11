@@ -18,8 +18,8 @@ $(document).ready(function(){
 	initFile();
 	initUserToDepartment();
 	showErrors();
-
-	/*$('.colorSelector').ColorPicker({
+	
+	$(".colorSelector").ColorPicker({
 		color: '#0000ff',
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
@@ -33,7 +33,7 @@ $(document).ready(function(){
 			$('.colorSelector div').css('backgroundColor', '#' + hex);
 			$('.colorSelector').val(hex);
 		}
-	});*/
+	});
 	
 	initEditProjectDetails();
 	$("#signUp").click(function(event){
@@ -419,10 +419,10 @@ function initMembers(){
 }
 function initMilestonePlan(){
 	var url = $(location).attr('href');
-	if (url.indexOf("/milestone_plan/overview") != -1){
+	if (url.indexOf("/milestone_plan/") != -1 && (url.indexOf("/milestone_plan/edit") == -1)){
 		updateMilestones();
 	}
-	
+	initAddMilestone();
 	
 	$(".milestoneFilter").on("click",function(){
 		hideMilestones($(this).attr("id"),$(this).hasClass("disabledMilestone"));
@@ -486,7 +486,7 @@ function updateMilestones(){
 		$(this).css("left",from*stepSize);
 		$(this).css("top",counter*entryHeight);
 		$(this).css("width",(to-from)*stepSize-padding);
-		$(this).attr("title","From: "+ $(this).attr("data-from") +" To: "+ $(this).attr("data-to"));
+		$(this).attr("title","From: "+ $(this).attr("data-from") +"\nTo: "+ $(this).attr("data-to"));
 		counter++;
 	});
 	canvas.css("height",counter*entryHeight);
@@ -499,8 +499,6 @@ function addMilestone(){
 	$("#addMilestone").dialog("open");
 }
 function initAddMilestone(){
-	$("body").append("<form id='addMilestone' title='Add new milestone'><label for='milestoneName'>Name:</label><input id='milestoneName' type='text' /><label for='milestoneFrom'>From:</label><input id='milestoneFrom' type='text' /><label for='milestoneTo'>To:</label><input id='milestoneTo' type='text' /></form>");	
-	$("#addMilestone").hide();
 	$("#addMilestone").dialog({
 		autoOpen: false,
 		resizable: false,
@@ -522,16 +520,33 @@ function initAddMilestone(){
       	},
 		modal: true,
 		buttons: {
-			"Add milestone": function(){
-				$("#milestoneCanvas").append("<div data-from=\""+$("#milestoneFrom").val()+"\" data-to=\""+$("#milestoneTo").val()+"\" class=\"milestone one\">"+$("#milestoneName").val()+"</div>");
-				updateMilestones();
-				$(this).dialog("close");
+			"OK": function(){
+				$(this).submit();
 			},
 			"Cancel": function(){
 				$(this).dialog("close");
 			}
-		}
+		},
+		title: "Milestone"
 	});
+	var url = $(location).attr('href');
+	if (url.indexOf("/milestone/") != -1){
+		var pieces = url.split("/milestone/");
+		if (!(typeof pieces === "undefined") && pieces != null){
+			pieces = pieces[1].split("/");	
+			if(pieces[0] == "add"){
+				$("#addMilestone").on("dialogclose", function( event, ui ) {
+					history.back(1);
+				});
+				$("#addMilestone").dialog("open");
+			}else if(pieces[1] == "edit"){
+				$("#addMilestone").on("dialogclose", function( event, ui ) {
+					history.back(1);
+				});
+				$("#addMilestone").dialog("open");
+			} 
+		}
+	}
 }
 function initFile(){
 
