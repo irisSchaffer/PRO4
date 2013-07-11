@@ -19,7 +19,22 @@ $(document).ready(function(){
 	initUserToDepartment();
 	showErrors();
 
-
+	/*$('.colorSelector').ColorPicker({
+		color: '#0000ff',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('.colorSelector div').css('backgroundColor', '#' + hex);
+			$('.colorSelector').val(hex);
+		}
+	});*/
+	
 	initEditProjectDetails();
 	$("#signUp").click(function(event){
 		event.preventDefault();
@@ -150,7 +165,7 @@ function initDepartment(){
 					buttons: {
 						"OK": function(){
 							$("#addNewDepartment").on("dialogclose", function( event, ui ) {
-								
+								// Overwriting onDialogclose - Do nothing
 							});
 							$(this).submit();
 						},
@@ -199,11 +214,16 @@ function initCalendar(){
 		var length = $.trim($(this).attr("data-day")).length;
 		if (length > 0){
 			if(!editEvent){
-				// New Entry mode
+				$("#event_date_year").val($(this).attr("data-year"));
+				$("#event_date_month").val($(this).attr("data-month"));
+				$("#event_date_day").val($(this).attr("data-day"));
 				$("#newEvent").dialog({
 					title: "New Event",
 					buttons: {
 						"OK": function(){
+							$("#newEvent").on("dialogclose", function( event, ui ) {
+								// Overwriting onDialogclose - Do nothing
+							});
 							$(this).submit();
 						},
 						"Cancel": function(){
@@ -212,8 +232,6 @@ function initCalendar(){
 					}
 				});
 				openNewEvent();
-			}else{
-				
 			}
 		}
 		editEvent = false;
@@ -291,7 +309,7 @@ function initSignUp(){
 		}
 	});
 	$("#signUpDialog").hide();
-	$("#signUpDialog input").keypress(function(event){
+	$("#signUpDialog input[type='password']").keypress(function(event){
 		if ( event.which == 13 ) {
 			$("#signUpDialog").submit();
 		}
@@ -400,7 +418,11 @@ function initMembers(){
     initInviteMember();
 }
 function initMilestonePlan(){
-	updateMilestones();
+	var url = $(location).attr('href');
+	if (url.indexOf("/milestone_plan/overview") != -1){
+		updateMilestones();
+	}
+	
 	
 	$(".milestoneFilter").on("click",function(){
 		hideMilestones($(this).attr("id"),$(this).hasClass("disabledMilestone"));
@@ -426,10 +448,23 @@ function hideMilestones(type, disabled){
   	updateMilestones();
 }
 function updateMilestones(){
-	var counter = 0;
 	var canvas = $("#milestoneCanvas");
-	var milestonePlanStart = canvas.attr("data-from");
-	var milestonePlanEnd = canvas.attr("data-to");
+	
+	// Year - Month - Day	
+	var startDateRaw = canvas.attr("data-from");
+	var startDate = startDateRaw.split("-");
+	var startDateObj = new Date (parseInt(startDate[1])+"/"+parseInt(startDate[2])+"/"+parseInt(startDate[0]));
+	
+	// Year - Month - Day
+	var endDateRaw = canvas.attr("data-to");
+	var endDate = endDateRaw.split("-");
+	var endDateObj = new Date (parseInt(endDate[1])+"/"+parseInt(endDate[2])+"/"+parseInt(endDate[0]));
+	
+
+	var milestonePlanEnd = Math.floor((endDateObj-startDateObj)/1000/60/60/24);
+	var milestonePlanStart = 0;
+	
+	var counter = 0;
 	var milestonePlanWidth = canvas.width();
 	var stepSize = milestonePlanWidth/(milestonePlanEnd-milestonePlanStart);
 	var padding = 0;
@@ -438,29 +473,20 @@ function updateMilestones(){
 	var innerEntryWidth = $(".milestone:visible").width();
 	padding = outerEntryWidth - innerEntryWidth;
 	$(".milestone:visible").each(function(){
-		var from = $(this).attr("data-from");
-		var to = $(this).attr("data-to");
+		var milestoneStartRaw = $(this).attr("data-from");
+		var milestoneStartDate = milestoneStartRaw.split("-");
+		var milestoneStartObj = new Date (parseInt(milestoneStartDate[1])+"/"+parseInt(milestoneStartDate[2])+"/"+parseInt(milestoneStartDate[0]));
+		var from = Math.floor((milestoneStartObj-startDateObj)/1000/60/60/24);
+		
+		var milestoneEndRaw = $(this).attr("data-to");
+		var milestoneEndDate = milestoneEndRaw.split("-");
+		var milestoneEndObj = new Date (parseInt(milestoneEndDate[1])+"/"+parseInt(milestoneEndDate[2])+"/"+parseInt(milestoneEndDate[0]));
+		var to = Math.floor((milestoneEndObj-milestoneStartObj)/1000/60/60/24)+from;
+		
 		$(this).css("left",from*stepSize);
 		$(this).css("top",counter*entryHeight);
 		$(this).css("width",(to-from)*stepSize-padding);
-		$(this).attr("title","From: "+ from +" To: "+to);
-		$(this).on("mouseenter",function(){
-			if(!$(this).children().size() > 0){
-				$(this).append("<img id=\"delete\" src=\"img/delete.png\" height=16 width=16 alt=\"delete\">");
-				$(this).append("<img id=\"edit\" src=\"img/edit.png\" height=16 width=16 alt=\"edit\">");
-				$("#delete").on("click",function(){
-					deleteMilestone($(this).parent());
-					updateMilestones();
-				});
-				$("#edit").on("click",function(){
-					$("#addMilestone").dialog("open");
-					updateMilestones();
-				});
-			}
-		});
-		$(this).on("mouseleave",function(){
-			$(this).children($("img")).remove();
-		});
+		$(this).attr("title","From: "+ $(this).attr("data-from") +" To: "+ $(this).attr("data-to"));
 		counter++;
 	});
 	canvas.css("height",counter*entryHeight);

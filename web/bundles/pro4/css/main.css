@@ -19,6 +19,12 @@ h1 {
 .emptyInfo{
 	text-align: center;
 }
+.hashTag{
+	position: absolute;
+	bottom:0;
+	margin-bottom: 0.6em;
+	margin-left: 0.2em;
+}
 
 #welcomeCenter{
 	text-align: center;
@@ -929,6 +935,7 @@ ul.projectlist > li.project:hover{
 	display:block;
 	box-shadow: inset 0px 0px 3px rgba(0,0,0,0.2);
 	padding: 0.2em 0.3em;
+	margin-left: -1px;
 }
 .todoContainer > ul > li:hover{
 	background-color: #F4F4F4;
@@ -1091,12 +1098,14 @@ ul.projectlist > li.project:hover{
 }
 .event:hover {
 	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.2);
+	position: relative;
 }
 .event > a  > img{
 	width: 1em;
 	height: 1em;
 	float: right;
 	margin-top: 0.1em;
+	margin-left: 0.1em;
 	opacity: 0;
 	transition: opacity 0.2s;
 }
@@ -1107,6 +1116,7 @@ ul.projectlist > li.project:hover{
 	opacity: 0.9;
 }
 #newEvent {
+	display: none;
 	font-size: 0.9em;
 }
 #newEvent > div {
@@ -1176,6 +1186,7 @@ ul.projectlist > li.project:hover{
 }
 #milestonePlanForm > div select{
 	display:inline-block;
+	float:right;
 	width: 150px;
 	height: 1.4em;
 }
@@ -1312,11 +1323,16 @@ ul.projectlist > li.project:hover{
 	height: 1em;
 	width: 1em;
 	vertical-align: bottom;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+.milestone:hover img{
 	opacity: 0.7;
 }
 .milestone img:hover{
-	opacity: 1;
+	opacity: 0.9;
 }
+
 /* ----- Files ----- */
 
 #filesPathWrap,

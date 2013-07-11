@@ -3,9 +3,8 @@
 {% block form %}
 	<form method="post" id="addNewDepartment">
 		{{ form_row(form.name) }}
-		{{ form_row(form.color) }}
+		<span class="hashTag">#</span>{{ form_row(form.color) }}
 		{{ form_widget(form) }}
-	</fieldset>
-</form>
+	</form>
 
 {% endblock %}

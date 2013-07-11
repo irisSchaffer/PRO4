@@ -3,15 +3,10 @@
 {% block content %}
 	<h1>{{ action }} Milestone</h1>
 	<form method="post">
-		<fieldset>
-			<legend>Milestone</legend>
-			<ul>
-				<li>{{ form_row(form.name) }}</li>
-				<li>{{ form_row(form.start_date) }}</li>
-				<li>{{ form_row(form.end_date) }}</li>
-				<li>{{ form_row(form.color) }}</li>
-			</ul>
-		</fieldset>
+				{{ form_row(form.name) }}
+				{{ form_row(form.start_date) }}
+				{{ form_row(form.end_date) }}
+				{{ form_row(form.color) }}
 		{{ form_widget(form) }}
 		<button type="submit">{{ action }} Milestone</button>
 	</form>

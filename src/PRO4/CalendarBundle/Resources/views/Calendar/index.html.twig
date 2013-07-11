@@ -27,9 +27,7 @@
 								{% if event.department is not null %}
 									style="background-color: #{{ event.department.color }}" 
 								{% endif %}
-								title="	{{ event.date.format('Y-m-d') }} {% if event.time %} {{ event.time.format('H:i') }} {% endif %}
-										{% if event.description %}	{{ event.description }}	{% endif %}	
-									"
+								title="{{ event.date.format('Y-m-d') }}{% if event.time %}&#13;&#10;{{ event.time.format('H:i') }}{% endif %}{% if event.description %}&#13;&#10;{{ event.description }}{% endif %}"
 							>
 								
 								{{ event.title }}
@@ -40,7 +38,7 @@
 												"monthNo": month.month,
 												"year": month.year
 											})
-											}}"
+										}}"
 								>
 									<img src="{{ asset('img/microicons/delete.png') }}" alt="Delete Event Icon" title="Delete Event"  height="24" width="24"/>
 								</a>

@@ -11,10 +11,11 @@
 	<div id="milestonePlan">
 		<div id="start" title="Start">{{ milestonePlan.startDate|date('Y-m-d') }}</div>
 		<div id="end" title="End">{{ milestonePlan.endDate|date('Y-m-d') }}</div>
-		<div id="milestoneCanvas" data-from="{{ milestonePlan.endDate|date('Y-m-d') }}" data-to="{{ milestonePlan.startDate|date('Y-m-d') }}">
+		<div id="milestoneCanvas" data-to="{{ milestonePlan.endDate|date('Y-m-d') }}" data-from="{{ milestonePlan.startDate|date('Y-m-d') }}">
 		{% for milestone in milestones %}
-			<div class="milestone" data-from="{{ milestone.startDate|date('Y-m-d') }}" data-to="{{ milestone.endDate|date('Y-m-d') }}">
-				start: {{ milestone.startDate|date('Y-m-d') }}; end: {{ milestone.endDate|date('Y-m-d') }}
+			<div class="milestone" style="background-color: #{{ milestone.color }};" data-from="{{ milestone.startDate|date('Y-m-d') }}" data-to="{{ milestone.endDate|date('Y-m-d') }}">
+				{{ milestone.name }}
+				<a href="{{ path("edit_milestone", {"projectId" : project.projectId, "milestonePlanId" : milestonePlan.milestonePlanId, "milestoneId" : milestone.milestoneId }) }}"><img src="{{ asset('img/microicons/edit.png') }}" alt="Edit" title="Edit"  height="24" width="24"/></a>
 			</div>
 		{% endfor %}
 		</div>
