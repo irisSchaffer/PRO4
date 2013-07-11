@@ -9,9 +9,8 @@ class ToDoListRepository extends EntityRepository {
     public function findToDoListsForProject(\PRO4\ProjectBundle\Entity\Project $project, array $departments) {
         $qb = $this->createQueryBuilder('t')
 				->where('t.project = :project')
-				->andwhere('t.department is null')
-				->orderBy('t.name', 'ASC')
 				->andwhere('t.completed = :completed')
+				->orderBy('t.name', 'ASC')
     			->setParameters(
     				array(
 						'project' => $project,
@@ -22,8 +21,10 @@ class ToDoListRepository extends EntityRepository {
 				
 		if(count($departments) > 0) {
 	 		$qb = $qb
-	 			->orwhere('t.department IN (:departments)')
+	 			->andwhere('t.department is null OR t.department IN (:departments)')
 	 			->setParameter('departments', $departments);
+	 	} else {
+	 		$qb->andwhere('t.department is null');
 	 	}
 
     	return $qb;

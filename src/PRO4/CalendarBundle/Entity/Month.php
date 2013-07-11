@@ -18,8 +18,6 @@ class Month {
 		$this->year = (int)$year;
 		$this->firstDay = new DateTime();
 		$this->firstDay->setDate($year, $month, 1);
-		
-		$this->init();
 	}	
 	
 	public function init() {

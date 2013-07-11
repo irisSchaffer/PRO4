@@ -29,6 +29,8 @@ class CalendarController extends MyController
     }
     
     private function showCalendar($event, $projectId, $month, Request $request) {
+    	$month->init();
+    	
     	$project = $this->find("\PRO4\ProjectBundle\Entity\Project", $projectId);
     	$departments = $this->getUser()->getDepartments()->toArray();
     	
